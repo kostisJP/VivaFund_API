@@ -5,6 +5,7 @@ using System.Net.Http;
 using System.Web.Http;
 using Microsoft.Owin.Security.OAuth;
 using Newtonsoft.Json.Serialization;
+using VivaFund.App_Start;
 
 namespace VivaFund
 {
@@ -16,6 +17,9 @@ namespace VivaFund
             // Configure Web API to use only bearer token authentication.
             config.SuppressDefaultHostAuthentication();
             config.Filters.Add(new HostAuthenticationFilter(OAuthDefaults.AuthenticationType));
+
+            // Start Dependency Injection Container
+            StructuremapWebApi.Start();
 
             // Web API routes
             config.MapHttpAttributeRoutes();

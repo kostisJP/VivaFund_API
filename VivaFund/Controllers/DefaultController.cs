@@ -7,32 +7,31 @@ using System.Web.Http;
 
 namespace VivaFund.Controllers
 {
-    [Authorize]
-    public class ValuesController : ApiController
+    public class DefaultController : ApiController
     {
-        // GET api/values
+        // GET: api/Default
         public IEnumerable<string> Get()
         {
             return new string[] { "value1", "value2" };
         }
 
-        // GET api/values/5
+        // GET: api/Default/5
         public string Get(int id)
         {
             return "value";
         }
 
-        // POST api/values
+        // POST: api/Default
         public void Post([FromBody]string value)
         {
         }
 
-        // PUT api/values/5
+        // PUT: api/Default/5
         public void Put(int id, [FromBody]string value)
         {
         }
 
-        // DELETE api/values/5
+        // DELETE: api/Default/5
         public void Delete(int id)
         {
         }
