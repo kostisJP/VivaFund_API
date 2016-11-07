@@ -24,18 +24,18 @@ namespace VivaFund.Controllers
 
         [HttpGet]
         [Route("all")]
-        public IHttpActionResult GetAllUsers()
+        public IEnumerable<User> GetAllUsers()
         {
             var allUsers = userRepo.GetAllUsers();
 
-            return Ok(Json(allUsers));
+            return allUsers;
         }
 
         [HttpGet]
         [Route("{id}")]
         public User GetUserById(int id)
         {
-            var user = userRepo.GetUserById(1);
+            var user = userRepo.GetUserById(id);
             
             return user;
         }

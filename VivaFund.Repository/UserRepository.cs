@@ -10,21 +10,26 @@ namespace VivaFund.Repository
 {
     public class UserRepository : IUserRepository
     {
+        private readonly ApplicationDbContext dbContext;
+
+        public UserRepository(ApplicationDbContext dbContext)
+        {
+            this.dbContext = dbContext;
+        }
+
         public IEnumerable<User> GetAllUsers()
         {
-            throw new NotImplementedException();
+            var users = dbContext.Users.ToList();
+
+            return users;
         }
 
         public User GetUserById(int id)
         {
-            //throw new NotImplementedException();
-            User x = new User()
-            {
-                UserId = 1,
-                FirstName = "Kostas"
-            };
+            
+            var user = dbContext.Users.Where(u => u.UserId == id).FirstOrDefault();
 
-            return x;
+            return user;
         }
 
         public User GetUserByToken(Guid token)
