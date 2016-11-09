@@ -3,7 +3,7 @@ namespace VivaFund.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class InitialSetup : DbMigration
+    public partial class initialsetup : DbMigration
     {
         public override void Up()
         {

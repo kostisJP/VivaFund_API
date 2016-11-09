@@ -7,9 +7,9 @@ namespace VivaFund.Models
         [Key]
         public int ProjectId { get; set; }
 
-        public int UserId { get; set; }
+        public int MemberId { get; set; }
 
-        public User User { get; set; }
+        public Member Member { get; set; }
 
         // ADD CATEGORY
 

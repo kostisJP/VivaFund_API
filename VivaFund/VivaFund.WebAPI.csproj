@@ -240,15 +240,14 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201611052342273_InitialSetup.cs" />
-    <Compile Include="Migrations\201611052342273_InitialSetup.Designer.cs">
-      <DependentUpon>201611052342273_InitialSetup.cs</DependentUpon>
+    <Compile Include="Migrations\201611092147231_initialsetup.cs" />
+    <Compile Include="Migrations\201611092147231_initialsetup.Designer.cs">
+      <DependentUpon>201611092147231_initialsetup.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
-    <Compile Include="Models\VivaFundContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Providers\ApplicationOAuthProvider.cs" />
     <Compile Include="Results\ChallengeResult.cs" />
@@ -325,8 +324,8 @@
       <Project>{8F8CB693-E95D-46E9-BA80-98E0C2F6BC62}</Project>
       <Name>VivaFund.Interfaces</Name>
     </ProjectReference>
-    <ProjectReference Include="..\VivaFund.Models2\VivaFund.Models.csproj">
-      <Project>{50ae3636-3de8-4f27-a495-f872a1556b0f}</Project>
+    <ProjectReference Include="..\VivaFund.Models\VivaFund.Models.csproj">
+      <Project>{50AE3636-3DE8-4F27-A495-F872A1556B0F}</Project>
       <Name>VivaFund.Models</Name>
     </ProjectReference>
     <ProjectReference Include="..\VivaFund.Repository\VivaFund.Repositories.csproj">
@@ -335,8 +334,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201611052342273_InitialSetup.resx">
-      <DependentUpon>201611052342273_InitialSetup.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201611092147231_initialsetup.resx">
+      <DependentUpon>201611092147231_initialsetup.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

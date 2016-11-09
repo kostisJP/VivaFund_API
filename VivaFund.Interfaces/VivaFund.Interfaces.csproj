@@ -44,7 +44,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\VivaFund.Models2\VivaFund.Models.csproj">
+    <ProjectReference Include="..\VivaFund.Models\VivaFund.Models.csproj">
       <Project>{50AE3636-3DE8-4F27-A495-F872A1556B0F}</Project>
       <Name>VivaFund.Models</Name>
     </ProjectReference>
