@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace VivaFund.Models
+namespace VivaFund.DomainModels
 {
     public class BaseModel
     {

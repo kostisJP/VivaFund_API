@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace VivaFund.Models
+namespace VivaFund.DomainModels
 {
     public class ProjectMedia: BaseModel
     {
@@ -21,6 +21,6 @@ namespace VivaFund.Models
 
         public int ProjectId { get; set; }
         
-        public Project Project { get; set; }
+        public virtual Project Project { get; set; }
     }
 }

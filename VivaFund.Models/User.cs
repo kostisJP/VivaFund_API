@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace VivaFund.Models
+namespace VivaFund.DomainModels
 {
     public class User: BaseModel
     {

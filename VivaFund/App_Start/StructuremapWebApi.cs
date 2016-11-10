@@ -16,11 +16,12 @@
 // --------------------------------------------------------------------------------------------------------------------
 
 using System.Web.Http;
+using VivaFund;
 using VivaFund.DependencyResolution;
 
-[assembly: WebActivatorEx.PostApplicationStartMethod(typeof(VivaFund.App_Start.StructuremapWebApi), "Start")]
+[assembly: WebActivatorEx.PostApplicationStartMethod(typeof(StructuremapWebApi), "Start")]
 
-namespace VivaFund.App_Start {
+namespace VivaFund {
     public static class StructuremapWebApi {
         public static void Start() {
 			var container = StructuremapMvc.StructureMapDependencyScope.Container;

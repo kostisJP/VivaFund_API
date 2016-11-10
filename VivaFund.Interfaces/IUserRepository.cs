@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using VivaFund.Models;
+using VivaFund.DomainModels;
 
 namespace VivaFund.Interfaces
 {
@@ -12,5 +12,10 @@ namespace VivaFund.Interfaces
         IEnumerable<User> GetAllUsers();
         User GetUserById(int id);
         User GetUserByToken(Guid token);
+        void UndoChanges();
+        void SaveProject(Project project);
+        Project GetProjectById(int id);
+        IList<Project> GetAllProjects();
+        IList<Project> GetProjectsByCategory(int categoryId);
     }
 }

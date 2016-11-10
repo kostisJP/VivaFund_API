@@ -1,8 +1,5 @@
 namespace VivaFund.DependencyResolution {
     using System.Web;
-
-    using VivaFund.App_Start;
-
     using StructureMap.Web.Pipeline;
 
     public class StructureMapScopeModule : IHttpModule {
