@@ -12,6 +12,9 @@ namespace VivaFund.Repository
 
     {
         public DbSet<User> Users { get; set; }
+        public DbSet<ProjectCategory> ProjectCategories { get; set; }
+        public DbSet<ProjectMedia> ProjectMedia { get; set; }
+        public DbSet<Project> Projects { get; set; }
 
         public ApplicationDbContext()
             : base("DefaultConnection")
