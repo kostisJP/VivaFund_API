@@ -10,7 +10,6 @@ using Microsoft.Owin.Security.OAuth;
 using Owin;
 using VivaFund.Providers;
 using VivaFund.Models;
-using VivaFund.Repository;
 
 namespace VivaFund
 {
