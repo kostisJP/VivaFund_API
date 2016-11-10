@@ -9,7 +9,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VivaFund.Repositories", "Vi
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VivaFund.Interfaces", "VivaFund.Interfaces\VivaFund.Interfaces.csproj", "{8F8CB693-E95D-46E9-BA80-98E0C2F6BC62}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VivaFund.Models", "VivaFund.Models\VivaFund.Models.csproj", "{50AE3636-3DE8-4F27-A495-F872A1556B0F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VivaFund.DomainModels", "VivaFund.Models\VivaFund.DomainModels.csproj", "{50AE3636-3DE8-4F27-A495-F872A1556B0F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

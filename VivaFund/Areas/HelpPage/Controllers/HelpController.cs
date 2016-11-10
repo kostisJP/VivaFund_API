@@ -3,6 +3,7 @@ using System.Web.Http;
 using System.Web.Mvc;
 using VivaFund.Areas.HelpPage.ModelDescriptions;
 using VivaFund.Areas.HelpPage.Models;
+using VivaFund.Interfaces;
 
 namespace VivaFund.Areas.HelpPage.Controllers
 {

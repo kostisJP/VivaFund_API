@@ -7,26 +7,33 @@ using System.Net.Http;
 using System.Web.Helpers;
 using System.Web.Http;
 using System.Web.Http.Results;
+using StructureMap;
+using VivaFund.DomainModels;
 using VivaFund.Interfaces;
 using VivaFund.Models;
+using VivaFund.Repository;
 
 namespace VivaFund.Controllers
 {
     [RoutePrefix("users")]
     public class UserController : ApiController
     {
-        private readonly IUserRepository userRepo;
+        private readonly IUserRepository _userRepo;
 
+        public UserController()
+        {
+            _userRepo = ObjectFactory.GetInstance<IUserRepository>();
+        }
         public UserController(IUserRepository userRepo)
         {
-            this.userRepo = userRepo;
+            _userRepo = userRepo;
         }
 
         [HttpGet]
         [Route("all")]
         public IEnumerable<User> GetAllUsers()
         {
-            var allUsers = userRepo.GetAllUsers();
+            var allUsers = _userRepo.GetAllUsers();
 
             return allUsers;
         }
@@ -35,7 +42,7 @@ namespace VivaFund.Controllers
         [Route("{id}")]
         public User GetUserById(int id)
         {
-            var user = userRepo.GetUserById(id);
+            var user = _userRepo.GetUserById(id);
             
             return user;
         }

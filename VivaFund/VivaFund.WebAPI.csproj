@@ -319,9 +319,9 @@
       <Project>{8F8CB693-E95D-46E9-BA80-98E0C2F6BC62}</Project>
       <Name>VivaFund.Interfaces</Name>
     </ProjectReference>
-    <ProjectReference Include="..\VivaFund.Models\VivaFund.Models.csproj">
+    <ProjectReference Include="..\VivaFund.Models\VivaFund.DomainModels.csproj">
       <Project>{50AE3636-3DE8-4F27-A495-F872A1556B0F}</Project>
-      <Name>VivaFund.Models</Name>
+      <Name>VivaFund.DomainModels</Name>
     </ProjectReference>
     <ProjectReference Include="..\VivaFund.Repository\VivaFund.Repositories.csproj">
       <Project>{CF812369-19D5-4C9C-9E83-437B55D6F30F}</Project>

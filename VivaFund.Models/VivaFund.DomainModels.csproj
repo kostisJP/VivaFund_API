@@ -7,8 +7,8 @@
     <ProjectGuid>{50AE3636-3DE8-4F27-A495-F872A1556B0F}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>VivaFund.Models</RootNamespace>
-    <AssemblyName>VivaFund.Models</AssemblyName>
+    <RootNamespace>VivaFund.DomainModels</RootNamespace>
+    <AssemblyName>VivaFund.DomainModels</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>

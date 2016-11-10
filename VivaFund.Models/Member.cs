@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace VivaFund.Models
+namespace VivaFund.DomainModels
 {
     public class Member: BaseModel
     {
@@ -25,6 +25,9 @@ namespace VivaFund.Models
         [Required]
         [MaxLength(50)]
         public string Email { get; set; }
+
+        public List<Project> Projects { get; set; }
+
 
         //[Required]
         //public string Password { get; set; }

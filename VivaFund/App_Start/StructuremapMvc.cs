@@ -15,23 +15,19 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
-using VivaFund.App_Start;
-
+using System.Web.Mvc;
+using Microsoft.Web.Infrastructure.DynamicModuleHelper;
+using StructureMap;
+using VivaFund;
+using VivaFund.DependencyResolution;
+using VivaFund.Interfaces;
 using WebActivatorEx;
 
 [assembly: PreApplicationStartMethod(typeof(StructuremapMvc), "Start")]
 [assembly: ApplicationShutdownMethod(typeof(StructuremapMvc), "End")]
 
-namespace VivaFund.App_Start {
-	using System.Web.Mvc;
-
-    using Microsoft.Web.Infrastructure.DynamicModuleHelper;
-
-	using VivaFund.DependencyResolution;
-
-    using StructureMap;
-    
-	public static class StructuremapMvc {
+namespace VivaFund {
+    public static class StructuremapMvc {
         #region Public Properties
 
         public static StructureMapDependencyScope StructureMapDependencyScope { get; set; }
@@ -45,6 +41,7 @@ namespace VivaFund.App_Start {
         }
 		
         public static void Start() {
+
             IContainer container = IoC.Initialize();
             StructureMapDependencyScope = new StructureMapDependencyScope(container);
             DependencyResolver.SetResolver(StructureMapDependencyScope);

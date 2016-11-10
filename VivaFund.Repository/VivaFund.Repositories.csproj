@@ -58,9 +58,9 @@
       <Project>{8f8cb693-e95d-46e9-ba80-98e0c2f6bc62}</Project>
       <Name>VivaFund.Interfaces</Name>
     </ProjectReference>
-    <ProjectReference Include="..\VivaFund.Models\VivaFund.Models.csproj">
-      <Project>{50AE3636-3DE8-4F27-A495-F872A1556B0F}</Project>
-      <Name>VivaFund.Models</Name>
+    <ProjectReference Include="..\VivaFund.Models\VivaFund.DomainModels.csproj">
+      <Project>{50ae3636-3de8-4f27-a495-f872a1556b0f}</Project>
+      <Name>VivaFund.DomainModels</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

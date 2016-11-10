@@ -1,6 +1,7 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
-namespace VivaFund.Models
+namespace VivaFund.DomainModels
 {
     public class Project: BaseModel
     {
@@ -9,9 +10,13 @@ namespace VivaFund.Models
 
         public int MemberId { get; set; }
 
-        public Member Member { get; set; }
+        public virtual Member Member { get; set; }
 
-        // ADD CATEGORY
+        public int ProjectCategoryId { get; set; }
+
+        public virtual ProjectCategory ProjectCategory { get; set; }
+
+        public List<ProjectMedia> ProjectMedias { get; set; }
 
         public string TitleEn { get; set; }
 

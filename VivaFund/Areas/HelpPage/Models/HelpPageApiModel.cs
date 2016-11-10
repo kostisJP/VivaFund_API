@@ -3,6 +3,7 @@ using System.Collections.ObjectModel;
 using System.Net.Http.Headers;
 using System.Web.Http.Description;
 using VivaFund.Areas.HelpPage.ModelDescriptions;
+using VivaFund.Interfaces;
 
 namespace VivaFund.Areas.HelpPage.Models
 {
