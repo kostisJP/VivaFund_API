@@ -240,11 +240,6 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201611092147231_initialsetup.cs" />
-    <Compile Include="Migrations\201611092147231_initialsetup.Designer.cs">
-      <DependentUpon>201611092147231_initialsetup.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -332,11 +327,6 @@
       <Project>{CF812369-19D5-4C9C-9E83-437B55D6F30F}</Project>
       <Name>VivaFund.Repositories</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201611092147231_initialsetup.resx">
-      <DependentUpon>201611092147231_initialsetup.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
