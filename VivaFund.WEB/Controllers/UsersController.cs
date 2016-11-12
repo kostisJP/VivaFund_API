@@ -80,7 +80,7 @@ namespace VivaFund.WEB.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "UserId,Token,FirstName,LastName,Email,Password,InsertedDate,UpdatedDate,IsActive")] User user)
+        public async Task<ActionResult> Create([Bind(Include = "UserId,Token,Username,FirstName,LastName,Email,Password,InsertedDate,UpdatedDate,IsActive")] User user)
         {
             var client = new HttpClient();
 
