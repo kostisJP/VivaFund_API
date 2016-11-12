@@ -8,22 +8,6 @@ namespace VivaFund.DomainModels
 {
     public class User : BaseModel
     {
-        public User()
-        {
-            
-        }
-        public User(string json)
-        {
-            JObject jObject = JObject.Parse(json);
-            JToken jUser = jObject["user"];
-            UserId = (int)jUser["UserId"];
-            Token = (Guid)jUser["Token"];
-            FirstName = (string)jUser["FirstName"];
-            LastName = (string)jUser["LastName"];
-            Email = (string)jUser["Email"];
-            Password = (string)jUser["Password"];
-        }
-
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int UserId { get; set; }

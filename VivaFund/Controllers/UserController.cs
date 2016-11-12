@@ -60,44 +60,5 @@ namespace VivaFund.Controllers
 
             return _user;
         }
-
-        public static string Serialize<T>(T obj)
-        {
-            DataContractJsonSerializer serializer = new DataContractJsonSerializer(obj.GetType());
-            MemoryStream ms = new MemoryStream();
-            serializer.WriteObject(ms, obj);
-            string retVal = Encoding.UTF8.GetString(ms.ToArray());
-            return retVal;
-        }
-
-        public static T Deserialize<T>(string json)
-        {
-            T obj = Activator.CreateInstance<T>();
-            MemoryStream ms = new MemoryStream(Encoding.Unicode.GetBytes(json));
-            DataContractJsonSerializer serializer = new DataContractJsonSerializer(obj.GetType());
-            obj = (T)serializer.ReadObject(ms);
-            ms.Close();
-            return obj;
-        }
-    }
-    public class HttpActionResult
-    {
-        private readonly string _message;
-        private readonly HttpStatusCode _statusCode;
-
-        public HttpActionResult(HttpStatusCode statusCode, string message)
-        {
-            _statusCode = statusCode;
-            _message = message;
-        }
-
-        public Task<HttpResponseMessage> ExecuteAsync(CancellationToken cancellationToken)
-        {
-            HttpResponseMessage response = new HttpResponseMessage(_statusCode)
-            {
-                Content = new StringContent(_message)
-            };
-            return Task.FromResult(response);
-        }
     }
 }
