@@ -355,7 +355,6 @@ namespace VivaFund.WEB.Controllers
                 var myInfo = fb.Get<FBUser>("/me?fields=email,first_name,last_name,gender");
                 loginInfo.Email = myInfo.email;
                 loginInfo.DefaultUserName = myInfo.first_name + " " + myInfo.last_name;
-                loginInfo.Login = new UserLoginInfo("
                 // Sign in the user with this external login provider if the user already has a login
                 var result = await SignInManager.ExternalSignInAsync(loginInfo, isPersistent: false);
                 switch (result)
