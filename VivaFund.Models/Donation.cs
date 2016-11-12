@@ -8,21 +8,23 @@ using System.Threading.Tasks;
 
 namespace VivaFund.DomainModels
 {
-    public class ProjectMedia: BaseModel
+    public class Donation : BaseModel
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int ProjectMediaId { get; set; }
+        public int DonationID { get; set; }
 
-        public bool IsCoverImage { get; set; }  //main image
-
-        public int ProjectMediaType { get; set; }
-
-        [MaxLength(500)]
-        public string URL { get; set; }
+        public int MemberId { get; set; }
+        public virtual Member Member { get; set; }
 
         public int ProjectId { get; set; }
-        
         public virtual Project Project { get; set; }
+
+        [Required]
+        public int DonatedAmount { get; set; }
+
+        public int RewardId { get; set; }
+        public virtual Reward Reward { get; set; }
+
     }
 }

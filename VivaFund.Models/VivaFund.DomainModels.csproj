@@ -46,11 +46,16 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BaseModel.cs" />
+    <Compile Include="Comment.cs" />
+    <Compile Include="Donation.cs" />
+    <Compile Include="Filter.cs" />
     <Compile Include="ProjectCategory.cs" />
     <Compile Include="ProjectMedia.cs" />
     <Compile Include="Member.cs" />
     <Compile Include="Project.cs" />
+    <Compile Include="ProjectUpdate.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Reward.cs" />
     <Compile Include="User.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -12,11 +12,16 @@ namespace VivaFund.DomainModels
         {
             Token = Guid.NewGuid();
         }
+
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int UserId { get; set; }
 
         public Guid Token { get; set; }
+
+        [Required]
+        [MaxLength(50)]
+        public string Username { get; set; }
 
         [Required]
         [MaxLength(50)]
@@ -27,10 +32,13 @@ namespace VivaFund.DomainModels
         public string LastName { get; set; }
 
         [Required]
+        [MaxLength(50)]
         public string Email { get; set; }
 
         [Required]
         public string Password { get; set; }
+
+        public int AuthenticationType { get; set; }
 
     }
 }

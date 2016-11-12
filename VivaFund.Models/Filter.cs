@@ -8,18 +8,18 @@ using System.Threading.Tasks;
 
 namespace VivaFund.DomainModels
 {
-    public class ProjectCategory : BaseModel
+    public class Filter : BaseModel
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int ProjectCategoryId { get; set; }
+        public int FilterId { get; set; }
 
-        public Guid Token { get; set; } = Guid.NewGuid();
-
-        [MaxLength(50)]
         [Required]
-        public string CategoryName { get; set; }
+        public int FilterType { get; set; }
 
-       
+        [Required]
+        [MaxLength(50)]
+        public string FilterName { get; set; }
+
     }
 }
