@@ -17,7 +17,7 @@ namespace VivaFund.DomainModels
         public int MemberId { get; set; }
         public virtual Member Member { get; set; }
 
-        public int ProjectId { get; set; }
+        public int? ProjectId { get; set; }
         public virtual Project Project { get; set; }
 
         [Required]
