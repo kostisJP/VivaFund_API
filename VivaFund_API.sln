@@ -11,7 +11,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VivaFund.Interfaces", "Viva
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VivaFund.DomainModels", "VivaFund.Models\VivaFund.DomainModels.csproj", "{50AE3636-3DE8-4F27-A495-F872A1556B0F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VivaFund.WEB", "..\..\..\OneDrive\Documents\Projects\VivaFund\VivaFund\VivaFund.WEB.csproj", "{01512421-473D-4C33-9C00-726354758A28}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VivaFund.WEB", "VivaFund.WEB\VivaFund.WEB.csproj", "{01512421-473D-4C33-9C00-726354758A28}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
