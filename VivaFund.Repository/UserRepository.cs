@@ -2,10 +2,13 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using System.Data.Entity.Core.Objects;
+using System.Data.Entity.Validation;
 using System.Text;
 using System.Threading.Tasks;
 using VivaFund.DomainModels;
 using VivaFund.Interfaces;
+using System.Data.Entity.Infrastructure;
 
 namespace VivaFund.Repository
 {
@@ -32,7 +35,7 @@ namespace VivaFund.Repository
 
         public User GetUserById(int id)
         {
-            
+
             var user = _context.Users.FirstOrDefault(u => u.UserId == id);
 
             return user;
@@ -41,6 +44,46 @@ namespace VivaFund.Repository
         public User GetUserByToken(Guid token)
         {
             throw new NotImplementedException();
+        }
+
+        public User SaveUser(User user)
+        {
+            try
+            {
+                user.UpdatedDate = DateTime.Now;
+                if (_context.Users.Find(user.UserId) == null)
+                {
+                    // _context.Users.Add(user);
+                    
+                    _context.Entry(user).State = EntityState.Added;
+                }
+                else
+                {
+                    _context.Entry(user).State = EntityState.Modified;
+                }
+                _context.SaveChanges();
+                return user;
+            }
+            catch (DbEntityValidationException ex)
+            {
+                foreach (DbEntityValidationResult item in ex.EntityValidationErrors)
+                {
+                    // Get entry
+
+                    DbEntityEntry entry = item.Entry;
+                    string entityTypeName = entry.Entity.GetType().Name;
+
+                    // Display or log error messages
+
+                    foreach (DbValidationError subItem in item.ValidationErrors)
+                    {
+                        string message = string.Format("Error '{0}' occurred in {1} at {2}",
+                            subItem.ErrorMessage, entityTypeName, subItem.PropertyName);
+                        Console.WriteLine(message);
+                    }
+                }
+            }
+            return null;
         }
 
         public void UndoChanges()
@@ -85,6 +128,21 @@ namespace VivaFund.Repository
             {
                 throw new Exception($"Exception: {ex.Message} - InnerException: {ex.InnerException}");
             }
+        }
+
+        public Project GetProjectById(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IList<Project> GetAllProjects()
+        {
+            throw new NotImplementedException();
+        }
+
+        public IList<Project> GetProjectsByCategory(int categoryId)
+        {
+            throw new NotImplementedException();
         }
     }
 }

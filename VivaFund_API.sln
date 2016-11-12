@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VivaFund.Interfaces", "Viva
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VivaFund.DomainModels", "VivaFund.Models\VivaFund.DomainModels.csproj", "{50AE3636-3DE8-4F27-A495-F872A1556B0F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VivaFund", "..\..\..\OneDrive\Documents\Projects\VivaFund\VivaFund\VivaFund.csproj", "{01512421-473D-4C33-9C00-726354758A28}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{50AE3636-3DE8-4F27-A495-F872A1556B0F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{50AE3636-3DE8-4F27-A495-F872A1556B0F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{50AE3636-3DE8-4F27-A495-F872A1556B0F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{01512421-473D-4C33-9C00-726354758A28}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{01512421-473D-4C33-9C00-726354758A28}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{01512421-473D-4C33-9C00-726354758A28}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{01512421-473D-4C33-9C00-726354758A28}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
