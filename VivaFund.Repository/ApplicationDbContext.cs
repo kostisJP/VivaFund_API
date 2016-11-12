@@ -5,6 +5,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using VivaFund.DomainModels;
+using System.Data.Entity.Core.Objects;
+using System.Data.Entity.Infrastructure;
 
 namespace VivaFund.Repository
 {
@@ -20,6 +22,12 @@ namespace VivaFund.Repository
         public ApplicationDbContext()
             : base("DefaultConnection")
         {
+            this.Configuration.LazyLoadingEnabled = false;
+        }
+
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            //throw new UnintentionalCodeFirstException();
         }
 
         public static ApplicationDbContext Create()
