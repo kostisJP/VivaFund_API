@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,7 +11,12 @@ namespace VivaFund.DomainModels
     public class Member: BaseModel
     {
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int MemberId { get; set; }
+
+        public int UserID { get; set; }
+
+        public virtual User User { get; set; }
 
         public Guid Token { get; set; } = Guid.NewGuid();
 
@@ -22,9 +28,7 @@ namespace VivaFund.DomainModels
         [MaxLength(50)]
         public string LastName { get; set; }
 
-        [Required]
-        [MaxLength(50)]
-        public string Email { get; set; }
+       
 
         public List<Project> Projects { get; set; }
 

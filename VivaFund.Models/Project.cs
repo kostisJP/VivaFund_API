@@ -10,15 +10,17 @@ namespace VivaFund.DomainModels
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ProjectId { get; set; }
 
+        [Required]
         public int MemberId { get; set; }
 
         public virtual Member Member { get; set; }
 
+        [Required]
         public int ProjectCategoryId { get; set; }
 
         public virtual ProjectCategory ProjectCategory { get; set; }
 
-        public List<ProjectMedia> ProjectMedias { get; set; }
+        public List<ProjectMedia> ListOfProjectMedia { get; set; }
 
         public string TitleEn { get; set; }
 
@@ -32,11 +34,13 @@ namespace VivaFund.DomainModels
 
         public string BodyEl { get; set; }
 
+        [Required]
         public int Goal { get; set; }
 
         public int Views { get; set; }
 
         public bool Completed { get; set; }
 
+       
     }
 }
