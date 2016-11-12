@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.EnterpriseServices.Internal;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -345,34 +346,45 @@ namespace VivaFund.WEB.Controllers
         public async Task<ActionResult> ExternalLoginCallback(string returnUrl)
         {
             var loginInfo = await AuthenticationManager.GetExternalLoginInfoAsync() ?? new ExternalLoginInfo();
-            //if (loginInfo == null)
-            //{
-            //    return RedirectToAction("Login");
-            //}
+
             var identity = ClaimsPrincipal.Current.FindFirst("urn:facebook:name");
-            var accessToken = ClaimsPrincipal.Current.FindFirst("FacebookAccessToken").Value;
-            var fb = new FacebookClient(accessToken);
-            var myInfo = fb.Get("/me?fields=email,first_name,last_name,gender");
-            var ListInfo = Helper.AsObjectList<string>(myInfo.ToString());
-            
-            loginInfo.Email = ListInfo[0];
-            loginInfo.DefaultUserName = ListInfo[2] + " " + ListInfo[1];
-            // Sign in the user with this external login provider if the user already has a login
-            var result = await SignInManager.ExternalSignInAsync(loginInfo, isPersistent: false);
-            switch (result)
+            if (identity != null)
             {
-                case SignInStatus.Success:
-                    return RedirectToLocal(returnUrl);
-                case SignInStatus.LockedOut:
-                    return View("Lockout");
-                case SignInStatus.RequiresVerification:
-                    return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = false });
-                case SignInStatus.Failure:
-                default:
-                    ViewBag.ReturnUrl = returnUrl;
-                    ViewBag.LoginProvider = loginInfo.Login.LoginProvider;
-                    return View("ExternalLoginConfirmation", new ExternalLoginConfirmationViewModel { UserName = loginInfo.DefaultUserName, Email = loginInfo.Email });
+                var accessToken = ClaimsPrincipal.Current.FindFirst("FacebookAccessToken").Value;
+                var fb = new FacebookClient(accessToken);
+                var myInfo = fb.Get<FBUser>("/me?fields=email,first_name,last_name,gender");
+                loginInfo.Email = myInfo.email;
+                loginInfo.DefaultUserName = myInfo.first_name + " " + myInfo.last_name;
+                loginInfo.Login = new UserLoginInfo("
+                // Sign in the user with this external login provider if the user already has a login
+                var result = await SignInManager.ExternalSignInAsync(loginInfo, isPersistent: false);
+                switch (result)
+                {
+                    case SignInStatus.Success:
+                        return RedirectToLocal(returnUrl);
+                    case SignInStatus.LockedOut:
+                        return View("Lockout");
+                    case SignInStatus.RequiresVerification:
+                        return RedirectToAction("SendCode", new {ReturnUrl = returnUrl, RememberMe = false});
+                    case SignInStatus.Failure:
+                    default:
+                        ViewBag.ReturnUrl = returnUrl;
+                        ViewBag.LoginProvider = loginInfo.Login.LoginProvider;
+                        return View("ExternalLoginConfirmation",
+                            new ExternalLoginConfirmationViewModel
+                            {
+                                UserName = loginInfo.DefaultUserName,
+                                Email = loginInfo.Email
+                            });
+                }
             }
+            else
+            {
+                return View();
+            }
+           
+            
+          
         }
 
         //
@@ -527,5 +539,15 @@ namespace VivaFund.WEB.Controllers
             }
         }
         #endregion
+    }
+
+    public class FBUser
+    {
+        public string email { get; set; }
+        public string first_name { get; set; }
+        public string last_name { get; set; }
+        public string gender { get; set; }
+        public string id { get; set; }
+
     }
 }

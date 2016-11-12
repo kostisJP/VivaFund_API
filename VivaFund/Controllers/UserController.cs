@@ -53,9 +53,8 @@ namespace VivaFund.Controllers
         }
         [HttpPost]
         [Route("save")]
-        public User SetUser()
+        public User SetUser(User user)
         {
-            var user = new User() { FirstName = "abc", LastName = "efg", UserId = 0 , Email = "test@teat.gr", Password = "bilaridis"};
             var _user = _userRepo.SaveUser(user);
 
             return _user;

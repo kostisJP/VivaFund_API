@@ -68,8 +68,12 @@ namespace VivaFund.WEB.Controllers
         // GET: Users/Create
         public ActionResult Create()
         {
-            return View();
+
+            User user = new User();
+
+            return View(user);
         }
+
 
         // POST: Users/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
@@ -81,10 +85,10 @@ namespace VivaFund.WEB.Controllers
             var client = new HttpClient();
 
             var response = client.PostAsync("http://localhost:51041/api/user/save", new StringContent(new JavaScriptSerializer().Serialize(user), Encoding.UTF8, "application/json")).Result;
-            var contact = JsonConvert.DeserializeObject<User>(response.ToString());
+            var rep = await response.Content.ReadAsStringAsync();
             if (response.IsSuccessStatusCode)
             {
-                return View();
+                return RedirectToAction("Index", "Users");
             }
             else
             {

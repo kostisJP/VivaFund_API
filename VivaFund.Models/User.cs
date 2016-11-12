@@ -8,11 +8,15 @@ namespace VivaFund.DomainModels
 {
     public class User : BaseModel
     {
+        public User()
+        {
+            Token = Guid.NewGuid();
+        }
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int UserId { get; set; }
 
-        public Guid Token { get; set; } = Guid.NewGuid();
+        public Guid Token { get; set; }
 
         [Required]
         [MaxLength(50)]
