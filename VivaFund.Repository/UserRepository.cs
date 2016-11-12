@@ -53,9 +53,9 @@ namespace VivaFund.Repository
                 user.UpdatedDate = DateTime.Now;
                 if (_context.Users.Find(user.UserId) == null)
                 {
-                    // _context.Users.Add(user);
+                    _context.Users.Add(user);
                     
-                    _context.Entry(user).State = EntityState.Added;
+                    //_context.Entry(user).State = EntityState.Added;
                 }
                 else
                 {
@@ -113,36 +113,6 @@ namespace VivaFund.Repository
                 }
             }
         }
-        public void SaveProject(Project project)
-        {
-            try
-            {
-                if (_context.Projects.Find(project.ProjectId) == null)
-                {
-                    _context.Projects.Add(project);
-                }
 
-                _context.SaveChanges();
-            }
-            catch (Exception ex)
-            {
-                throw new Exception($"Exception: {ex.Message} - InnerException: {ex.InnerException}");
-            }
-        }
-
-        public Project GetProjectById(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public IList<Project> GetAllProjects()
-        {
-            throw new NotImplementedException();
-        }
-
-        public IList<Project> GetProjectsByCategory(int categoryId)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

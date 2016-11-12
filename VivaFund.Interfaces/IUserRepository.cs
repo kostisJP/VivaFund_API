@@ -14,9 +14,6 @@ namespace VivaFund.Interfaces
         User GetUserByToken(Guid token);
         User SaveUser(User user);
         void UndoChanges();
-        void SaveProject(Project project);
-        Project GetProjectById(int id);
-        IList<Project> GetAllProjects();
-        IList<Project> GetProjectsByCategory(int categoryId);
+      
     }
 }
