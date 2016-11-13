@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
+using System.Data.Entity.Validation;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -22,6 +24,7 @@ namespace VivaFund.Repository
         {
             _context = context;
         }
+
         public void UndoChanges()
         {
             // https://code.msdn.microsoft.com/How-to-undo-the-changes-in-00aed3c4
@@ -49,16 +52,14 @@ namespace VivaFund.Repository
                 }
             }
         }
-        public void SaveProject(Project project)
+
+        public IList<Member> GetAllmembers()
         {
             try
             {
-                if (_context.Projects.Find(project.ProjectId) == null)
-                {
-                    _context.Projects.Add(project);
-                }
+                var member = _context.Members.ToList();
 
-                _context.SaveChanges();
+                return member;
             }
             catch (Exception ex)
             {
@@ -66,20 +67,277 @@ namespace VivaFund.Repository
             }
         }
 
+        public Member GetMemberById(int id)
+        {
+            try
+            {
+                var member = _context.Members.Single(u => u.MemberId == id);
+
+                return member;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Exception: {ex.Message} - InnerException: {ex.InnerException}");
+            }
+
+        }
+
+        public void InsertOrUpdateMember(Member member)
+        {
+            try
+            {
+                member.UpdatedDate = DateTime.Now;
+                if (_context.Users.Find(member.MemberId) == null)
+                {
+                    _context.Members.Add(member);
+
+                    //_context.Entry(member).State = EntityState.Added;
+                }
+                else
+                {
+                    _context.Entry(member).State = EntityState.Modified;
+                }
+                _context.SaveChanges();
+            }
+            catch (DbEntityValidationException ex)
+            {
+                foreach (DbEntityValidationResult item in ex.EntityValidationErrors)
+                {
+                    // Get entry
+
+                    DbEntityEntry entry = item.Entry;
+                    string entityTypeName = entry.Entity.GetType().Name;
+
+                    // Display or log error messages
+
+                    foreach (DbValidationError subItem in item.ValidationErrors)
+                    {
+                        string message = string.Format("Error '{0}' occurred in {1} at {2}",
+                            subItem.ErrorMessage, entityTypeName, subItem.PropertyName);
+                        Console.WriteLine(message);
+                    }
+                }
+            }
+        }
+
+        public void InsertOrUpdateProject(Project project)
+        {
+            try
+            {
+                project.UpdatedDate = DateTime.Now;
+                if (_context.Users.Find(project.ProjectId) == null)
+                {
+                    _context.Projects.Add(project);
+
+                    //_context.Entry(member).State = EntityState.Added;
+                }
+                else
+                {
+                    _context.Entry(project).State = EntityState.Modified;
+                }
+                _context.SaveChanges();
+            }
+            catch (DbEntityValidationException ex)
+            {
+                foreach (DbEntityValidationResult item in ex.EntityValidationErrors)
+                {
+                    // Get entry
+
+                    DbEntityEntry entry = item.Entry;
+                    string entityTypeName = entry.Entity.GetType().Name;
+
+                    // Display or log error messages
+
+                    foreach (DbValidationError subItem in item.ValidationErrors)
+                    {
+                        string message = string.Format("Error '{0}' occurred in {1} at {2}",
+                            subItem.ErrorMessage, entityTypeName, subItem.PropertyName);
+                        Console.WriteLine(message);
+                    }
+                }
+            }
+        }
+
         public Project GetProjectById(int id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var project = _context.Projects.Single(u => u.ProjectId == id);
+
+                return project;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Exception: {ex.Message} - InnerException: {ex.InnerException}");
+            }
+
         }
 
         public IList<Project> GetAllProjects()
         {
-            throw new NotImplementedException();
+            try
+            {
+                var project = _context.Projects.ToList();
+
+                return project;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Exception: {ex.Message} - InnerException: {ex.InnerException}");
+            }
+
         }
 
         public IList<Project> GetProjectsByCategory(int categoryId)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var project = _context.Projects.Where(u => u.ProjectCategoryId == categoryId).ToList();
+
+                return project;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Exception: {ex.Message} - InnerException: {ex.InnerException}");
+            }
         }
 
+        public IList<Project> GetProjectsByMember(int memberId)
+        {
+            try
+            {
+                var project = _context.Projects.Where(u => u.MemberId == memberId).ToList();
+
+                return project;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Exception: {ex.Message} - InnerException: {ex.InnerException}");
+            }
+        }
+
+        public IList<ProjectCategory> GetAllCategories()
+        {
+            try
+            {
+                var projectCategories = _context.ProjectCategories.ToList();
+
+                return projectCategories;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Exception: {ex.Message} - InnerException: {ex.InnerException}");
+            }
+        }
+
+        public void InserOrUpdateDonation(Donation donation)
+        {
+            try
+            {
+                donation.UpdatedDate = DateTime.Now;
+                if (_context.Users.Find(donation.DonationID) == null)
+                {
+                    _context.Donations.Add(donation);
+
+                    //_context.Entry(member).State = EntityState.Added;
+                }
+                else
+                {
+                    _context.Entry(donation).State = EntityState.Modified;
+                }
+                _context.SaveChanges();
+            }
+            catch (DbEntityValidationException ex)
+            {
+                foreach (DbEntityValidationResult item in ex.EntityValidationErrors)
+                {
+                    // Get entry
+
+                    DbEntityEntry entry = item.Entry;
+                    string entityTypeName = entry.Entity.GetType().Name;
+
+                    // Display or log error messages
+
+                    foreach (DbValidationError subItem in item.ValidationErrors)
+                    {
+                        string message = string.Format("Error '{0}' occurred in {1} at {2}",
+                            subItem.ErrorMessage, entityTypeName, subItem.PropertyName);
+                        Console.WriteLine(message);
+                    }
+                }
+            }
+        }
+
+        public IList<Donation> GetAllDonations()
+        {
+            try
+            {
+                var donations = _context.Donations.ToList();
+
+                return donations;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Exception: {ex.Message} - InnerException: {ex.InnerException}");
+            }
+
+        }
+
+        public IList<Donation> GetAllDonationByProject(int projectId)
+        {
+            try
+            {
+                var donations = _context.Donations.Where(u => u.ProjectId == projectId).ToList();
+
+                return donations;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Exception: {ex.Message} - InnerException: {ex.InnerException}");
+            }
+        }
+
+        public IList<Donation> GetAllDonationByMember(int memberId)
+        {
+            try
+            {
+                var donations = _context.Donations.Where(u => u.MemberId == memberId).ToList();
+
+                return donations;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Exception: {ex.Message} - InnerException: {ex.InnerException}");
+            }
+        }
+
+        public IList<Filter> GetAllFilters()
+        {
+            try
+            {
+                var filters = _context.Filters.ToList();
+
+                return filters;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Exception: {ex.Message} - InnerException: {ex.InnerException}");
+            }
+
+        }
+
+        public IList<Filter> GetAllFiltersByType(int type)
+        {
+            try
+            {
+                var filters = _context.Filters.Where(u => u.FilterType == type).ToList();
+
+                return filters;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Exception: {ex.Message} - InnerException: {ex.InnerException}");
+            }
+        }
     }
 }

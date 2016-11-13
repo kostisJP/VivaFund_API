@@ -46,7 +46,7 @@ namespace VivaFund.Repository
             throw new NotImplementedException();
         }
 
-        public User SaveUser(User user)
+        public User InsertOrUpdateUser(User user)
         {
             try
             {

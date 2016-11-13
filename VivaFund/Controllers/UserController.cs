@@ -55,7 +55,7 @@ namespace VivaFund.Controllers
         [Route("save")]
         public User SetUser(User user)
         {
-            var _user = _userRepo.SaveUser(user);
+            var _user = _userRepo.InsertOrUpdateUser(user);
 
             return _user;
         }

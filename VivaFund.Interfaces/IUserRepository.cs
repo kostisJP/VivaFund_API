@@ -12,7 +12,7 @@ namespace VivaFund.Interfaces
         IEnumerable<User> GetAllUsers();
         User GetUserById(int id);
         User GetUserByToken(Guid token);
-        User SaveUser(User user);
+        User InsertOrUpdateUser(User user);
         void UndoChanges();
       
     }
