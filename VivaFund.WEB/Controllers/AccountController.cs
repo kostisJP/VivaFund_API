@@ -354,36 +354,66 @@ namespace VivaFund.WEB.Controllers
                 var fb = new FacebookClient(accessToken);
                 var myInfo = fb.Get<FBUser>("/me?fields=email,first_name,last_name,gender");
                 loginInfo.Email = myInfo.email;
-                loginInfo.DefaultUserName = myInfo.first_name + " " + myInfo.last_name;
-                // Sign in the user with this external login provider if the user already has a login
-                var result = await SignInManager.ExternalSignInAsync(loginInfo, isPersistent: false);
-                switch (result)
-                {
-                    case SignInStatus.Success:
-                        return RedirectToLocal(returnUrl);
-                    case SignInStatus.LockedOut:
-                        return View("Lockout");
-                    case SignInStatus.RequiresVerification:
-                        return RedirectToAction("SendCode", new {ReturnUrl = returnUrl, RememberMe = false});
-                    case SignInStatus.Failure:
-                    default:
-                        ViewBag.ReturnUrl = returnUrl;
-                        ViewBag.LoginProvider = loginInfo.Login.LoginProvider;
-                        return View("ExternalLoginConfirmation",
-                            new ExternalLoginConfirmationViewModel
-                            {
-                                UserName = loginInfo.DefaultUserName,
-                                Email = loginInfo.Email
-                            });
-                }
+                loginInfo.DefaultUserName = myInfo.first_name + "" + myInfo.last_name;
+                loginInfo.ExternalIdentity = new ClaimsIdentity(ClaimsPrincipal.Current.Claims, "Microsoft");
+                loginInfo.Login = new UserLoginInfo("Facebook API", myInfo.id);
+
+
             }
-            else
+
+            Claim msftType = ClaimsPrincipal.Current.FindFirst("preferred_username");
+            if (msftType != null)
             {
-                return View();
+                var accessToken = ClaimsPrincipal.Current.FindFirst("nonce").Value;
+                loginInfo.Email = ClaimsPrincipal.Current.FindFirst("preferred_username").Value;
+                loginInfo.DefaultUserName = ClaimsPrincipal.Current.FindFirst("name").Value;
+                loginInfo.ExternalIdentity= new ClaimsIdentity(ClaimsPrincipal.Current.Claims,"Facebook");
+                loginInfo.Login = new UserLoginInfo("Microsoft Online", ClaimsPrincipal.Current.FindFirst("iss").Value);
             }
-           
-            
-          
+            // Sign in the user with this external login provider if the user already has a login
+                var result = await SignInManager.ExternalSignInAsync(loginInfo, isPersistent: false);
+            switch (result)
+            {
+                case SignInStatus.Success:
+                    return RedirectToLocal(returnUrl);
+                case SignInStatus.LockedOut:
+                    return View("Lockout");
+                case SignInStatus.RequiresVerification:
+                    return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = false });
+                case SignInStatus.Failure:
+                default:
+                    ViewBag.ReturnUrl = returnUrl;
+                    ViewBag.LoginProvider = loginInfo.Login.LoginProvider;
+                    return View("ExternalLoginConfirmation",
+                        new ExternalLoginConfirmationViewModel
+                        {
+                            UserName = loginInfo.DefaultUserName,
+                            Email = loginInfo.Email
+                        });
+            }
+
+        }
+        public string GetUserId()
+        {
+            var userEmail = "";
+            var identity = ClaimsPrincipal.Current.FindFirst("urn:facebook:name");
+            if (identity != null)
+            {
+                var accessToken = ClaimsPrincipal.Current.FindFirst("FacebookAccessToken").Value;
+                var fb = new FacebookClient(accessToken);
+                var myInfo = fb.Get<FBUser>("/me?fields=email,first_name,last_name,gender");
+                userEmail = myInfo.email;
+
+            }
+
+            Claim msftType = ClaimsPrincipal.Current.FindFirst("preferred_username");
+            if (msftType != null)
+            {
+                var accessToken = ClaimsPrincipal.Current.FindFirst("nonce").Value;
+                userEmail = ClaimsPrincipal.Current.FindFirst("preferred_username").Value;
+            }
+            var user = UserManager.FindByEmail(userEmail);
+            return user?.Id ?? null;
         }
 
         //
@@ -395,33 +425,64 @@ namespace VivaFund.WEB.Controllers
         {
             if (User.Identity.IsAuthenticated)
             {
-                return RedirectToAction("Index", "Manage");
-            }
-
-            if (ModelState.IsValid)
-            {
-                // Get the information about the user from the external login provider
-                var info = await AuthenticationManager.GetExternalLoginInfoAsync();
-                if (info == null)
+                
+                var user = UserManager.FindById(GetUserId());
+                if (user != null)
                 {
-                    return View("ExternalLoginFailure");
+                    return RedirectToAction("Index", "Manage");
                 }
-                var user = new ApplicationUser { UserName = model.UserName, Email = model.Email };
-                var result = await UserManager.CreateAsync(user);
-                if (result.Succeeded)
+                else
                 {
-                    result = await UserManager.AddLoginAsync(user.Id, info.Login);
-                    if (result.Succeeded)
+                    if (ModelState.IsValid)
                     {
-                        await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
-                        return RedirectToLocal(returnUrl);
-                    }
-                }
-                AddErrors(result);
-            }
+                        var loginInfo = await AuthenticationManager.GetExternalLoginInfoAsync() ?? new ExternalLoginInfo();
 
-            ViewBag.ReturnUrl = returnUrl;
-            return View(model);
+                        var identity = ClaimsPrincipal.Current.FindFirst("urn:facebook:name");
+                        if (identity != null)
+                        {
+                            var accessToken = ClaimsPrincipal.Current.FindFirst("FacebookAccessToken").Value;
+                            var fb = new FacebookClient(accessToken);
+                            var myInfo = fb.Get<FBUser>("/me?fields=email,first_name,last_name,gender");
+                            loginInfo.Email = myInfo.email;
+                            loginInfo.DefaultUserName = myInfo.first_name + "" + myInfo.last_name;
+                            loginInfo.ExternalIdentity = new ClaimsIdentity(ClaimsPrincipal.Current.Claims, "Microsoft");
+                            loginInfo.Login = new UserLoginInfo("Facebook API", myInfo.id);
+
+
+                        }
+
+                        Claim msftType = ClaimsPrincipal.Current.FindFirst("preferred_username");
+                        if (msftType != null)
+                        {
+                            var accessToken = ClaimsPrincipal.Current.FindFirst("nonce").Value;
+                            loginInfo.Email = ClaimsPrincipal.Current.FindFirst("preferred_username").Value;
+                            loginInfo.DefaultUserName = ClaimsPrincipal.Current.FindFirst("name").Value;
+                            loginInfo.ExternalIdentity = new ClaimsIdentity(ClaimsPrincipal.Current.Claims, "Facebook");
+                            loginInfo.Login = new UserLoginInfo("OpenIdConnect", ClaimsPrincipal.Current.FindFirst("iss").Value);
+                        }
+                        user = new ApplicationUser { UserName = model.UserName, Email = model.Email };
+                        var result = await UserManager.CreateAsync(user);
+                        if (result.Succeeded)
+                        {
+                            result = await UserManager.AddLoginAsync(user.Id, loginInfo.Login);
+                            if (result.Succeeded)
+                            {
+                                await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+                                return RedirectToLocal(returnUrl);
+                            }
+                        }
+                        AddErrors(result);
+                    }
+
+                    ViewBag.ReturnUrl = returnUrl;
+                    return View(model);
+                }
+                
+               
+            }
+            return View();
+
+
         }
 
         //

@@ -1,7 +1,9 @@
 ﻿using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using Facebook;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
@@ -49,6 +51,29 @@ namespace VivaFund.WEB.Controllers
             }
         }
 
+        public string GetUserId()
+        {
+            var userEmail = "";
+            var identity = ClaimsPrincipal.Current.FindFirst("urn:facebook:name");
+            if (identity != null)
+            {
+                var accessToken = ClaimsPrincipal.Current.FindFirst("FacebookAccessToken").Value;
+                var fb = new FacebookClient(accessToken);
+                var myInfo = fb.Get<FBUser>("/me?fields=email,first_name,last_name,gender");
+                userEmail = myInfo.email;
+
+            }
+
+            Claim msftType = ClaimsPrincipal.Current.FindFirst("preferred_username");
+            if (msftType != null)
+            {
+                var accessToken = ClaimsPrincipal.Current.FindFirst("nonce").Value;
+                userEmail = ClaimsPrincipal.Current.FindFirst("preferred_username").Value;
+            }
+            var user = UserManager.FindByEmail(userEmail);
+            return user.Id;
+        }
+
         //
         // GET: /Manage/Index
         public async Task<ActionResult> Index(ManageMessageId? message)
@@ -62,14 +87,13 @@ namespace VivaFund.WEB.Controllers
                 : message == ManageMessageId.RemovePhoneSuccess ? "Your phone number was removed."
                 : "";
 
-            var userId = User.Identity.GetUserId();
             var model = new IndexViewModel
             {
                 HasPassword = HasPassword(),
-                PhoneNumber = await UserManager.GetPhoneNumberAsync(userId),
-                TwoFactor = await UserManager.GetTwoFactorEnabledAsync(userId),
-                Logins = await UserManager.GetLoginsAsync(userId),
-                BrowserRemembered = await AuthenticationManager.TwoFactorBrowserRememberedAsync(userId)
+                PhoneNumber = await UserManager.GetPhoneNumberAsync(GetUserId()),
+                TwoFactor = await UserManager.GetTwoFactorEnabledAsync(GetUserId()),
+                Logins = await UserManager.GetLoginsAsync(GetUserId()),
+                BrowserRemembered = await AuthenticationManager.TwoFactorBrowserRememberedAsync(GetUserId())
             };
             return View(model);
         }
@@ -258,10 +282,12 @@ namespace VivaFund.WEB.Controllers
         {
             if (ModelState.IsValid)
             {
-                var result = await UserManager.AddPasswordAsync(User.Identity.GetUserId(), model.NewPassword);
+
+
+                var result = await UserManager.AddPasswordAsync(GetUserId(), model.NewPassword);
                 if (result.Succeeded)
                 {
-                    var user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
+                    var user = await UserManager.FindByIdAsync(GetUserId());
                     if (user != null)
                     {
                         await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
@@ -283,12 +309,12 @@ namespace VivaFund.WEB.Controllers
                 message == ManageMessageId.RemoveLoginSuccess ? "The external login was removed."
                 : message == ManageMessageId.Error ? "An error has occurred."
                 : "";
-            var user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
+            var user = await UserManager.FindByIdAsync(GetUserId());
             if (user == null)
             {
                 return View("Error");
             }
-            var userLogins = await UserManager.GetLoginsAsync(User.Identity.GetUserId());
+            var userLogins = await UserManager.GetLoginsAsync(GetUserId());
             var otherLogins = AuthenticationManager.GetExternalAuthenticationTypes().Where(auth => userLogins.All(ul => auth.AuthenticationType != ul.LoginProvider)).ToList();
             ViewBag.ShowRemoveButton = user.PasswordHash != null || userLogins.Count > 1;
             return View(new ManageLoginsViewModel
@@ -305,14 +331,14 @@ namespace VivaFund.WEB.Controllers
         public ActionResult LinkLogin(string provider)
         {
             // Request a redirect to the external login provider to link a login for the current user
-            return new AccountController.ChallengeResult(provider, Url.Action("LinkLoginCallback", "Manage"), User.Identity.GetUserId());
+            return new AccountController.ChallengeResult(provider, Url.Action("LinkLoginCallback", "Manage"), GetUserId());
         }
 
         //
         // GET: /Manage/LinkLoginCallback
         public async Task<ActionResult> LinkLoginCallback()
         {
-            var loginInfo = await AuthenticationManager.GetExternalLoginInfoAsync(XsrfKey, User.Identity.GetUserId());
+            var loginInfo = await AuthenticationManager.GetExternalLoginInfoAsync(XsrfKey, GetUserId());
             if (loginInfo == null)
             {
                 return RedirectToAction("ManageLogins", new { Message = ManageMessageId.Error });
@@ -354,7 +380,24 @@ namespace VivaFund.WEB.Controllers
 
         private bool HasPassword()
         {
-            var user = UserManager.FindById(User.Identity.GetUserId());
+            var userId = User.Identity.GetUserId();
+            var identity = ClaimsPrincipal.Current.FindFirst("urn:facebook:name");
+            if (identity != null)
+            {
+                var accessToken = ClaimsPrincipal.Current.FindFirst("FacebookAccessToken").Value;
+                var fb = new FacebookClient(accessToken);
+                var myInfo = fb.Get<FBUser>("/me?fields=email,first_name,last_name,gender");
+                userId = myInfo.email;
+
+            }
+
+            Claim msftType = ClaimsPrincipal.Current.FindFirst("preferred_username");
+            if (msftType != null)
+            {
+                var accessToken = ClaimsPrincipal.Current.FindFirst("nonce").Value;
+                userId = ClaimsPrincipal.Current.FindFirst("preferred_username").Value;
+            }
+            var user = UserManager.FindByEmail(userId);
             if (user != null)
             {
                 return user.PasswordHash != null;
