@@ -23,7 +23,20 @@ namespace VivaFund.Interfaces
         Project GetProjectById(int id);
         Project InsertOrUpdateProject(Project project);
         
+       
+        IEnumerable<Donation> GetAllDonations();
+        Donation GetDonationById(int id);
+       
+        Donation GetDonationByToken(Guid token);
+        Donation InsertOrUpdateDonation(Donation donation);
+
+  
+        IEnumerable<Member> GetAllMembers();
+        Member GetMemberById(int id);
+        Member GetMemberByToken(Guid token);
+        Member InsertOrUpdateMember(Member user);
+       
+
         void UndoChanges();
-      
     }
 }

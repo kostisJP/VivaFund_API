@@ -54,7 +54,7 @@ namespace VivaFund.Repository
                 if (_context.Users.Find(user.UserId) == null)
                 {
                     _context.Users.Add(user);
-                    
+
                     //_context.Entry(projectCategory).State = EntityState.Added;
                 }
                 else
@@ -95,8 +95,7 @@ namespace VivaFund.Repository
 
         public ProjectCategory GetProjectCategoryrById(int id)
         {
-            var category = _context.ProjectCategories
-                .FirstOrDefault(u => u.ProjectCategoryId == id);
+            var category = _context.ProjectCategories.FirstOrDefault(u => u.ProjectCategoryId == id);
 
             return category;
         }
@@ -206,6 +205,46 @@ namespace VivaFund.Repository
             return null;
         }
 
+        public IEnumerable<Donation> GetAllDonations()
+        {
+            var donations = _context.Donations.ToList();
+
+            return donations;
+        }
+        public Donation GetDonationById(int id)
+        {
+            var donation = _context.Donations.FirstOrDefault(u => u.DonationID == id);
+
+            return donation;
+        }
+        public Donation GetDonationByToken(Guid token)
+        {
+            throw new NotImplementedException();
+        }
+        public Donation InsertOrUpdateDonation(Donation donation)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<Member> GetAllMembers()
+        {
+            var members = _context.Members.ToList();
+            return members;
+        }
+        public Member GetMemberById(int id)
+        {
+            var member = _context.Members.FirstOrDefault(u => u.MemberId == id);
+
+            return member;
+        }
+        public Member GetMemberByToken(Guid token)
+        {
+            throw new NotImplementedException();
+        }
+        public Member InsertOrUpdateMember(Member user)
+        {
+            throw new NotImplementedException();
+        }
         public void UndoChanges()
         {
             // https://code.msdn.microsoft.com/How-to-undo-the-changes-in-00aed3c4
