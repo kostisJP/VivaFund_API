@@ -6,6 +6,12 @@ namespace VivaFund.DomainModels
 {
     public class Project: BaseModel
     {
+        public Project()
+        {
+            ListOfProjectMedia = new List<ProjectMedia>();
+            //ProjectCategory = new ProjectCategory();
+            //Member = new Member();
+        }
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ProjectId { get; set; }

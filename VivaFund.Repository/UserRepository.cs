@@ -55,7 +55,7 @@ namespace VivaFund.Repository
                 {
                     _context.Users.Add(user);
                     
-                    //_context.Entry(user).State = EntityState.Added;
+                    //_context.Entry(projectCategory).State = EntityState.Added;
                 }
                 else
                 {
@@ -63,6 +63,126 @@ namespace VivaFund.Repository
                 }
                 _context.SaveChanges();
                 return user;
+            }
+            catch (DbEntityValidationException ex)
+            {
+                foreach (DbEntityValidationResult item in ex.EntityValidationErrors)
+                {
+                    // Get entry
+
+                    DbEntityEntry entry = item.Entry;
+                    string entityTypeName = entry.Entity.GetType().Name;
+
+                    // Display or log error messages
+
+                    foreach (DbValidationError subItem in item.ValidationErrors)
+                    {
+                        string message = string.Format("Error '{0}' occurred in {1} at {2}",
+                            subItem.ErrorMessage, entityTypeName, subItem.PropertyName);
+                        Console.WriteLine(message);
+                    }
+                }
+            }
+            return null;
+        }
+
+        public IEnumerable<ProjectCategory> GetAllProjectCategories()
+        {
+            var categories = _context.ProjectCategories.ToList();
+
+            return categories;
+        }
+
+        public ProjectCategory GetProjectCategoryrById(int id)
+        {
+            var category = _context.ProjectCategories
+                .FirstOrDefault(u => u.ProjectCategoryId == id);
+
+            return category;
+        }
+
+        public ProjectCategory GetProjectCategoryByToken(Guid token)
+        {
+            throw new NotImplementedException();
+        }
+
+        public ProjectCategory InsertOrUpdateProjectCategory(ProjectCategory projectCategory)
+        {
+            try
+            {
+                projectCategory.UpdatedDate = DateTime.Now;
+                if (_context.Users.Find(projectCategory.ProjectCategoryId) == null)
+                {
+                    _context.ProjectCategories.Add(projectCategory);
+
+                    //_context.Entry(projectCategory).State = EntityState.Added;
+                }
+                else
+                {
+                    _context.Entry(projectCategory).State = EntityState.Modified;
+                }
+                _context.SaveChanges();
+                return projectCategory;
+            }
+            catch (DbEntityValidationException ex)
+            {
+                foreach (DbEntityValidationResult item in ex.EntityValidationErrors)
+                {
+                    // Get entry
+
+                    DbEntityEntry entry = item.Entry;
+                    string entityTypeName = entry.Entity.GetType().Name;
+
+                    // Display or log error messages
+
+                    foreach (DbValidationError subItem in item.ValidationErrors)
+                    {
+                        string message = string.Format("Error '{0}' occurred in {1} at {2}",
+                            subItem.ErrorMessage, entityTypeName, subItem.PropertyName);
+                        Console.WriteLine(message);
+                    }
+                }
+            }
+            return null;
+        }
+
+        public IEnumerable<Project> GetAllProjects()
+        {
+            var projects = _context.Projects
+                .Include(p => p.Member)
+                .Include(p => p.ProjectCategory)
+                .ToList();
+
+            return projects;
+        }
+
+        public Project GetProjectById(int id)
+        {
+            var projects = _context.Projects
+               .Include(p => p.Member)
+               .Include(p => p.ProjectCategory)
+               .FirstOrDefault(u => u.ProjectId == id);
+
+            return projects;
+        }
+
+        public Project InsertOrUpdateProject(Project project)
+        {
+            try
+            {
+                project.UpdatedDate = DateTime.Now;
+                if (_context.Users.Find(project.ProjectId) == null)
+                {
+                    _context.Projects.Add(project);
+
+                    //_context.Entry(projectCategory).State = EntityState.Added;
+                }
+                else
+                {
+                    _context.Entry(project).State = EntityState.Modified;
+                }
+                _context.SaveChanges();
+                return project;
             }
             catch (DbEntityValidationException ex)
             {

@@ -13,6 +13,16 @@ namespace VivaFund.Interfaces
         User GetUserById(int id);
         User GetUserByToken(Guid token);
         User InsertOrUpdateUser(User user);
+
+        IEnumerable<ProjectCategory> GetAllProjectCategories();
+        ProjectCategory GetProjectCategoryrById(int id);
+        ProjectCategory GetProjectCategoryByToken(Guid token);
+        ProjectCategory InsertOrUpdateProjectCategory(ProjectCategory projectCategory);
+
+        IEnumerable<Project> GetAllProjects();
+        Project GetProjectById(int id);
+        Project InsertOrUpdateProject(Project project);
+        
         void UndoChanges();
       
     }

@@ -356,7 +356,7 @@ namespace VivaFund.WEB.Controllers
                 loginInfo.Email = myInfo.email;
                 loginInfo.DefaultUserName = myInfo.first_name + "" + myInfo.last_name;
                 loginInfo.ExternalIdentity = new ClaimsIdentity(ClaimsPrincipal.Current.Claims, "Microsoft");
-                loginInfo.Login = new UserLoginInfo("Facebook API", myInfo.id);
+                loginInfo.Login = new UserLoginInfo("Facebook", myInfo.id);
 
 
             }
@@ -368,7 +368,7 @@ namespace VivaFund.WEB.Controllers
                 loginInfo.Email = ClaimsPrincipal.Current.FindFirst("preferred_username").Value;
                 loginInfo.DefaultUserName = ClaimsPrincipal.Current.FindFirst("name").Value;
                 loginInfo.ExternalIdentity= new ClaimsIdentity(ClaimsPrincipal.Current.Claims,"Facebook");
-                loginInfo.Login = new UserLoginInfo("Microsoft Online", ClaimsPrincipal.Current.FindFirst("iss").Value);
+                loginInfo.Login = new UserLoginInfo("openIdConnect", ClaimsPrincipal.Current.FindFirst("iss").Value);
             }
             // Sign in the user with this external login provider if the user already has a login
                 var result = await SignInManager.ExternalSignInAsync(loginInfo, isPersistent: false);
