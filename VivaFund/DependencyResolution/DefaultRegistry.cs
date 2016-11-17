@@ -31,7 +31,6 @@ namespace VivaFund.DependencyResolution {
                     scan.WithDefaultConventions();
                 });
             //For<IExample>().Use<Example>();
-            For<IUserRepository>().Use<UserRepository>();
             For<IProjectRepository>().Use<ProjectRepository>();
         }
 

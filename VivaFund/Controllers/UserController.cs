@@ -23,41 +23,41 @@ namespace VivaFund.Controllers
     [RoutePrefix("api/user")]
     public class UserController : ApiController
     {
-        private readonly IUserRepository _userRepo;
+        private readonly IProjectRepository _userRepo;
 
         public UserController()
         {
-            _userRepo = ObjectFactory.GetInstance<IUserRepository>();
+            _userRepo = ObjectFactory.GetInstance<IProjectRepository>();
         }
-        public UserController(IUserRepository userRepo)
+        public UserController(IProjectRepository userRepo)
         {
             _userRepo = userRepo;
         }
 
-        [HttpGet]
-        [Route("all")]
-        public IEnumerable<User> GetAllUsers()
-        {
-            var allUsers = _userRepo.GetAllUsers();
-            return allUsers;
-            //return new StringContent(allUsers.ToString(), System.Text.Encoding.UTF8, "application/json");
-        }
+        //[HttpGet]
+        //[Route("all")]
+        //public IEnumerable<User> GetAllUsers()
+        //{
+        //    var allUsers = _userRepo.GetAllUsers();
+        //    return allUsers;
+        //    //return new StringContent(allUsers.ToString(), System.Text.Encoding.UTF8, "application/json");
+        //}
 
-        [HttpGet]
-        [Route("{id}")]
-        public User GetUserById(int id)
-        {
-            var user = _userRepo.GetUserById(id);
+        //[HttpGet]
+        //[Route("{id}")]
+        //public User GetUserById(int id)
+        //{
+        //    var user = _userRepo.GetUserById(id);
             
-            return user;
-        }
-        [HttpPost]
-        [Route("save")]
-        public User SetUser(User user)
-        {
-            var _user = _userRepo.InsertOrUpdateUser(user);
+        //    return user;
+        //}
+        //[HttpPost]
+        //[Route("save")]
+        //public User SetUser(User user)
+        //{
+        //    var _user = _userRepo.InsertOrUpdateUser(user);
 
-            return _user;
-        }
+        //    return _user;
+        //}
     }
 }

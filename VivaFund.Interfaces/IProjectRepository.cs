@@ -11,19 +11,28 @@ namespace VivaFund.Interfaces
     {
 
         void UndoChanges();
-        IList<Member> GetAllmembers();
         Member GetMemberById(int id);
-        void InsertOrUpdateMember(Member member);
-        void InsertOrUpdateProject(Project project);
-        Project GetProjectById(int id);
+        IList<Member> GetAllMembers();
+        Member GetMemberByToken(Guid token);
+        void InsertOrUpdateMember(Member user);
+
         IList<Project> GetAllProjects();
         IList<Project> GetProjectsByCategory(int categoryId);
         IList<Project> GetProjectsByMember(int memberId);
-        IList<ProjectCategory> GetAllCategories();
-        void InserOrUpdateDonation(Donation donation);
+        Project GetProjectById(int id);
+        void InsertOrUpdateProject(Project project);
+
+        IList<ProjectCategory> GetAllProjectCategories();
+        ProjectCategory GetProjectCategoryrById(int id);
+        ProjectCategory GetProjectCategoryByToken(Guid token);
+        void InsertOrUpdateProjectCategory(ProjectCategory projectCategory);
+
         IList<Donation> GetAllDonations();
+        Donation GetDonationById(int id);
         IList<Donation> GetAllDonationByProject(int projectId);
         IList<Donation> GetAllDonationByMember(int memberId);
+        void InsertOrUpdateDonation(Donation donation);
+
         IList<Filter> GetAllFilters();
         IList<Filter> GetAllFiltersByType(int type);
 

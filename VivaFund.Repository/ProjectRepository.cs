@@ -53,20 +53,6 @@ namespace VivaFund.Repository
             }
         }
 
-        public IList<Member> GetAllmembers()
-        {
-            try
-            {
-                var member = _context.Members.ToList();
-
-                return member;
-            }
-            catch (Exception ex)
-            {
-                throw new Exception($"Exception: {ex.Message} - InnerException: {ex.InnerException}");
-            }
-        }
-
         public Member GetMemberById(int id)
         {
             try
@@ -80,6 +66,25 @@ namespace VivaFund.Repository
                 throw new Exception($"Exception: {ex.Message} - InnerException: {ex.InnerException}");
             }
 
+        }
+
+        public IList<Member> GetAllMembers()
+        {
+            try
+            {
+                var member = _context.Members.ToList();
+
+                return member;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Exception: {ex.Message} - InnerException: {ex.InnerException}");
+            }
+        }
+
+        public Member GetMemberByToken(Guid token)
+        {
+            throw new NotImplementedException();
         }
 
         public void InsertOrUpdateMember(Member member)
@@ -158,6 +163,35 @@ namespace VivaFund.Repository
             }
         }
 
+        public IList<ProjectCategory> GetAllProjectCategories()
+        {
+            try
+            {
+                var projectCategories = _context.ProjectCategories.ToList();
+
+                return projectCategories;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Exception: {ex.Message} - InnerException: {ex.InnerException}");
+            }
+        }
+
+        public ProjectCategory GetProjectCategoryrById(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public ProjectCategory GetProjectCategoryByToken(Guid token)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void InsertOrUpdateProjectCategory(ProjectCategory projectCategory)
+        {
+            throw new NotImplementedException();
+        }
+
         public Project GetProjectById(int id)
         {
             try
@@ -216,13 +250,35 @@ namespace VivaFund.Repository
             }
         }
 
-        public IList<ProjectCategory> GetAllCategories()
+        public IList<Donation> GetAllDonations()
         {
             try
             {
-                var projectCategories = _context.ProjectCategories.ToList();
+                var donations = _context.Donations.ToList();
 
-                return projectCategories;
+                return donations;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Exception: {ex.Message} - InnerException: {ex.InnerException}");
+            }
+
+        }
+
+        public Donation GetDonationById(int id)
+        {
+            var donation = _context.Donations.FirstOrDefault(u => u.DonationID == id);
+
+            return donation;
+        }
+
+        public IList<Donation> GetAllDonationByProject(int projectId)
+        {
+            try
+            {
+                var donations = _context.Donations.Where(u => u.ProjectId == projectId).ToList();
+
+                return donations;
             }
             catch (Exception ex)
             {
@@ -230,7 +286,21 @@ namespace VivaFund.Repository
             }
         }
 
-        public void InserOrUpdateDonation(Donation donation)
+        public IList<Donation> GetAllDonationByMember(int memberId)
+        {
+            try
+            {
+                var donations = _context.Donations.Where(u => u.MemberId == memberId).ToList();
+
+                return donations;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Exception: {ex.Message} - InnerException: {ex.InnerException}");
+            }
+        }
+
+        public void InsertOrUpdateDonation(Donation donation)
         {
             try
             {
@@ -265,49 +335,6 @@ namespace VivaFund.Repository
                         Console.WriteLine(message);
                     }
                 }
-            }
-        }
-
-        public IList<Donation> GetAllDonations()
-        {
-            try
-            {
-                var donations = _context.Donations.ToList();
-
-                return donations;
-            }
-            catch (Exception ex)
-            {
-                throw new Exception($"Exception: {ex.Message} - InnerException: {ex.InnerException}");
-            }
-
-        }
-
-        public IList<Donation> GetAllDonationByProject(int projectId)
-        {
-            try
-            {
-                var donations = _context.Donations.Where(u => u.ProjectId == projectId).ToList();
-
-                return donations;
-            }
-            catch (Exception ex)
-            {
-                throw new Exception($"Exception: {ex.Message} - InnerException: {ex.InnerException}");
-            }
-        }
-
-        public IList<Donation> GetAllDonationByMember(int memberId)
-        {
-            try
-            {
-                var donations = _context.Donations.Where(u => u.MemberId == memberId).ToList();
-
-                return donations;
-            }
-            catch (Exception ex)
-            {
-                throw new Exception($"Exception: {ex.Message} - InnerException: {ex.InnerException}");
             }
         }
 

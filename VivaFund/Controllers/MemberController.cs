@@ -18,13 +18,13 @@ namespace VivaFund.Controllers
     [RoutePrefix("api/member")]
     public class MemberController : ApiController
     {
-        private readonly IUserRepository _userRepo;
+        private readonly IProjectRepository _userRepo;
 
         public MemberController()
         {
-            _userRepo = ObjectFactory.GetInstance<IUserRepository>();
+            _userRepo = ObjectFactory.GetInstance<IProjectRepository>();
         }
-        public MemberController(IUserRepository userRepo)
+        public MemberController(IProjectRepository userRepo)
         {
             _userRepo = userRepo;
         }
@@ -50,9 +50,9 @@ namespace VivaFund.Controllers
         [Route("save")]
         public Member SetMember(Member user)
         {
-            var _user = _userRepo.InsertOrUpdateMember(user);
+            _userRepo.InsertOrUpdateMember(user);
 
-            return _user;
+            return user;
         }
     }
 }

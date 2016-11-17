@@ -18,13 +18,13 @@ namespace VivaFund.Controllers
     [RoutePrefix("api/donation")]
     public class DonationController : ApiController
     {
-        private readonly IUserRepository _userRepo;
+        private readonly IProjectRepository _userRepo;
 
         public DonationController()
         {
-            _userRepo = ObjectFactory.GetInstance<IUserRepository>();
+            _userRepo = ObjectFactory.GetInstance<IProjectRepository>();
         }
-        public DonationController(IUserRepository userRepo)
+        public DonationController(IProjectRepository userRepo)
         {
             _userRepo = userRepo;
         }
@@ -48,11 +48,11 @@ namespace VivaFund.Controllers
         }
         [HttpPost]
         [Route("save")]
-        public Donation SetDonation(Donation user)
+        public Donation SetDonation(Donation donation)
         {
-            var _user = _userRepo.InsertOrUpdateDonation(user);
+            _userRepo.InsertOrUpdateDonation(donation);
 
-            return _user;
+            return donation;
         }
     }
 }

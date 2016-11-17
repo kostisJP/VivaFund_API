@@ -18,13 +18,13 @@ namespace VivaFund.Controllers
     [RoutePrefix("api/category")]
     public class ProjectCategoriesController : ApiController
     {
-        private readonly IUserRepository _userRepo;
+        private readonly IProjectRepository _userRepo;
 
         public ProjectCategoriesController()
         {
-            _userRepo = ObjectFactory.GetInstance<IUserRepository>();
+            _userRepo = ObjectFactory.GetInstance<IProjectRepository>();
         }
-        public ProjectCategoriesController(IUserRepository userRepo)
+        public ProjectCategoriesController(IProjectRepository userRepo)
         {
             _userRepo = userRepo;
         }
@@ -48,11 +48,11 @@ namespace VivaFund.Controllers
         }
         [HttpPost]
         [Route("save")]
-        public ProjectCategory SetCategory(ProjectCategory user)
+        public ProjectCategory SetCategory(ProjectCategory projectCategory)
         {
-            var _user = _userRepo.InsertOrUpdateProjectCategory(user);
+            _userRepo.InsertOrUpdateProjectCategory(projectCategory);
 
-            return _user;
+            return projectCategory;
         }
     }
 }
