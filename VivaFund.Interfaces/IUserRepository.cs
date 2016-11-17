@@ -12,11 +12,31 @@ namespace VivaFund.Interfaces
         IEnumerable<User> GetAllUsers();
         User GetUserById(int id);
         User GetUserByToken(Guid token);
-        User SaveUser(User user);
-        void UndoChanges();
-        void SaveProject(Project project);
+        User InsertOrUpdateUser(User user);
+
+        IEnumerable<ProjectCategory> GetAllProjectCategories();
+        ProjectCategory GetProjectCategoryrById(int id);
+        ProjectCategory GetProjectCategoryByToken(Guid token);
+        ProjectCategory InsertOrUpdateProjectCategory(ProjectCategory projectCategory);
+
+        IEnumerable<Project> GetAllProjects();
         Project GetProjectById(int id);
-        IList<Project> GetAllProjects();
-        IList<Project> GetProjectsByCategory(int categoryId);
+        Project InsertOrUpdateProject(Project project);
+        
+       
+        IEnumerable<Donation> GetAllDonations();
+        Donation GetDonationById(int id);
+       
+        Donation GetDonationByToken(Guid token);
+        Donation InsertOrUpdateDonation(Donation donation);
+
+  
+        IEnumerable<Member> GetAllMembers();
+        Member GetMemberById(int id);
+        Member GetMemberByToken(Guid token);
+        Member InsertOrUpdateMember(Member user);
+       
+
+        void UndoChanges();
     }
 }

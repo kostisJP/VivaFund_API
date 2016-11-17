@@ -14,7 +14,7 @@ namespace VivaFund.DomainModels
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int RewardID { get; set; }
 
-        public int ProjectID { get; set; }
+        public int? ProjectID { get; set; }
 
         public virtual Project Project { get; set; }
 

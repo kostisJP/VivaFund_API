@@ -46,16 +46,16 @@ namespace VivaFund.Repository
             throw new NotImplementedException();
         }
 
-        public User SaveUser(User user)
+        public User InsertOrUpdateUser(User user)
         {
             try
             {
                 user.UpdatedDate = DateTime.Now;
                 if (_context.Users.Find(user.UserId) == null)
                 {
-                    // _context.Users.Add(user);
-                    
-                    _context.Entry(user).State = EntityState.Added;
+                    _context.Users.Add(user);
+
+                    //_context.Entry(projectCategory).State = EntityState.Added;
                 }
                 else
                 {
@@ -86,6 +86,165 @@ namespace VivaFund.Repository
             return null;
         }
 
+        public IEnumerable<ProjectCategory> GetAllProjectCategories()
+        {
+            var categories = _context.ProjectCategories.ToList();
+
+            return categories;
+        }
+
+        public ProjectCategory GetProjectCategoryrById(int id)
+        {
+            var category = _context.ProjectCategories.FirstOrDefault(u => u.ProjectCategoryId == id);
+
+            return category;
+        }
+
+        public ProjectCategory GetProjectCategoryByToken(Guid token)
+        {
+            throw new NotImplementedException();
+        }
+
+        public ProjectCategory InsertOrUpdateProjectCategory(ProjectCategory projectCategory)
+        {
+            try
+            {
+                projectCategory.UpdatedDate = DateTime.Now;
+                if (_context.Users.Find(projectCategory.ProjectCategoryId) == null)
+                {
+                    _context.ProjectCategories.Add(projectCategory);
+
+                    //_context.Entry(projectCategory).State = EntityState.Added;
+                }
+                else
+                {
+                    _context.Entry(projectCategory).State = EntityState.Modified;
+                }
+                _context.SaveChanges();
+                return projectCategory;
+            }
+            catch (DbEntityValidationException ex)
+            {
+                foreach (DbEntityValidationResult item in ex.EntityValidationErrors)
+                {
+                    // Get entry
+
+                    DbEntityEntry entry = item.Entry;
+                    string entityTypeName = entry.Entity.GetType().Name;
+
+                    // Display or log error messages
+
+                    foreach (DbValidationError subItem in item.ValidationErrors)
+                    {
+                        string message = string.Format("Error '{0}' occurred in {1} at {2}",
+                            subItem.ErrorMessage, entityTypeName, subItem.PropertyName);
+                        Console.WriteLine(message);
+                    }
+                }
+            }
+            return null;
+        }
+
+        public IEnumerable<Project> GetAllProjects()
+        {
+            var projects = _context.Projects
+                .Include(p => p.Member)
+                .Include(p => p.ProjectCategory)
+                .ToList();
+
+            return projects;
+        }
+
+        public Project GetProjectById(int id)
+        {
+            var projects = _context.Projects
+               .Include(p => p.Member)
+               .Include(p => p.ProjectCategory)
+               .FirstOrDefault(u => u.ProjectId == id);
+
+            return projects;
+        }
+
+        public Project InsertOrUpdateProject(Project project)
+        {
+            try
+            {
+                project.UpdatedDate = DateTime.Now;
+                if (_context.Users.Find(project.ProjectId) == null)
+                {
+                    _context.Projects.Add(project);
+
+                    //_context.Entry(projectCategory).State = EntityState.Added;
+                }
+                else
+                {
+                    _context.Entry(project).State = EntityState.Modified;
+                }
+                _context.SaveChanges();
+                return project;
+            }
+            catch (DbEntityValidationException ex)
+            {
+                foreach (DbEntityValidationResult item in ex.EntityValidationErrors)
+                {
+                    // Get entry
+
+                    DbEntityEntry entry = item.Entry;
+                    string entityTypeName = entry.Entity.GetType().Name;
+
+                    // Display or log error messages
+
+                    foreach (DbValidationError subItem in item.ValidationErrors)
+                    {
+                        string message = string.Format("Error '{0}' occurred in {1} at {2}",
+                            subItem.ErrorMessage, entityTypeName, subItem.PropertyName);
+                        Console.WriteLine(message);
+                    }
+                }
+            }
+            return null;
+        }
+
+        public IEnumerable<Donation> GetAllDonations()
+        {
+            var donations = _context.Donations.ToList();
+
+            return donations;
+        }
+        public Donation GetDonationById(int id)
+        {
+            var donation = _context.Donations.FirstOrDefault(u => u.DonationID == id);
+
+            return donation;
+        }
+        public Donation GetDonationByToken(Guid token)
+        {
+            throw new NotImplementedException();
+        }
+        public Donation InsertOrUpdateDonation(Donation donation)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<Member> GetAllMembers()
+        {
+            var members = _context.Members.ToList();
+            return members;
+        }
+        public Member GetMemberById(int id)
+        {
+            var member = _context.Members.FirstOrDefault(u => u.MemberId == id);
+
+            return member;
+        }
+        public Member GetMemberByToken(Guid token)
+        {
+            throw new NotImplementedException();
+        }
+        public Member InsertOrUpdateMember(Member user)
+        {
+            throw new NotImplementedException();
+        }
         public void UndoChanges()
         {
             // https://code.msdn.microsoft.com/How-to-undo-the-changes-in-00aed3c4
@@ -113,36 +272,6 @@ namespace VivaFund.Repository
                 }
             }
         }
-        public void SaveProject(Project project)
-        {
-            try
-            {
-                if (_context.Projects.Find(project.ProjectId) == null)
-                {
-                    _context.Projects.Add(project);
-                }
 
-                _context.SaveChanges();
-            }
-            catch (Exception ex)
-            {
-                throw new Exception($"Exception: {ex.Message} - InnerException: {ex.InnerException}");
-            }
-        }
-
-        public Project GetProjectById(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public IList<Project> GetAllProjects()
-        {
-            throw new NotImplementedException();
-        }
-
-        public IList<Project> GetProjectsByCategory(int categoryId)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

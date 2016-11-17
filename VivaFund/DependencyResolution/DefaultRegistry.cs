@@ -32,6 +32,7 @@ namespace VivaFund.DependencyResolution {
                 });
             //For<IExample>().Use<Example>();
             For<IUserRepository>().Use<UserRepository>();
+            For<IProjectRepository>().Use<ProjectRepository>();
         }
 
         #endregion

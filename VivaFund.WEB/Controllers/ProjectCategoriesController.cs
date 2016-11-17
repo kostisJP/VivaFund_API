@@ -1,8 +1,13 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Data.Entity;
 using System.Linq;
+using System.Threading.Tasks;
+using System.Net;
 using System.Net.Http;
 using System.Text;
-using System.Threading.Tasks;
+using System.Web;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
 using Newtonsoft.Json;
@@ -11,18 +16,19 @@ using VivaFund.WEB.Models;
 
 namespace VivaFund.WEB.Controllers
 {
-    public class UsersController : Controller
+    public class ProjectCategoriesController : Controller
     {
-        // GET: Users
+
+        // GET: ProjectCategories
         public async Task<ActionResult> Index()
         {
             var client = new HttpClient();
 
-            var response = client.GetAsync("http://localhost:51041/api/user/all").Result;
+            var response = client.GetAsync("http://localhost:51041/api/category/all").Result;
             var rep = await response.Content.ReadAsStringAsync();
             if (response.Content != null)
             {
-                var contact = JsonConvert.DeserializeObject<List<User>>(rep);
+                var contact = JsonConvert.DeserializeObject<List<ProjectCategory>>(rep);
                 if (response.IsSuccessStatusCode)
                 {
                     return View(contact.ToList());
@@ -38,16 +44,16 @@ namespace VivaFund.WEB.Controllers
             }
         }
 
-        // GET: Users/Details/5
+        // GET: ProjectCategories/Details/5
         public async Task<ActionResult> Details(int? id)
         {
             var client = new HttpClient();
 
-            var response = client.GetAsync("http://localhost:51041/api/user/all").Result;
+            var response = client.GetAsync("http://localhost:51041/api/category/all").Result;
             var rep = await response.Content.ReadAsStringAsync();
             if (response.Content != null)
             {
-                var contact = JsonConvert.DeserializeObject<User>(rep);
+                var contact = JsonConvert.DeserializeObject<ProjectCategory>(rep);
                 if (response.IsSuccessStatusCode)
                 {
                     return View(contact);
@@ -63,44 +69,49 @@ namespace VivaFund.WEB.Controllers
             }
         }
 
-        // GET: Users/Create
+        // GET: ProjectCategories/Create
         public ActionResult Create()
         {
-
-            User user = new User();
-
-            return View(user);
+            ProjectCategory item = new ProjectCategory();
+            return View(item);
         }
 
-
-        // POST: Users/Create
+        // POST: ProjectCategories/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "UserId,Token,Username,FirstName,LastName,Email,Password,InsertedDate,UpdatedDate,IsActive")] User user)
+        public async Task<ActionResult> Create([Bind(Include = "ProjectCategoryId,Token,CategoryName,InsertedDate,UpdatedDate,IsActive")] ProjectCategory projectCategory)
         {
             var client = new HttpClient();
 
-            var response = client.PostAsync("http://localhost:51041/api/user/save", new StringContent(new JavaScriptSerializer().Serialize(user), Encoding.UTF8, "application/json")).Result;
+            var response = client.PostAsync("http://localhost:51041/api/category/save", new StringContent(new JavaScriptSerializer().Serialize(projectCategory), Encoding.UTF8, "application/json")).Result;
             var rep = await response.Content.ReadAsStringAsync();
             if (response.IsSuccessStatusCode)
             {
-                return RedirectToAction("Index", "Users");
+                return RedirectToAction("Index", "ProjectCategories");
             }
             else
             {
-                return View();
+                return RedirectToAction("Index", "ProjectCategories");
             }
+            //if (ModelState.IsValid)
+            //{
+            //    db.ProjectCategories.Add(projectCategory);
+            //    await db.SaveChangesAsync();
+            //    return RedirectToAction("Index");
+            //}
+
+            //return View(projectCategory);
         }
 
-        // GET: Users/Edit/5
-        public ActionResult Edit(int? id)
+        // GET: ProjectCategories/Edit/5
+        public async Task<ActionResult> Edit(int? id)
         {
             var client = new HttpClient();
 
-            var response = client.GetAsync("http://localhost:51041/api/user/" + id).Result;
-            var contact = JsonConvert.DeserializeObject<User>(response.ToString());
+            var response = client.GetAsync("http://localhost:51041/api/category/" + id).Result;
+            var contact = JsonConvert.DeserializeObject<ProjectCategory>(response.ToString());
             if (response.IsSuccessStatusCode)
             {
                 return View();
@@ -111,17 +122,17 @@ namespace VivaFund.WEB.Controllers
             }
         }
 
-        // POST: Users/Edit/5
+        // POST: ProjectCategories/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "UserId,Token,FirstName,LastName,Email,Password,InsertedDate,UpdatedDate,IsActive")] User user)
+        public async Task<ActionResult> Edit([Bind(Include = "ProjectCategoryId,Token,CategoryName,InsertedDate,UpdatedDate,IsActive")] ProjectCategory projectCategory)
         {
             var client = new HttpClient();
 
-            var response = client.PostAsync("http://localhost:51041/api/user/save", new StringContent(new JavaScriptSerializer().Serialize(user), Encoding.UTF8, "application/json")).Result;
-            var contact = JsonConvert.DeserializeObject<User>(response.ToString());
+            var response = client.PostAsync("http://localhost:51041/api/category/save", new StringContent(new JavaScriptSerializer().Serialize(projectCategory), Encoding.UTF8, "application/json")).Result;
+            var contact = JsonConvert.DeserializeObject<ProjectCategory>(response.ToString());
             if (response.IsSuccessStatusCode)
             {
                 return View();
@@ -130,30 +141,38 @@ namespace VivaFund.WEB.Controllers
             {
                 return View();
             }
+            //if (ModelState.IsValid)
+            //{
+            //    db.Entry(projectCategory).State = EntityState.Modified;
+            //    await db.SaveChangesAsync();
+            //    return RedirectToAction("Index");
+            //}
+            //return View(projectCategory);
         }
 
-        // GET: Users/Delete/5
+        // GET: ProjectCategories/Delete/5
         public async Task<ActionResult> Delete(int? id)
         {
             //if (id == null)
             //{
             //    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             //}
-            //User user = await db.Users.FindAsync(id);
-            //if (user == null)
+            //ProjectCategory projectCategory = await db.ProjectCategories.FindAsync(id);
+            //if (projectCategory == null)
             //{
             //    return HttpNotFound();
             //}
+            //return View(projectCategory);
             return View();
         }
 
-        // POST: Users/Delete/5
+        // POST: ProjectCategories/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
-            //User user = await db.Users.FindAsync(id);
-            //db.Users.Remove(user);
+            //ProjectCategory projectCategory = await db.ProjectCategories.FindAsync(id);
+            //db.ProjectCategories.Remove(projectCategory);
             //await db.SaveChangesAsync();
             return RedirectToAction("Index");
         }

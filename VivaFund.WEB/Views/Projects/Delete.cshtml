@@ -1,0 +1,137 @@
+﻿@model VivaFund.DomainModels.Project
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Project</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Member.FirstName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Member.FirstName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ProjectCategory.CategoryName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ProjectCategory.CategoryName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TitleEn)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TitleEn)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TitleEl)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TitleEl)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SubtitleEn)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SubtitleEn)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SubtitleEl)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SubtitleEl)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BodyEn)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BodyEn)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BodyEl)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BodyEl)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Goal)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Goal)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Views)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Views)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Completed)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Completed)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.InsertedDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.InsertedDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UpdatedDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UpdatedDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IsActive)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IsActive)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

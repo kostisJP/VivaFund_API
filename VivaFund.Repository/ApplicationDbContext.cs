@@ -18,6 +18,11 @@ namespace VivaFund.Repository
         public DbSet<ProjectCategory> ProjectCategories { get; set; }
         public DbSet<ProjectMedia> ProjectMedia { get; set; }
         public DbSet<Project> Projects { get; set; }
+        public DbSet<Comment> Comments { get; set; }
+        public DbSet<Donation> Donations { get; set; }
+        public DbSet<Filter> Filters { get; set; }
+        public DbSet<ProjectUpdate> ProjectUpdates { get; set; }
+        public DbSet<Reward> Rewards { get; set; }
 
         public ApplicationDbContext()
             : base("DefaultConnection")
