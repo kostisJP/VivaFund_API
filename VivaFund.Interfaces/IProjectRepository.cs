@@ -33,6 +33,10 @@ namespace VivaFund.Interfaces
         IList<Donation> GetAllDonationByMember(int memberId);
         void InsertOrUpdateDonation(Donation donation);
 
+        IList<Reward> GetAllRewards();
+        IList<Reward> GetAllRewardsByProjectId(int id);
+        void InsertOrUpdateReward(Reward reward);
+
         IList<Filter> GetAllFilters();
         IList<Filter> GetAllFiltersByType(int type);
 

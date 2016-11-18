@@ -15,44 +15,44 @@ using VivaFund.Repository;
 
 namespace VivaFund.Controllers
 {
-    [RoutePrefix("api/donation")]
-    public class DonationController : ApiController
+    [RoutePrefix("api/reward")]
+    public class RewardsController : ApiController
     {
         private readonly IProjectRepository _userRepo;
 
-        public DonationController()
+        public RewardsController()
         {
             _userRepo = ObjectFactory.GetInstance<IProjectRepository>();
         }
-        public DonationController(IProjectRepository userRepo)
+        public RewardsController(IProjectRepository userRepo)
         {
             _userRepo = userRepo;
         }
 
         [HttpGet]
         [Route("all")]
-        public IEnumerable<Donation> GetAllDonations()
+        public IEnumerable<Reward> GetAllRewards()
         {
-            var allUsers = _userRepo.GetAllDonations();
-            return allUsers;
+            var allRewards = _userRepo.GetAllRewards();
+            return allRewards;
             //return new StringContent(allUsers.ToString(), System.Text.Encoding.UTF8, "application/json");
         }
 
         [HttpGet]
-        [Route("{id}")]
-        public Donation GetDonationById(int id)
+        [Route("project/{id}")]
+        public IEnumerable<Reward> GetRewardByProjectId(int id)
         {
-            var user = _userRepo.GetDonationById(id);
+            var reward = _userRepo.GetAllRewardsByProjectId(id);
 
-            return user;
+            return reward;
         }
         [HttpPost]
         [Route("save")]
-        public Donation SetDonation(Donation donation)
+        public Reward SetReward(Reward reward)
         {
-            _userRepo.InsertOrUpdateDonation(donation);
+            _userRepo.InsertOrUpdateReward(reward);
 
-            return donation;
+            return reward;
         }
     }
 }

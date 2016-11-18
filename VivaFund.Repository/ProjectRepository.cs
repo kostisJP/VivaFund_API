@@ -189,7 +189,40 @@ namespace VivaFund.Repository
 
         public void InsertOrUpdateProjectCategory(ProjectCategory projectCategory)
         {
-            throw new NotImplementedException();
+            try
+            {
+                projectCategory.UpdatedDate = DateTime.Now;
+                if (_context.Users.Find(projectCategory.ProjectCategoryId) == null)
+                {
+                    _context.ProjectCategories.Add(projectCategory);
+
+                    //_context.Entry(member).State = EntityState.Added;
+                }
+                else
+                {
+                    _context.Entry(projectCategory).State = EntityState.Modified;
+                }
+                _context.SaveChanges();
+            }
+            catch (DbEntityValidationException ex)
+            {
+                foreach (DbEntityValidationResult item in ex.EntityValidationErrors)
+                {
+                    // Get entry
+
+                    DbEntityEntry entry = item.Entry;
+                    string entityTypeName = entry.Entity.GetType().Name;
+
+                    // Display or log error messages
+
+                    foreach (DbValidationError subItem in item.ValidationErrors)
+                    {
+                        string message = string.Format("Error '{0}' occurred in {1} at {2}",
+                            subItem.ErrorMessage, entityTypeName, subItem.PropertyName);
+                        Console.WriteLine(message);
+                    }
+                }
+            }
         }
 
         public Project GetProjectById(int id)
@@ -305,7 +338,7 @@ namespace VivaFund.Repository
             try
             {
                 donation.UpdatedDate = DateTime.Now;
-                if (_context.Users.Find(donation.DonationID) == null)
+                if (_context.Donations.Find(donation.DonationID) == null)
                 {
                     _context.Donations.Add(donation);
 
@@ -364,6 +397,72 @@ namespace VivaFund.Repository
             catch (Exception ex)
             {
                 throw new Exception($"Exception: {ex.Message} - InnerException: {ex.InnerException}");
+            }
+        }
+
+        public IList<Reward> GetAllRewards()
+        {
+            try
+            {
+                var rewards = _context.Rewards.ToList();
+
+                return rewards;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Exception: {ex.Message} - InnerException: {ex.InnerException}");
+            }
+        }
+
+        public IList<Reward> GetAllRewardsByProjectId(int id)
+        {
+            try
+            {
+                var rewards = _context.Rewards.Where(u => u.ProjectID == id).ToList();
+
+                return rewards;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Exception: {ex.Message} - InnerException: {ex.InnerException}");
+            }
+        }
+
+        public void InsertOrUpdateReward(Reward reward)
+        {
+            try
+            {
+                reward.UpdatedDate = DateTime.Now;
+                if (_context.Rewards.Find(reward.RewardID) == null)
+                {
+                    _context.Rewards.Add(reward);
+
+                    //_context.Entry(member).State = EntityState.Added;
+                }
+                else
+                {
+                    _context.Entry(reward).State = EntityState.Modified;
+                }
+                _context.SaveChanges();
+            }
+            catch (DbEntityValidationException ex)
+            {
+                foreach (DbEntityValidationResult item in ex.EntityValidationErrors)
+                {
+                    // Get entry
+
+                    DbEntityEntry entry = item.Entry;
+                    string entityTypeName = entry.Entity.GetType().Name;
+
+                    // Display or log error messages
+
+                    foreach (DbValidationError subItem in item.ValidationErrors)
+                    {
+                        string message = string.Format("Error '{0}' occurred in {1} at {2}",
+                            subItem.ErrorMessage, entityTypeName, subItem.PropertyName);
+                        Console.WriteLine(message);
+                    }
+                }
             }
         }
     }

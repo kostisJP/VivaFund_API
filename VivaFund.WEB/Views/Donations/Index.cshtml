@@ -1,0 +1,70 @@
+﻿@model IEnumerable<VivaFund.DomainModels.Donation>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Member.FirstName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Project.TitleEn)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Reward.Title)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DonatedAmount)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.InsertedDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UpdatedDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IsActive)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Member.FirstName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Project.TitleEn)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Reward.Title)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DonatedAmount)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.InsertedDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UpdatedDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IsActive)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.DonationID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.DonationID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.DonationID })
+        </td>
+    </tr>
+}
+
+</table>
