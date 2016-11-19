@@ -14,7 +14,8 @@ namespace VivaFund.DomainModels
         //[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int MemberId { get; set; }
 
-        public int UserID { get; set; }
+        [MaxLength(128)]
+        public string AspNetUserId { get; set; }
 
         public Guid Token { get; set; } = Guid.NewGuid();
 

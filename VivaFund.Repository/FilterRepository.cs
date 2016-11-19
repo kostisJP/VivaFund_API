@@ -12,6 +12,11 @@ namespace VivaFund.Repository
     {
         private readonly ApplicationDbContext _context;
 
+        public FilterRepository()
+        {
+            _context = new ApplicationDbContext();
+        }
+
         public FilterRepository(ApplicationDbContext context)
         {
             _context = context;

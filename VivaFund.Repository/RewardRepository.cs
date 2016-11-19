@@ -14,6 +14,12 @@ namespace VivaFund.Repository
     public class RewardRepository : IRewardRepository
     {
         private readonly ApplicationDbContext _context;
+
+        public RewardRepository()
+        {
+            _context = new ApplicationDbContext();
+        }
+
         public RewardRepository(ApplicationDbContext context)
         {
             _context = context;

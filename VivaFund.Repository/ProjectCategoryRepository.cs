@@ -20,6 +20,11 @@ namespace VivaFund.Repository
             _context = context;
         }
 
+        public ProjectCategoryRepository()
+        {
+            _context = new ApplicationDbContext();
+        }
+
         public IEnumerable<ProjectCategory> GetAllProjectCategories()
         {
 
@@ -47,7 +52,7 @@ namespace VivaFund.Repository
             try
             {
                 projectCategory.UpdatedDate = DateTime.Now;
-                if (_context.Users.Find(projectCategory.ProjectCategoryId) == null)
+                if (_context.Members.Find(projectCategory.ProjectCategoryId) == null)
                 {
                     _context.ProjectCategories.Add(projectCategory);
 

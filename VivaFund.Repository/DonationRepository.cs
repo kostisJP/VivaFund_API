@@ -19,6 +19,12 @@ namespace VivaFund.Repository
         {
             _context = context;
         }
+
+        public DonationRepository()
+        {
+            _context = new ApplicationDbContext();
+        }
+
         public IEnumerable<Donation> GetAllDonations()
         {
           

@@ -18,6 +18,12 @@ namespace VivaFund.Repository
         {
             _context = context;
         }
+
+        public MemberRepository()
+        {
+            _context = new ApplicationDbContext();
+        }
+
         public Member GetMemberById(int id)
         {
             var member = _context.Members.Single(u => u.MemberId == id);
@@ -40,7 +46,7 @@ namespace VivaFund.Repository
             try
             {
                 member.UpdatedDate = DateTime.Now;
-                if (_context.Users.Find(member.MemberId) == null)
+                if (_context.Members.Find(member.MemberId) == null)
                 {
                     _context.Members.Add(member);
 

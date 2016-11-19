@@ -116,7 +116,7 @@ namespace VivaFund.Repository
             try
             {
                 project.UpdatedDate = DateTime.Now;
-                if (_context.Users.Find(project.ProjectId) == null)
+                if (_context.Projects.Find(project.ProjectId) == null)
                 {
                     _context.Projects.Add(project);
 
