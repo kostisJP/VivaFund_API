@@ -16,15 +16,16 @@ using VivaFund.Repository;
 namespace VivaFund.Controllers
 {
     [RoutePrefix("api/donation")]
-    public class DonationController : ApiController
+    public class DonationsController : ApiController
     {
-        private readonly IUserRepository _userRepo;
+        private readonly IProjectRepository _userRepo;
 
-        public DonationController()
+        public DonationsController()
         {
-            _userRepo = ObjectFactory.GetInstance<IUserRepository>();
+            _userRepo = ObjectFactory.GetInstance<IProjectRepository>();
         }
-        public DonationController(IUserRepository userRepo)
+
+        public DonationsController(IProjectRepository userRepo)
         {
             _userRepo = userRepo;
         }
@@ -33,26 +34,27 @@ namespace VivaFund.Controllers
         [Route("all")]
         public IEnumerable<Donation> GetAllDonations()
         {
-            var allUsers = _userRepo.GetAllDonations();
-            return allUsers;
+            var allDonations = _userRepo.GetAllDonations();
+            return allDonations;
             //return new StringContent(allUsers.ToString(), System.Text.Encoding.UTF8, "application/json");
         }
 
         [HttpGet]
-        [Route("{id}")]
-        public Donation GetDonationById(int id)
+        [Route("member/{id}")]
+        public IEnumerable<Donation> GetDonationById(int id)
         {
-            var user = _userRepo.GetDonationById(id);
+            var donation = _userRepo.GetAllDonationByMember(id);
 
-            return user;
+            return donation;
         }
+
         [HttpPost]
         [Route("save")]
-        public Donation SetDonation(Donation user)
+        public Donation SetDonation(Donation donation)
         {
-            var _user = _userRepo.InsertOrUpdateDonation(user);
+             _userRepo.InsertOrUpdateDonation(donation);
 
-            return _user;
+            return donation;
         }
     }
 }

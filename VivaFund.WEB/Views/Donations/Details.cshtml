@@ -1,0 +1,75 @@
+﻿@model VivaFund.DomainModels.Donation
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Donation</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Member.FirstName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Member.FirstName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Project.TitleEn)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Project.TitleEn)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Reward.Title)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Reward.Title)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DonatedAmount)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DonatedAmount)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.InsertedDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.InsertedDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UpdatedDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UpdatedDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IsActive)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IsActive)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.DonationID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
