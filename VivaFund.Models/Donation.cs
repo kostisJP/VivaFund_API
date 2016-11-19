@@ -15,16 +15,16 @@ namespace VivaFund.DomainModels
         public int DonationID { get; set; }
 
         public int MemberId { get; set; }
-        public Member Member { get; set; }
+        public virtual Member Member { get; set; }
 
         public int? ProjectId { get; set; }
-        public Project Project { get; set; }
+        public virtual Project Project { get; set; }
 
         [Required]
         public int DonatedAmount { get; set; }
 
         public int RewardId { get; set; }
-        public Reward Reward { get; set; }
+        public virtual Reward Reward { get; set; }
 
     }
 }
