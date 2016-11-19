@@ -52,7 +52,7 @@ namespace VivaFund.Repository
                 }
             }
         }
-
+        #region MEMBER
         public Member GetMemberById(int id)
         {
             try
@@ -84,7 +84,15 @@ namespace VivaFund.Repository
 
         public Member GetMemberByToken(Guid token)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var member = _context.Members.FirstOrDefault(u => u.Token == token);
+                return member;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Exception: {ex.Message} - InnerException: {ex.InnerException}");
+            }
         }
 
         public void InsertOrUpdateMember(Member member)
@@ -124,45 +132,8 @@ namespace VivaFund.Repository
                 }
             }
         }
-
-        public void InsertOrUpdateProject(Project project)
-        {
-            try
-            {
-                project.UpdatedDate = DateTime.Now;
-                if (_context.Users.Find(project.ProjectId) == null)
-                {
-                    _context.Projects.Add(project);
-
-                    //_context.Entry(member).State = EntityState.Added;
-                }
-                else
-                {
-                    _context.Entry(project).State = EntityState.Modified;
-                }
-                _context.SaveChanges();
-            }
-            catch (DbEntityValidationException ex)
-            {
-                foreach (DbEntityValidationResult item in ex.EntityValidationErrors)
-                {
-                    // Get entry
-
-                    DbEntityEntry entry = item.Entry;
-                    string entityTypeName = entry.Entity.GetType().Name;
-
-                    // Display or log error messages
-
-                    foreach (DbValidationError subItem in item.ValidationErrors)
-                    {
-                        string message = string.Format("Error '{0}' occurred in {1} at {2}",
-                            subItem.ErrorMessage, entityTypeName, subItem.PropertyName);
-                        Console.WriteLine(message);
-                    }
-                }
-            }
-        }
-
+        #endregion MEMBER
+        #region PROJECTCATEGORY
         public IList<ProjectCategory> GetAllProjectCategories()
         {
             try
@@ -179,12 +150,27 @@ namespace VivaFund.Repository
 
         public ProjectCategory GetProjectCategoryrById(int id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var category = _context.ProjectCategories.FirstOrDefault(u => u.ProjectCategoryId == id);
+                return category;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Exception: {ex.Message} - InnerException: {ex.InnerException}");
+            }
         }
 
         public ProjectCategory GetProjectCategoryByToken(Guid token)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var category = _context.ProjectCategories.FirstOrDefault(u => u.Token == token);
+                return category;
+            }catch (Exception ex)
+            {
+                throw new Exception($"Exception: {ex.Message} - InnerException: {ex.InnerException}");
+            }
         }
 
         public void InsertOrUpdateProjectCategory(ProjectCategory projectCategory)
@@ -224,7 +210,8 @@ namespace VivaFund.Repository
                 }
             }
         }
-
+        #endregion PROJECTCATEGORY
+        #region PROJECT
         public Project GetProjectById(int id)
         {
             try
@@ -282,7 +269,45 @@ namespace VivaFund.Repository
                 throw new Exception($"Exception: {ex.Message} - InnerException: {ex.InnerException}");
             }
         }
+        public void InsertOrUpdateProject(Project project)
+        {
+            try
+            {
+                project.UpdatedDate = DateTime.Now;
+                if (_context.Users.Find(project.ProjectId) == null)
+                {
+                    _context.Projects.Add(project);
 
+                    //_context.Entry(member).State = EntityState.Added;
+                }
+                else
+                {
+                    _context.Entry(project).State = EntityState.Modified;
+                }
+                _context.SaveChanges();
+            }
+            catch (DbEntityValidationException ex)
+            {
+                foreach (DbEntityValidationResult item in ex.EntityValidationErrors)
+                {
+                    // Get entry
+
+                    DbEntityEntry entry = item.Entry;
+                    string entityTypeName = entry.Entity.GetType().Name;
+
+                    // Display or log error messages
+
+                    foreach (DbValidationError subItem in item.ValidationErrors)
+                    {
+                        string message = string.Format("Error '{0}' occurred in {1} at {2}",
+                            subItem.ErrorMessage, entityTypeName, subItem.PropertyName);
+                        Console.WriteLine(message);
+                    }
+                }
+            }
+        }
+        #endregion PROJECT
+        #region DONATION
         public IList<Donation> GetAllDonations()
         {
             try
@@ -370,7 +395,8 @@ namespace VivaFund.Repository
                 }
             }
         }
-
+        #endregion DONATION
+        #region FILTER
         public IList<Filter> GetAllFilters()
         {
             try
@@ -399,7 +425,8 @@ namespace VivaFund.Repository
                 throw new Exception($"Exception: {ex.Message} - InnerException: {ex.InnerException}");
             }
         }
-
+        #endregion FILTER
+        #region REWARD
         public IList<Reward> GetAllRewards()
         {
             try
@@ -465,5 +492,6 @@ namespace VivaFund.Repository
                 }
             }
         }
+        #endregion REWARD
     }
 }
