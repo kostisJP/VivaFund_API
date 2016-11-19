@@ -11,7 +11,7 @@ namespace VivaFund.DomainModels
     public class Comment : BaseModel
     {
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        //[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int CommentID { get; set; }
 
         public int MemberId { get; set; }
@@ -21,7 +21,7 @@ namespace VivaFund.DomainModels
         public int? ProjectId { get; set; }
 
         [ForeignKey("ProjectId")]
-        public virtual Project Project { get; set; }
+        public Project Project { get; set; }
 
         [Required]
         [MaxLength(50)]

@@ -12,45 +12,42 @@ using StructureMap;
 using VivaFund.DomainModels;
 using VivaFund.Interfaces;
 using VivaFund.Repository;
+using VivaFund.ServicesInterfaces;
 
 namespace VivaFund.Controllers
 {
     [RoutePrefix("api/reward")]
     public class RewardsController : ApiController
     {
-        private readonly IProjectRepository _userRepo;
+        private readonly IRewardService _rewardService;
 
-        public RewardsController()
+
+        public RewardsController(IRewardService rewardService)
         {
-            _userRepo = ObjectFactory.GetInstance<IProjectRepository>();
-        }
-        public RewardsController(IProjectRepository userRepo)
-        {
-            _userRepo = userRepo;
+            _rewardService = rewardService;
         }
 
         [HttpGet]
         [Route("all")]
         public IEnumerable<Reward> GetAllRewards()
         {
-            var allRewards = _userRepo.GetAllRewards();
+            var allRewards = _rewardService.GetAllRewards();
             return allRewards;
-            //return new StringContent(allUsers.ToString(), System.Text.Encoding.UTF8, "application/json");
         }
 
         [HttpGet]
         [Route("project/{id}")]
         public IEnumerable<Reward> GetRewardByProjectId(int id)
         {
-            var reward = _userRepo.GetAllRewardsByProjectId(id);
+            var rewards = _rewardService.GetAllRewardsByProjectId(id);
 
-            return reward;
+            return rewards;
         }
         [HttpPost]
         [Route("save")]
         public Reward SetReward(Reward reward)
         {
-            _userRepo.InsertOrUpdateReward(reward);
+            _rewardService.SetReward(reward);
 
             return reward;
         }

@@ -6,12 +6,6 @@ namespace VivaFund.DomainModels
 {
     public class Project: BaseModel
     {
-        public Project()
-        {
-            ListOfProjectMedia = new List<ProjectMedia>();
-            //ProjectCategory = new ProjectCategory();
-            //Member = new Member();
-        }
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ProjectId { get; set; }
@@ -19,14 +13,12 @@ namespace VivaFund.DomainModels
         [Required]
         public int MemberId { get; set; }
 
-        public virtual Member Member { get; set; }
+        public Member Member { get; set; }
 
         [Required]
         public int ProjectCategoryId { get; set; }
 
-        public virtual ProjectCategory ProjectCategory { get; set; }
-
-        public List<ProjectMedia> ListOfProjectMedia { get; set; }
+        public ProjectCategory ProjectCategory { get; set; }
 
         public string TitleEn { get; set; }
 

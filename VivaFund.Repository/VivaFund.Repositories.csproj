@@ -50,6 +50,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApplicationDbContext.cs" />
+    <Compile Include="FilterRepository.cs" />
+    <Compile Include="ProjectCategoryRepository.cs" />
+    <Compile Include="MemberRepository.cs" />
+    <Compile Include="RewardRepository.cs" />
+    <Compile Include="DonationRepository.cs" />
     <Compile Include="Migrations\201611121510018_InitialSetup.cs" />
     <Compile Include="Migrations\201611121510018_InitialSetup.Designer.cs">
       <DependentUpon>201611121510018_InitialSetup.cs</DependentUpon>

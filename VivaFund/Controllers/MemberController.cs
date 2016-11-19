@@ -12,47 +12,44 @@ using StructureMap;
 using VivaFund.DomainModels;
 using VivaFund.Interfaces;
 using VivaFund.Repository;
+using VivaFund.ServicesInterfaces;
 
 namespace VivaFund.Controllers
 {
     [RoutePrefix("api/member")]
     public class MemberController : ApiController
     {
-        private readonly IProjectRepository _userRepo;
+        private readonly IMemberService _memberService;
 
-        public MemberController()
+     
+        public MemberController(IMemberService memberService)
         {
-            _userRepo = ObjectFactory.GetInstance<IProjectRepository>();
-        }
-        public MemberController(IProjectRepository userRepo)
-        {
-            _userRepo = userRepo;
+            _memberService = memberService;
         }
 
         [HttpGet]
         [Route("all")]
         public IEnumerable<Member> GetAllMembers()
         {
-            var allUsers = _userRepo.GetAllMembers();
-            return allUsers;
-            //return new StringContent(allUsers.ToString(), System.Text.Encoding.UTF8, "application/json");
+            var allmembers = _memberService.GetAllMembers();
+            return allmembers;
         }
 
         [HttpGet]
         [Route("{id}")]
         public Member GetMemberById(int id)
         {
-            var user = _userRepo.GetMemberById(id);
+            var member = _memberService.GetMemberById(id);
 
-            return user;
+            return member;
         }
         [HttpPost]
         [Route("save")]
-        public Member SetMember(Member user)
+        public Member SetMember(Member member)
         {
-            _userRepo.InsertOrUpdateMember(user);
+            _memberService.SetMember(member);
 
-            return user;
+            return member;
         }
     }
 }

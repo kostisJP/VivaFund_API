@@ -232,7 +232,6 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MemberController.cs" />
     <Compile Include="Controllers\ProjectCategoriesController.cs" />
-    <Compile Include="Controllers\ProjectController.cs" />
     <Compile Include="Controllers\DonationsController.cs" />
     <Compile Include="Controllers\ProjectsController.cs" />
     <Compile Include="DependencyResolution\DefaultRegistry.cs" />
@@ -330,6 +329,14 @@
     <ProjectReference Include="..\VivaFund.Repository\VivaFund.Repositories.csproj">
       <Project>{CF812369-19D5-4C9C-9E83-437B55D6F30F}</Project>
       <Name>VivaFund.Repositories</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\VivaFund.ServicesInterfaces\VivaFund.ServicesInterfaces.csproj">
+      <Project>{ACB49569-9306-4255-8053-9195967C820E}</Project>
+      <Name>VivaFund.ServicesInterfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\VivaFund.Services\VivaFund.Services.csproj">
+      <Project>{87804F20-9431-4AC8-9FE7-E395391AF464}</Project>
+      <Name>VivaFund.Services</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

@@ -11,12 +11,10 @@ namespace VivaFund.DomainModels
     public class Member: BaseModel
     {
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        //[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int MemberId { get; set; }
 
         public int UserID { get; set; }
-
-        public virtual User User { get; set; }
 
         public Guid Token { get; set; } = Guid.NewGuid();
 
@@ -27,8 +25,6 @@ namespace VivaFund.DomainModels
         [Required]
         [MaxLength(50)]
         public string LastName { get; set; }
-
-       
 
         public List<Project> Projects { get; set; }
 

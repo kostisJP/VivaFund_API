@@ -12,45 +12,43 @@ using StructureMap;
 using VivaFund.DomainModels;
 using VivaFund.Interfaces;
 using VivaFund.Repository;
+using VivaFund.ServicesInterfaces;
 
 namespace VivaFund.Controllers
 {
     [RoutePrefix("api/category")]
     public class ProjectCategoriesController : ApiController
     {
-        private readonly IProjectRepository _userRepo;
+        private readonly IProjectService _projectService ;
 
-        public ProjectCategoriesController()
+    
+        public ProjectCategoriesController(IProjectService projectService)
         {
-            _userRepo = ObjectFactory.GetInstance<IProjectRepository>();
-        }
-        public ProjectCategoriesController(IProjectRepository userRepo)
-        {
-            _userRepo = userRepo;
+            _projectService = projectService;
         }
 
         [HttpGet]
         [Route("all")]
         public IEnumerable<ProjectCategory> GetAllCategories()
         {
-            var allUsers = _userRepo.GetAllProjectCategories();
-            return allUsers;
+            var allCategories = _projectService.GetAllCategories();
+            return allCategories;
             //return new StringContent(allUsers.ToString(), System.Text.Encoding.UTF8, "application/json");
         }
 
         [HttpGet]
         [Route("{id}")]
-        public ProjectCategory GetUserById(int id)
+        public ProjectCategory GetProjectCategoryById(int id)
         {
-            var user = _userRepo.GetProjectCategoryrById(id);
+            var projectCategory = _projectService.GetProjectCategoryById(id);
 
-            return user;
+            return projectCategory;
         }
         [HttpPost]
         [Route("save")]
         public ProjectCategory SetCategory(ProjectCategory projectCategory)
         {
-            _userRepo.InsertOrUpdateProjectCategory(projectCategory);
+            _projectService.SetCategory(projectCategory);
 
             return projectCategory;
         }

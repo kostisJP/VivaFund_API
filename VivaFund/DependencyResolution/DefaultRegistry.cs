@@ -20,6 +20,8 @@ namespace VivaFund.DependencyResolution {
     using StructureMap.Configuration.DSL;
     using StructureMap.Graph;
     using Repository;
+    using ServicesInterfaces;
+    using Services;
 
     public class DefaultRegistry : Registry {
         #region Constructors and Destructors
@@ -32,6 +34,18 @@ namespace VivaFund.DependencyResolution {
                 });
             //For<IExample>().Use<Example>();
             For<IProjectRepository>().Use<ProjectRepository>();
+            For<IDonationRepository>().Use<DonationRepository>();
+            For<IFilterRepository>().Use<FilterRepository>();
+            For<IMemberRepository>().Use<MemberRepository>();
+            For<IProjectCategoryRepository>().Use<ProjectCategoryRepository>();
+            For<IRewardRepository>().Use<RewardRepository>();
+
+
+            For<IProjectService>().Use<ProjectService>();
+            For<IDonationService>().Use<DonationService>();
+            For<IFilterService>().Use<FilterService>();
+            For<IMemberService>().Use<MemberService>();
+            For<IRewardService>().Use<RewardService>();
         }
 
         #endregion
