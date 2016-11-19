@@ -24,7 +24,7 @@ namespace VivaFund.WEB.Controllers
         {
             var client = new HttpClient();
 
-            var response = client.GetAsync("http://localhost:51041/api/category/all").Result;
+            var response = client.GetAsync("http://localhost:51041/api/project/all").Result;
             var rep = await response.Content.ReadAsStringAsync();
             if (response.Content != null)
             {
@@ -74,14 +74,14 @@ namespace VivaFund.WEB.Controllers
         {
             var client = new HttpClient();
             Project item = new Project();
-            var response = client.GetAsync("http://localhost:51041/api/project/all").Result;
+            var response = client.GetAsync("http://localhost:51041/api/member/all").Result;
             var rep = await response.Content.ReadAsStringAsync();
             if (response.Content != null)
             {
                 var members = JsonConvert.DeserializeObject<List<Member>>(rep);
                 if (response.IsSuccessStatusCode)
                 {
-                    ViewBag.MemberId = new SelectList(members, "MemberId", "FirstName");
+                    ViewBag.MemberId = new SelectList(members, "MemberId", "AspNetUserId");
                     var response2 = client.GetAsync("http://localhost:51041/api/category/all").Result;
                     var rep2 = await response2.Content.ReadAsStringAsync();
                     if (response2.Content != null)
@@ -117,11 +117,11 @@ namespace VivaFund.WEB.Controllers
             var rep = await response.Content.ReadAsStringAsync();
             if (response.IsSuccessStatusCode)
             {
-                return RedirectToAction("Index", "ProjectCategories");
+                return RedirectToAction("Index", "Projects");
             }
             else
             {
-                return RedirectToAction("Index", "ProjectCategories");
+                return RedirectToAction("Index", "Projects");
             }
             //if (ModelState.IsValid)
             //{

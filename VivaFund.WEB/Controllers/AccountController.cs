@@ -1,7 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.EnterpriseServices.Internal;
 using System.Linq;
+using System.Net.Http;
 using System.Security.Claims;
+using System.Text;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
@@ -12,6 +14,8 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.OpenIdConnect;
+using Newtonsoft.Json;
+using VivaFund.DomainModels;
 using VivaFund.WEB.Models;
 
 namespace VivaFund.WEB.Controllers
@@ -176,8 +180,14 @@ namespace VivaFund.WEB.Controllers
             {
                 var user = new ApplicationUser { UserName = model.UserName, Email = model.Email };
                 var result = await UserManager.CreateAsync(user, model.Password);
+
                 if (result.Succeeded)
                 {
+                    var member = new Member {AspNetUserId = user.Id};
+                    var client = new HttpClient();
+                    var response = client.PostAsync("http://localhost:51041/api/member/save", new StringContent(new JavaScriptSerializer().Serialize(member), Encoding.UTF8, "application/json")).Result;
+                    var contact = JsonConvert.DeserializeObject<ProjectCategory>(response.ToString());
+
                     await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
 
                     // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
@@ -358,7 +368,6 @@ namespace VivaFund.WEB.Controllers
                 loginInfo.ExternalIdentity = new ClaimsIdentity(ClaimsPrincipal.Current.Claims, "Microsoft");
                 loginInfo.Login = new UserLoginInfo("Facebook", myInfo.id);
 
-
             }
 
             Claim msftType = ClaimsPrincipal.Current.FindFirst("preferred_username");
@@ -371,7 +380,13 @@ namespace VivaFund.WEB.Controllers
                 loginInfo.Login = new UserLoginInfo("openIdConnect", ClaimsPrincipal.Current.FindFirst("iss").Value);
             }
             // Sign in the user with this external login provider if the user already has a login
-                var result = await SignInManager.ExternalSignInAsync(loginInfo, isPersistent: false);
+            var result = await SignInManager.ExternalSignInAsync(loginInfo, isPersistent: false);
+
+            var userid = GetUserId();
+            if (userid != null)
+            {
+                return RedirectToLocal(returnUrl);
+            }
             switch (result)
             {
                 case SignInStatus.Success:
@@ -384,6 +399,7 @@ namespace VivaFund.WEB.Controllers
                 default:
                     ViewBag.ReturnUrl = returnUrl;
                     ViewBag.LoginProvider = loginInfo.Login.LoginProvider;
+
                     return View("ExternalLoginConfirmation",
                         new ExternalLoginConfirmationViewModel
                         {
@@ -435,6 +451,9 @@ namespace VivaFund.WEB.Controllers
                 {
                     if (ModelState.IsValid)
                     {
+                      
+                        var client = new HttpClient();
+    
                         var loginInfo = await AuthenticationManager.GetExternalLoginInfoAsync() ?? new ExternalLoginInfo();
 
                         var identity = ClaimsPrincipal.Current.FindFirst("urn:facebook:name");
@@ -461,6 +480,9 @@ namespace VivaFund.WEB.Controllers
                             loginInfo.Login = new UserLoginInfo("OpenIdConnect", ClaimsPrincipal.Current.FindFirst("iss").Value);
                         }
                         user = new ApplicationUser { UserName = model.UserName, Email = model.Email };
+                        var member = new Member { AspNetUserId = user.Id, IsActive = true};
+                        var response = client.PostAsync("http://localhost:51041/api/member/save", new StringContent(new JavaScriptSerializer().Serialize(member), Encoding.UTF8, "application/json")).Result;
+
                         var result = await UserManager.CreateAsync(user);
                         if (result.Succeeded)
                         {

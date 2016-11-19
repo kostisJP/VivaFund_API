@@ -73,7 +73,10 @@ namespace VivaFund.Repository
         {
             try
             {
-                var project = _context.Projects.ToList();
+                var project = _context.Projects
+                    .Include(x => x.Member)
+                    .Include(x => x.ProjectCategory)
+                    .ToList();
 
                 return project;
             }

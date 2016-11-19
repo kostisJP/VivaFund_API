@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -13,12 +14,12 @@ namespace VivaFund.DomainModels
         [Required]
         public int MemberId { get; set; }
 
-        public Member Member { get; set; }
+        public virtual Member Member { get; set; }
 
         [Required]
         public int ProjectCategoryId { get; set; }
 
-        public ProjectCategory ProjectCategory { get; set; }
+        public virtual ProjectCategory ProjectCategory { get; set; }
 
         public string TitleEn { get; set; }
 
