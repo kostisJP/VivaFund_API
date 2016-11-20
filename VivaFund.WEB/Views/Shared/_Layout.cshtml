@@ -59,138 +59,160 @@
         select {
             width: 200px;
         }
+
+        .ProjectList {
+            background-color: transparent;
+            list-style-type: none;
+            padding-left: 0px;
+        }
+
+
+            .ProjectList li {
+                width: 200px;
+                display: inline-block;
+            }
+
     </style>
 
 </head>
 <body>
-    <div class="navbar navbar-default navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("Viva Fund", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("Users", "Index", "Users")</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                </ul>
-                @Html.Partial("_LoginPartial")
-            </div>
-        </div>
-    </div>
-    <div class="container body-content">
-        @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - Vive Fund - 1st Coding School</p>
-        </footer>
-    </div>
-@Scripts.Render("~/bundles/bootstrap")
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/jqueryUI")
+<div class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            @Html.ActionLink("Viva Fund", "Index", "Home", new {area = ""}, new {@class = "navbar-brand"})
+        </div>
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                <li>@Html.ActionLink("Projects", "Index", "Projects")</li>
+                <li>@Html.ActionLink("About", "About", "Home")</li>
+                <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+            </ul>
+            @Html.Partial("_LoginPartial")
+        </div>
+    </div>
+</div>
+<div class="container body-content">
+    @RenderBody()
+    <hr/>
+    <footer>
+        <p>&copy; @DateTime.Now.Year - Vive Fund - 1st Coding School</p>
+    </footer>
+</div>
+@Scripts.Render("~/bundles/bootstrap")
 
-    <script type="text/javascript">
-        $("#accordion").accordion();
 
-        var availableTags = [
-            "ActionScript",
-            "AppleScript",
-            "Asp",
-            "BASIC",
-            "C",
-            "C++",
-            "Clojure",
-            "COBOL",
-            "ColdFusion",
-            "Erlang",
-            "Fortran",
-            "Groovy",
-            "Haskell",
-            "Java",
-            "JavaScript",
-            "Lisp",
-            "Perl",
-            "PHP",
-            "Python",
-            "Ruby",
-            "Scala",
-            "Scheme"
-        ];
-        $("#autocomplete").autocomplete({
+<script type="text/javascript">
+    $("#accordion").accordion();
+
+    var availableTags = [
+        "ActionScript",
+        "AppleScript",
+        "Asp",
+        "BASIC",
+        "C",
+        "C++",
+        "Clojure",
+        "COBOL",
+        "ColdFusion",
+        "Erlang",
+        "Fortran",
+        "Groovy",
+        "Haskell",
+        "Java",
+        "JavaScript",
+        "Lisp",
+        "Perl",
+        "PHP",
+        "Python",
+        "Ruby",
+        "Scala",
+        "Scheme"
+    ];
+    $("#autocomplete")
+        .autocomplete({
             source: availableTags
         });
 
-        $("#button").button();
-        $("#button-icon").button({
+    $("#button").button();
+    $("#button-icon")
+        .button({
             icon: "ui-icon-gear",
             showLabel: false
         });
-        $("#radioset").buttonset();
-        $("#controlgroup").controlgroup();
-        $("#tabs").tabs();
-        $("#dialog").dialog({
+    $("#radioset").buttonset();
+    $("#controlgroup").controlgroup();
+    $("#tabs").tabs();
+    $("#dialog")
+        .dialog({
             autoOpen: false,
             width: 400,
             buttons: [
                 {
                     text: "Ok",
-                    click: function () {
+                    click: function() {
                         $(this).dialog("close");
                     }
                 },
                 {
                     text: "Cancel",
-                    click: function () {
+                    click: function() {
                         $(this).dialog("close");
                     }
                 }
             ]
         });
 
-        // Link to open the dialog
-        $("#dialog-link").click(function (event) {
+    // Link to open the dialog
+    $("#dialog-link")
+        .click(function(event) {
             $("#dialog").dialog("open");
             event.preventDefault();
         });
 
-        $("#datepicker").datepicker({
+    $("#datepicker")
+        .datepicker({
             inline: true
         });
 
-        $("#slider").slider({
+    $("#slider")
+        .slider({
             range: true,
             values: [17, 67]
         });
 
-        $("#progressbar").progressbar({
-            value: 20
+    $("#progressbar")
+        .progressbar({
+            value: 90
         });
 
-        $("#spinner").spinner();
+    $("#spinner").spinner();
 
-        $("#menu").menu();
+    $("#menu").menu();
 
-        $("#tooltip").tooltip();
+    $("#tooltip").tooltip();
 
-        $("#selectmenu").selectmenu();
+    $("#selectmenu").selectmenu();
 
-        // Hover states on the static widgets
-        $("#dialog-link, #icons li").hover(
-            function () {
+    // Hover states on the static widgets
+    $("#dialog-link, #icons li")
+        .hover(
+            function() {
                 $(this).addClass("ui-state-hover");
             },
-            function () {
+            function() {
                 $(this).removeClass("ui-state-hover");
             }
         );
-    </script>
-    @RenderSection("scripts", required: false)
+</script>
+@RenderSection("scripts", required: false)
 
 </body>
 </html>

@@ -1,112 +1,25 @@
 ﻿@model IEnumerable<VivaFund.DomainModels.Project>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Projects";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
-
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Member.AspNetUserId)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ProjectCategory.CategoryName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.TitleEn)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.TitleEl)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.SubtitleEn)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.SubtitleEl)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.BodyEn)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.BodyEl)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Goal)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Views)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Completed)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.InsertedDate)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.UpdatedDate)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.IsActive)
-        </th>
-        <th></th>
-    </tr>
-
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Member.AspNetUserId)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ProjectCategory.CategoryName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.TitleEn)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.TitleEl)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.SubtitleEn)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.SubtitleEl)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.BodyEn)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.BodyEl)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Goal)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Views)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Completed)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.InsertedDate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.UpdatedDate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.IsActive)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ProjectId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ProjectId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ProjectId })
-        </td>
-    </tr>
-}
-
-</table>
+<ul class="ProjectList">
+    @foreach (var item in Model)
+    {
+        <li>
+            @Html.Partial("_ProjectPartial", item)
+            <div>
+                @Html.ActionLink("Edit", "Edit", new { id = item.ProjectId }) |
+                @Html.ActionLink("Details", "Details", new { id = item.ProjectId }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.ProjectId })
+            </div>
+        </li>
+    }
+</ul>
+<div class="jumbotron">
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+</div>
