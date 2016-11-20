@@ -106,10 +106,9 @@
         <p>&copy; @DateTime.Now.Year - Vive Fund - 1st Coding School</p>
     </footer>
 </div>
-@Scripts.Render("~/bundles/bootstrap")
-
-
 <script type="text/javascript">
+    $("btn").button();
+
     $("#accordion").accordion();
 
     var availableTags = [
@@ -141,7 +140,7 @@
             source: availableTags
         });
 
-    $("#button").button();
+    
     $("#button-icon")
         .button({
             icon: "ui-icon-gear",
@@ -212,6 +211,7 @@
             }
         );
 </script>
+@Scripts.Render("~/bundles/bootstrap")
 @RenderSection("scripts", required: false)
 
 </body>

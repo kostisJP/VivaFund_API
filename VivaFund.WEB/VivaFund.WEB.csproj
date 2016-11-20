@@ -243,6 +243,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\Images\Add.png" />
+    <Content Include="Content\Images\compass.png" />
     <Content Include="Content\Images\imbacker.png" />
     <Content Include="Content\Images\PhotoHome.png" />
     <Content Include="Content\Images\Project.png" />
