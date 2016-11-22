@@ -18,59 +18,103 @@ namespace VivaFund.Services
         private readonly IDonationRepository _donationRepository;
         private readonly IFilterRepository _filterRepository;
         private readonly IRewardRepository _rewardRepository;
-
-
-        public ProjectService()
-        {
-            _projectRepository = new ProjectRepository();
-            _projectCategoryRepository = new ProjectCategoryRepository();
-            _memberRepository = new MemberRepository();
-            _donationRepository = new DonationRepository();
-            _filterRepository = new FilterRepository();
-            _rewardRepository = new RewardRepository();
-
-        }
-        public ProjectService(IProjectRepository projectRepository, IProjectCategoryRepository projectCategoryRepository)
+        
+        public ProjectService(IProjectRepository projectRepository 
+                        ,IProjectCategoryRepository projectCategoryRepository
+                        ,IMemberRepository memberRepository
+                        ,IDonationRepository donationRepository
+                        ,IFilterRepository filterRepository
+                        ,IRewardRepository rewardRepository)
         {
             _projectRepository = projectRepository;
             _projectCategoryRepository = projectCategoryRepository;
+            _memberRepository = memberRepository;
+            _donationRepository = donationRepository;
+            _filterRepository = filterRepository;
+            _rewardRepository = rewardRepository;
             
         }
 
         #region PROJECTCATEGORY
         public IEnumerable<ProjectCategory> GetAllCategories()
         {
-            var allProjectCategories = _projectCategoryRepository.GetAllProjectCategories();
-            return allProjectCategories;
+            try
+            {
+                var allProjectCategories = _projectCategoryRepository.GetAllProjectCategories();
+
+                return allProjectCategories;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
         }
         public ProjectCategory GetProjectCategoryById(int id)
         {
-            var projectCategory = _projectCategoryRepository.GetProjectCategoryrById(id);
+            try
+            {
+                var projectCategory = _projectCategoryRepository.GetProjectCategoryrById(id);
 
-            return projectCategory;
+                return projectCategory;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
         }
         public ProjectCategory SetCategory(ProjectCategory projectCategory)
         {
-            _projectCategoryRepository.InsertOrUpdateProjectCategory(projectCategory);
-            return projectCategory;
+            try
+            {
+                _projectCategoryRepository.InsertOrUpdateProjectCategory(projectCategory);
+
+                return projectCategory;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
         }
         #endregion PROJECTCATEGORY
 
         #region PROJECT
         public IEnumerable<Project> GetAllProjects()
         {
-            var allProjects = _projectRepository.GetAllProjects();
-            return allProjects;
+            try
+            {
+                var allProjects = _projectRepository.GetAllProjects();
+                
+                return allProjects;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+            
         }
         public Project GetProjectById(int id)
         {
-            var project = _projectRepository.GetProjectById(id);
-            return project;
+            try
+            {
+                var project = _projectRepository.GetProjectById(id);
+
+                return project;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
         }
        public void SetProject(Project project)
         {
-            _projectRepository.InsertOrUpdateProject(project);
-           // return projectCategory;
+            try
+            {
+                _projectRepository.InsertOrUpdateProject(project);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message, ex.InnerException);
+            }
         }
         #endregion PROJECT
 

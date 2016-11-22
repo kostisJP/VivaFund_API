@@ -21,7 +21,7 @@ namespace VivaFund.DomainModels
         public int? ProjectId { get; set; }
 
         [ForeignKey("ProjectId")]
-        public Project Project { get; set; }
+        public virtual Project Project { get; set; }
 
         [Required]
         [MaxLength(50)]
