@@ -22,6 +22,12 @@ namespace VivaFund.WEB.DependencyResolution {
     using ServicesInterfaces;
     using Services;
     using Repository;
+    using Microsoft.AspNet.Identity;
+    using Microsoft.AspNet.Identity.EntityFramework;
+    using Models;
+    using System.Web;
+    using System.Data.Entity;
+    using Microsoft.Owin.Security;
 
     public class DefaultRegistry : Registry {
         #region Constructors and Destructors
@@ -47,6 +53,10 @@ namespace VivaFund.WEB.DependencyResolution {
             For<IFilterService>().Use<FilterService>();
             For<IMemberService>().Use<MemberService>();
             For<IRewardService>().Use<RewardService>();
+
+            For<IUserStore<ApplicationUser>>().Use<UserStore<ApplicationUser>>();
+            For<DbContext>().Use(new Models.ApplicationDbContext());
+            For<IAuthenticationManager>().Use(() => HttpContext.Current.GetOwinContext().Authentication);
         }
 
         #endregion

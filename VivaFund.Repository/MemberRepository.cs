@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
+using System.Data.Entity.Migrations;
 using System.Data.Entity.Validation;
 using System.Linq;
 using System.Text;
@@ -39,40 +40,42 @@ namespace VivaFund.Repository
 
         public void InsertOrUpdateMember(Member member)
         {
-            try
-            {
-                member.UpdatedDate = DateTime.Now;
-                if (_context.Members.Find(member.MemberId) == null)
-                {
-                    _context.Members.Add(member);
+            //try
+            //{
+            //    member.UpdatedDate = DateTime.Now;
+            //    if (_context.Members.Find(member.MemberId) == null)
+            //    {
+            //        _context.Members.Add(member);
 
-                    //_context.Entry(member).State = EntityState.Added;
-                }
-                else
-                {
-                    _context.Entry(member).State = EntityState.Modified;
-                }
-                _context.SaveChanges();
-            }
-            catch (DbEntityValidationException ex)
-            {
-                foreach (DbEntityValidationResult item in ex.EntityValidationErrors)
-                {
-                    // Get entry
+            //        //_context.Entry(member).State = EntityState.Added;
+            //    }
+            //    else
+            //    {
+            //        _context.Entry(member).State = EntityState.Modified;
+            //    }
+            //    _context.SaveChanges();
+            //}
+            //catch (DbEntityValidationException ex)
+            //{
+            //    foreach (DbEntityValidationResult item in ex.EntityValidationErrors)
+            //    {
+            //        // Get entry
 
-                    DbEntityEntry entry = item.Entry;
-                    string entityTypeName = entry.Entity.GetType().Name;
+            //        DbEntityEntry entry = item.Entry;
+            //        string entityTypeName = entry.Entity.GetType().Name;
 
-                    // Display or log error messages
+            //        // Display or log error messages
 
-                    foreach (DbValidationError subItem in item.ValidationErrors)
-                    {
-                        string message = string.Format("Error '{0}' occurred in {1} at {2}",
-                            subItem.ErrorMessage, entityTypeName, subItem.PropertyName);
-                        Console.WriteLine(message);
-                    }
-                }
-            }
+            //        foreach (DbValidationError subItem in item.ValidationErrors)
+            //        {
+            //            string message = string.Format("Error '{0}' occurred in {1} at {2}",
+            //                subItem.ErrorMessage, entityTypeName, subItem.PropertyName);
+            //            Console.WriteLine(message);
+            //        }
+            //    }
+            //}
+            _context.Set<Member>().AddOrUpdate(member);
+            _context.SaveChanges();
         }
 
 

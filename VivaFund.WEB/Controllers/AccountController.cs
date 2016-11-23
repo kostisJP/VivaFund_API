@@ -17,6 +17,7 @@ using Microsoft.Owin.Security.OpenIdConnect;
 using Newtonsoft.Json;
 using VivaFund.DomainModels;
 using VivaFund.WEB.Models;
+using VivaFund.ServicesInterfaces;
 
 namespace VivaFund.WEB.Controllers
 {
@@ -44,15 +45,17 @@ namespace VivaFund.WEB.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
+        private readonly IMemberService _memberService;
 
         public AccountController()
         {
         }
 
-        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
+        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager, IMemberService memberService)
         {
             UserManager = userManager;
             SignInManager = signInManager;
+            _memberService = memberService;
         }
 
         public ApplicationSignInManager SignInManager
@@ -184,9 +187,12 @@ namespace VivaFund.WEB.Controllers
                 if (result.Succeeded)
                 {
                     var member = new Member {AspNetUserId = user.Id};
-                    var client = new HttpClient();
-                    var response = client.PostAsync("http://localhost:51041/api/member/save", new StringContent(new JavaScriptSerializer().Serialize(member), Encoding.UTF8, "application/json")).Result;
-                    var contact = JsonConvert.DeserializeObject<ProjectCategory>(response.ToString());
+
+                    _memberService.SetMember(member);
+
+                    //var client = new HttpClient();
+                    //var response = client.PostAsync("http://localhost:51041/api/member/save", new StringContent(new JavaScriptSerializer().Serialize(member), Encoding.UTF8, "application/json")).Result;
+                    //var contact = JsonConvert.DeserializeObject<ProjectCategory>(response.ToString());
 
                     await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
 
