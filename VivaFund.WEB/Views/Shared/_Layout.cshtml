@@ -15,45 +15,33 @@
             margin: 50px;
         }
 
-        .demoHeaders {
-            margin-top: 2em;
+        .sameline {
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
         }
 
-        #dialog-link {
-            padding: .4em 1em .4em 20px;
-            text-decoration: none;
-            position: relative;
+        .same_vertical {
+
+            vertical-align: bottom;
+            margin-top: 0px;
+            margin-bottom: 100px;
         }
 
-            #dialog-link span.ui-icon {
-                margin: 0 5px 0 0;
-                position: absolute;
-                left: .2em;
-                top: 50%;
-                margin-top: -8px;
-            }
-
-        #icons {
-            margin: 0;
-            padding: 0;
+        .sameline :first-child {
+            margin-left: 0;
         }
 
-            #icons li {
-                margin: 2px;
-                position: relative;
-                padding: 4px 0;
-                cursor: pointer;
-                float: left;
-                list-style: none;
-            }
-
-            #icons span.ui-icon {
-                float: left;
-                margin: 0 4px;
-            }
-
-        .fakewindowcontain .ui-widget-overlay {
-            position: absolute;
+        .textline {
+            border-bottom-width: thin;
+            border-bottom-style: solid;
+            border-bottom-color: #CCC;
+            padding-top: 10px;
+            color: #626262;
+            font-size: 11px;
+            line-height: 1.5em;
+            font-family: Verdana, Geneva, sans-serif;
+            text-align: center;
         }
 
         select {
@@ -71,148 +59,144 @@
                 width: 200px;
                 display: inline-block;
             }
-
     </style>
 
 </head>
 <body>
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/jqueryUI")
-<div class="navbar navbar-default navbar-fixed-top">
-    <div class="container">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            @Html.ActionLink("Viva Fund", "Index", "Home", new {area = ""}, new {@class = "navbar-brand"})
-        </div>
-        <div class="navbar-collapse collapse">
-            <ul class="nav navbar-nav">
-                <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                <li>@Html.ActionLink("Projects", "Index", "Projects")</li>
-                <li>@Html.ActionLink("About", "About", "Home")</li>
-                <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-            </ul>
-            @Html.Partial("_LoginPartial")
+    <div class="navbar navbar-default navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @Html.ActionLink("Viva Fund", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink("Projects", "Index", "Projects")</li>
+                </ul>
+                @Html.Partial("_LoginPartial")
+            </div>
         </div>
     </div>
-</div>
-<div class="container body-content">
-    @RenderBody()
-    <hr/>
-    <footer>
-        <p>&copy; @DateTime.Now.Year - Vive Fund - 1st Coding School</p>
-    </footer>
-</div>
-<script type="text/javascript">
-    $("btn").button();
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - Viva Fund - 1st Coding School - Viva Team 3</p>
+        </footer>
+    </div>
+    <script type="text/javascript">
+        $("btn").button();
 
-    $("#accordion").accordion();
+        $("#accordion").accordion();
 
-    var availableTags = [
-        "ActionScript",
-        "AppleScript",
-        "Asp",
-        "BASIC",
-        "C",
-        "C++",
-        "Clojure",
-        "COBOL",
-        "ColdFusion",
-        "Erlang",
-        "Fortran",
-        "Groovy",
-        "Haskell",
-        "Java",
-        "JavaScript",
-        "Lisp",
-        "Perl",
-        "PHP",
-        "Python",
-        "Ruby",
-        "Scala",
-        "Scheme"
-    ];
-    $("#autocomplete")
-        .autocomplete({
-            source: availableTags
-        });
+        var availableTags = [
+            "ActionScript",
+            "AppleScript",
+            "Asp",
+            "BASIC",
+            "C",
+            "C++",
+            "Clojure",
+            "COBOL",
+            "ColdFusion",
+            "Erlang",
+            "Fortran",
+            "Groovy",
+            "Haskell",
+            "Java",
+            "JavaScript",
+            "Lisp",
+            "Perl",
+            "PHP",
+            "Python",
+            "Ruby",
+            "Scala",
+            "Scheme"
+        ];
+        $("#autocomplete")
+            .autocomplete({
+                source: availableTags
+            });
 
-    
-    $("#button-icon")
-        .button({
-            icon: "ui-icon-gear",
-            showLabel: false
-        });
-    $("#radioset").buttonset();
-    $("#controlgroup").controlgroup();
-    $("#tabs").tabs();
-    $("#dialog")
-        .dialog({
-            autoOpen: false,
-            width: 400,
-            buttons: [
-                {
-                    text: "Ok",
-                    click: function() {
-                        $(this).dialog("close");
+
+        $("#button-icon")
+            .button({
+                icon: "ui-icon-gear",
+                showLabel: false
+            });
+        $("#radioset").buttonset();
+        $("#controlgroup").controlgroup();
+        $("#tabs").tabs();
+        $("#dialog")
+            .dialog({
+                autoOpen: false,
+                width: 400,
+                buttons: [
+                    {
+                        text: "Ok",
+                        click: function () {
+                            $(this).dialog("close");
+                        }
+                    },
+                    {
+                        text: "Cancel",
+                        click: function () {
+                            $(this).dialog("close");
+                        }
                     }
+                ]
+            });
+
+        // Link to open the dialog
+        $("#dialog-link")
+            .click(function (event) {
+                $("#dialog").dialog("open");
+                event.preventDefault();
+            });
+
+        $("#datepicker")
+            .datepicker({
+                inline: true
+            });
+
+        $("#slider")
+            .slider({
+                range: true,
+                values: [17, 67]
+            });
+
+        $("#progressbar")
+            .progressbar({
+                value: 90
+            });
+
+        $("#spinner").spinner();
+
+        $("#menu").menu();
+
+        $("#tooltip").tooltip();
+
+        $("#selectmenu").selectmenu();
+
+        // Hover states on the static widgets
+        $("#dialog-link, #icons li")
+            .hover(
+                function () {
+                    $(this).addClass("ui-state-hover");
                 },
-                {
-                    text: "Cancel",
-                    click: function() {
-                        $(this).dialog("close");
-                    }
+                function () {
+                    $(this).removeClass("ui-state-hover");
                 }
-            ]
-        });
-
-    // Link to open the dialog
-    $("#dialog-link")
-        .click(function(event) {
-            $("#dialog").dialog("open");
-            event.preventDefault();
-        });
-
-    $("#datepicker")
-        .datepicker({
-            inline: true
-        });
-
-    $("#slider")
-        .slider({
-            range: true,
-            values: [17, 67]
-        });
-
-    $("#progressbar")
-        .progressbar({
-            value: 90
-        });
-
-    $("#spinner").spinner();
-
-    $("#menu").menu();
-
-    $("#tooltip").tooltip();
-
-    $("#selectmenu").selectmenu();
-
-    // Hover states on the static widgets
-    $("#dialog-link, #icons li")
-        .hover(
-            function() {
-                $(this).addClass("ui-state-hover");
-            },
-            function() {
-                $(this).removeClass("ui-state-hover");
-            }
-        );
-</script>
-@Scripts.Render("~/bundles/bootstrap")
-@RenderSection("scripts", required: false)
+            );
+    </script>
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
 
 </body>
 </html>

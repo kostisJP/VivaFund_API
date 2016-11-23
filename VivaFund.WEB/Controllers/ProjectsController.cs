@@ -49,7 +49,7 @@ namespace VivaFund.WEB.Controllers
         {
             var client = new HttpClient();
 
-            var response = client.GetAsync("http://localhost:51041/api/project/all").Result;
+            var response = client.GetAsync("http://localhost:51041/api/project/" + id).Result;
             var rep = await response.Content.ReadAsStringAsync();
             if (response.Content != null)
             {
@@ -70,6 +70,7 @@ namespace VivaFund.WEB.Controllers
         }
 
         // GET: Projects/Create
+        [Authorize]
         public async Task<ActionResult> Create()
         {
             var client = new HttpClient();
@@ -144,11 +145,11 @@ namespace VivaFund.WEB.Controllers
             var contact = JsonConvert.DeserializeObject<Project>(response.ToString());
             if (response.IsSuccessStatusCode)
             {
-                return View();
+                return View(contact);
             }
             else
             {
-                return View();
+                return View(contact);
             }
         }
 
