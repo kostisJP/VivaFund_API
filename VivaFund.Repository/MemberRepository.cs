@@ -14,14 +14,10 @@ namespace VivaFund.Repository
     public class MemberRepository : IMemberRepository
     {
         private readonly ApplicationDbContext _context;
+
         public MemberRepository(ApplicationDbContext context)
         {
             _context = context;
-        }
-
-        public MemberRepository()
-        {
-            _context = new ApplicationDbContext();
         }
 
         public Member GetMemberById(int id)

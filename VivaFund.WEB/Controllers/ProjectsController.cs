@@ -13,64 +13,44 @@ using System.Web.Script.Serialization;
 using Newtonsoft.Json;
 using VivaFund.DomainModels;
 using VivaFund.WEB.Models;
+using VivaFund.ServicesInterfaces;
+using VivaFund.Services;
 
 namespace VivaFund.WEB.Controllers
 {
     public class ProjectsController : Controller
     {
+        private readonly IProjectService _projectService;
+
+        public ProjectsController(IProjectService projectService)
+        {
+            _projectService = projectService;
+        }
 
         // GET: Projects
-        public async Task<ActionResult> Index()
+        public ActionResult Index()
         {
-            var client = new HttpClient();
+            var projects = _projectService.GetAllProjects();
 
-            var response = client.GetAsync("http://localhost:51041/api/project/all").Result;
-            var rep = await response.Content.ReadAsStringAsync();
-            if (response.Content != null)
-            {
-                var contact = JsonConvert.DeserializeObject<List<Project>>(rep);
-                if (response.IsSuccessStatusCode)
-                {
-                    return View(contact.ToList());
-                }
-                else
-                {
-                    return View();
-                }
-            }
-            else
-            {
-                return View();
-            }
+            if (projects != null)
+                return View(projects);
+
+            return RedirectToAction("Error", "Home");
+
         }
 
         // GET: Projects/Details/5
-        public async Task<ActionResult> Details(int? id)
+        public ActionResult Details(int id)
         {
-            var client = new HttpClient();
+            var project = _projectService.GetProjectById(id);
 
-            var response = client.GetAsync("http://localhost:51041/api/project/" + id).Result;
-            var rep = await response.Content.ReadAsStringAsync();
-            if (response.Content != null)
-            {
-                var contact = JsonConvert.DeserializeObject<Project>(rep);
-                if (response.IsSuccessStatusCode)
-                {
-                    return View(contact);
-                }
-                else
-                {
-                    return View();
-                }
-            }
-            else
-            {
-                return View();
-            }
+            if (project != null)
+                return View(project);
+
+            return RedirectToAction("Error", "Home");
         }
 
         // GET: Projects/Create
-        [Authorize]
         public async Task<ActionResult> Create()
         {
             var client = new HttpClient();
@@ -110,47 +90,35 @@ namespace VivaFund.WEB.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "ProjectId,MemberId,ProjectCategoryId,TitleEn,TitleEl,SubtitleEn,SubtitleEl,BodyEn,BodyEl,Goal,Views,Completed,InsertedDate,UpdatedDate,IsActive")] Project project)
+        public ActionResult Create(Project project)
         {
-            var client = new HttpClient();
+            _projectService.SetProject(project);
 
-            var response = client.PostAsync("http://localhost:51041/api/project/save", new StringContent(new JavaScriptSerializer().Serialize(project), Encoding.UTF8, "application/json")).Result;
-            var rep = await response.Content.ReadAsStringAsync();
-            if (response.IsSuccessStatusCode)
-            {
-                return RedirectToAction("Index", "Projects");
-            }
-            else
-            {
-                return RedirectToAction("Index", "Projects");
-            }
-            //if (ModelState.IsValid)
+            return View(project);
+
+            //var client = new HttpClient();
+
+            //var response = client.PostAsync("http://localhost:51041/api/project/save", new StringContent(new JavaScriptSerializer().Serialize(project), Encoding.UTF8, "application/json")).Result;
+            //var rep = await response.Content.ReadAsStringAsync();
+            //if (response.IsSuccessStatusCode)
             //{
-            //    db.Projects.Add(project);
-            //    await db.SaveChangesAsync();
-            //    return RedirectToAction("Index");
+            //    return RedirectToAction("Index", "Projects");
             //}
-
-            //ViewBag.MemberId = new SelectList(db.Members, "MemberId", "FirstName", project.MemberId);
-            //ViewBag.ProjectCategoryId = new SelectList(db.ProjectCategories, "ProjectCategoryId", "CategoryName", project.ProjectCategoryId);
-            //return View(project);
+            //else
+            //{
+            //    return RedirectToAction("Index", "Projects");
+            //}
         }
 
         // GET: Projects/Edit/5
-        public async Task<ActionResult> Edit(int? id)
+        public ActionResult Edit(int id)
         {
-            var client = new HttpClient();
+            var project = _projectService.GetProjectById(id);
 
-            var response = client.GetAsync("http://localhost:51041/api/project/" + id).Result;
-            var contact = JsonConvert.DeserializeObject<Project>(response.ToString());
-            if (response.IsSuccessStatusCode)
-            {
-                return View(contact);
-            }
-            else
-            {
-                return View(contact);
-            }
+            if (project == null)
+                RedirectToAction("Error", "Home");
+
+            return View(project);           
         }
 
         // POST: Projects/Edit/5
@@ -158,20 +126,11 @@ namespace VivaFund.WEB.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "ProjectId,MemberId,ProjectCategoryId,TitleEn,TitleEl,SubtitleEn,SubtitleEl,BodyEn,BodyEl,Goal,Views,Completed,InsertedDate,UpdatedDate,IsActive")] Project project)
+        public ActionResult Edit(Project project)
         {
-            var client = new HttpClient();
+            _projectService.SetProject(project);
 
-            var response = client.PostAsync("http://localhost:51041/api/project/save", new StringContent(new JavaScriptSerializer().Serialize(project), Encoding.UTF8, "application/json")).Result;
-            var contact = JsonConvert.DeserializeObject<Project>(response.ToString());
-            if (response.IsSuccessStatusCode)
-            {
-                return View();
-            }
-            else
-            {
-                return View();
-            }
+            return View();
         }
 
         // GET: Projects/Delete/5

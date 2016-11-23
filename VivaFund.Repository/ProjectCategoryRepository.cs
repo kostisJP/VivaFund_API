@@ -20,11 +20,6 @@ namespace VivaFund.Repository
             _context = context;
         }
 
-        public ProjectCategoryRepository()
-        {
-            _context = new ApplicationDbContext();
-        }
-
         public IEnumerable<ProjectCategory> GetAllProjectCategories()
         {
 

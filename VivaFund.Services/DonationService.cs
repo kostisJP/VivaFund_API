@@ -21,24 +21,46 @@ namespace VivaFund.Services
 
         public IEnumerable<Donation> GetAllDonations()
         {
-            var allDonations = _donationRepo.GetAllDonations();
-            return allDonations;
+            try
+            {
+                var allDonations = _donationRepo.GetAllDonations();
+
+                return allDonations;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
             
         }
 
       
         public IEnumerable<Donation> GetAllDonationsByMemberId(int id)
         {
-            var donation = _donationRepo.GetAllDonationByMemberId(id);
+            try
+            {
+                var donation = _donationRepo.GetAllDonationByMemberId(id);
 
-            return donation;
+                return donation;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
         }
 
         public Donation GetDonationById(int id)
         {
-            var donation = _donationRepo.GetDonationById(id);
+            try
+            {
+                var donation = _donationRepo.GetDonationById(id);
 
-            return donation;
+                return donation;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
         }
 
         public void SetDonation(Donation donation)

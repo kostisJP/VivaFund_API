@@ -17,17 +17,20 @@ namespace VivaFund.Services
         {
             _memberRepo = memberRepo;
         }
+
         public IEnumerable<Member> GetAllMembers()
         {
             var allUsers = _memberRepo.GetAllMembers();
             return allUsers;
         }
+
         public Member GetMemberById(int id)
         {
             var member = _memberRepo.GetMemberById(id);
 
             return member;
         }     
+
         public void SetMember(Member member)
         {
             _memberRepo.InsertOrUpdateMember(member);

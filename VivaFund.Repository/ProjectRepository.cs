@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
+using System.Data.Entity.Migrations;
 using System.Data.Entity.Validation;
 using System.Linq;
 using System.Text;
@@ -14,11 +15,6 @@ namespace VivaFund.Repository
     public class ProjectRepository : IProjectRepository
     {
         private readonly ApplicationDbContext _context;
-
-        public ProjectRepository()
-        {
-            _context = new ApplicationDbContext();
-        }
 
         public ProjectRepository(ApplicationDbContext context)
         {
@@ -52,111 +48,54 @@ namespace VivaFund.Repository
                 }
             }
         }
-      
+
 
         public Project GetProjectById(int id)
         {
-            try
-            {
-                var project = _context.Projects
-                    .Include(x => x.Member)
-                    .Include(x => x.ProjectCategory)
-                    .Single(u => u.ProjectId == id);
+            var project = _context.Projects.Single(u => u.ProjectId == id);
 
-                return project;
-            }
-            catch (Exception ex)
-            {
-                throw new Exception($"Exception: {ex.Message} - InnerException: {ex.InnerException}");
-            }
-
+            return project;
         }
 
         public IEnumerable<Project> GetAllProjects()
         {
-            try
-            {
-                var project = _context.Projects
-                    .Include(x => x.Member)
-                    .Include(x => x.ProjectCategory)
-                    .ToList();
+            var project = _context.Projects
+                .Include(x => x.Member)
+                .Include(x => x.ProjectCategory)
+                .ToList();
 
-                return project;
-            }
-            catch (Exception ex)
-            {
-                throw new Exception($"Exception: {ex.Message} - InnerException: {ex.InnerException}");
-            }
-
+            return project;
         }
 
         public IEnumerable<Project> GetProjectsByCategory(int categoryId)
         {
-            try
-            {
-                var project = _context.Projects.Where(u => u.ProjectCategoryId == categoryId).ToList();
+            var project = _context.Projects.Where(u => u.ProjectCategoryId == categoryId).ToList();
 
-                return project;
-            }
-            catch (Exception ex)
-            {
-                throw new Exception($"Exception: {ex.Message} - InnerException: {ex.InnerException}");
-            }
+            return project;
         }
 
         public IEnumerable<Project> GetProjectsByMember(int memberId)
         {
-            try
-            {
-                var project = _context.Projects.Where(u => u.MemberId == memberId).ToList();
+            var project = _context.Projects.Where(u => u.MemberId == memberId).ToList();
 
-                return project;
-            }
-            catch (Exception ex)
-            {
-                throw new Exception($"Exception: {ex.Message} - InnerException: {ex.InnerException}");
-            }
+            return project;
         }
         public void InsertOrUpdateProject(Project project)
         {
-            try
-            {
-                project.UpdatedDate = DateTime.Now;
-                if (_context.Projects.Find(project.ProjectId) == null)
-                {
-                    _context.Projects.Add(project);
 
-                    //_context.Entry(member).State = EntityState.Added;
-                }
-                else
-                {
-                    _context.Entry(project).State = EntityState.Modified;
-                }
-                _context.SaveChanges();
-            }
-            catch (DbEntityValidationException ex)
-            {
-                foreach (DbEntityValidationResult item in ex.EntityValidationErrors)
-                {
-                    // Get entry
+            project.UpdatedDate = DateTime.Now;
+            //if (_context.Projects.Find(project.ProjectId) == null)
+            //{
+            //    _context.Projects.Add(project);
 
-                    DbEntityEntry entry = item.Entry;
-                    string entityTypeName = entry.Entity.GetType().Name;
-
-                    // Display or log error messages
-
-                    foreach (DbValidationError subItem in item.ValidationErrors)
-                    {
-                        string message = string.Format("Error '{0}' occurred in {1} at {2}",
-                            subItem.ErrorMessage, entityTypeName, subItem.PropertyName);
-                        Console.WriteLine(message);
-                    }
-                }
-            }
+            //    //_context.Entry(member).State = EntityState.Added;
+            //}
+            //else
+            //{
+            //    _context.Entry(project).State = EntityState.Modified;
+            //}
+            _context.Set<Project>().AddOrUpdate(project);
+            _context.SaveChanges();
         }
-     
-        
-      
-       
     }
 }

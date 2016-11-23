@@ -97,6 +97,18 @@
       <HintPath>..\packages\CommonServiceLocator.1.3\lib\portable-net4+sl5+netcore45+wpa81+wp8\Microsoft.Practices.ServiceLocation.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="StructureMap, Version=3.1.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\structuremap.3.1.1.134\lib\net40\StructureMap.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="StructureMap.Net4, Version=3.1.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\structuremap.3.1.1.134\lib\net40\StructureMap.Net4.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="StructureMap.Web, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\structuremap.web.3.1.0.133\lib\net40\StructureMap.Web.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -225,13 +237,18 @@
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="App_Start\StructuremapMvc.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\DonationsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
-    <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Controllers\ProjectCategoriesController.cs" />
     <Compile Include="Controllers\ProjectsController.cs" />
+    <Compile Include="DependencyResolution\ControllerConvention.cs" />
+    <Compile Include="DependencyResolution\DefaultRegistry.cs" />
+    <Compile Include="DependencyResolution\IoC.cs" />
+    <Compile Include="DependencyResolution\StructureMapDependencyScope.cs" />
+    <Compile Include="DependencyResolution\StructureMapScopeModule.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -344,6 +361,7 @@
     <Content Include="Views\Donations\Index.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\Member.cshtml" />
     <Content Include="Views\Shared\_ProjectPartial.cshtml" />
+    <Content Include="Views\Home\Error.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -358,9 +376,25 @@
     <None Include="Project_Readme.html" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\VivaFund.Interfaces\VivaFund.Interfaces.csproj">
+      <Project>{8F8CB693-E95D-46E9-BA80-98E0C2F6BC62}</Project>
+      <Name>VivaFund.Interfaces</Name>
+    </ProjectReference>
     <ProjectReference Include="..\VivaFund.Models\VivaFund.DomainModels.csproj">
       <Project>{50ae3636-3de8-4f27-a495-f872a1556b0f}</Project>
       <Name>VivaFund.DomainModels</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\VivaFund.Repository\VivaFund.Repositories.csproj">
+      <Project>{CF812369-19D5-4C9C-9E83-437B55D6F30F}</Project>
+      <Name>VivaFund.Repositories</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\VivaFund.ServicesInterfaces\VivaFund.ServicesInterfaces.csproj">
+      <Project>{ACB49569-9306-4255-8053-9195967C820E}</Project>
+      <Name>VivaFund.ServicesInterfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\VivaFund.Services\VivaFund.Services.csproj">
+      <Project>{87804F20-9431-4AC8-9FE7-E395391AF464}</Project>
+      <Name>VivaFund.Services</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
