@@ -10,7 +10,7 @@ namespace VivaFund.ServicesInterfaces
     public interface IMemberService
     {
         IEnumerable<Member> GetAllMembers();
-        Member GetMemberById(int id);
+        Member GetMemberById(string id);
         void SetMember(Member member);
     }
 }

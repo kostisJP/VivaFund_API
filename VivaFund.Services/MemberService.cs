@@ -24,7 +24,7 @@ namespace VivaFund.Services
             return allUsers;
         }
 
-        public Member GetMemberById(int id)
+        public Member GetMemberById(string id)
         {
             var member = _memberRepo.GetMemberById(id);
 

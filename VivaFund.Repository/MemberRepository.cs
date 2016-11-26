@@ -20,9 +20,9 @@ namespace VivaFund.Repository
             _context = context;
         }
 
-        public Member GetMemberById(int id)
+        public Member GetMemberById(string id)
         {
-            var member = _context.Members.Single(u => u.MemberId == id);
+            var member = _context.Members.Single(u => u.AspNetUserId == id);
             return member;
         }
         public IEnumerable<Member> GetAllMembers()

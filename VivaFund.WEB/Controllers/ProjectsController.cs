@@ -6,10 +6,14 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Net;
 using System.Net.Http;
+using System.Security.Claims;
 using System.Text;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
+using Facebook;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
 using Newtonsoft.Json;
 using VivaFund.DomainModels;
 using VivaFund.WEB.Models;
@@ -21,10 +25,12 @@ namespace VivaFund.WEB.Controllers
     public class ProjectsController : Controller
     {
         private readonly IProjectService _projectService;
+        private readonly IMemberService _memberService;
 
-        public ProjectsController(IProjectService projectService)
+        public ProjectsController(IProjectService projectService, IMemberService memberService)
         {
             _projectService = projectService;
+            _memberService = memberService;
         }
 
         // GET: Projects
@@ -50,37 +56,80 @@ namespace VivaFund.WEB.Controllers
             return RedirectToAction("Error", "Home");
         }
 
+        private ApplicationUserManager _userManager;
+
+        public ApplicationUserManager UserManager
+        {
+            get
+            {
+                return _userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+            }
+            private set
+            {
+                _userManager = value;
+            }
+        }
+
+        public string GetUserId()
+        {
+            var userEmail = "";
+            var identity = ClaimsPrincipal.Current.FindFirst("urn:facebook:name");
+            if (identity != null)
+            {
+                var accessToken = ClaimsPrincipal.Current.FindFirst("FacebookAccessToken").Value;
+                var fb = new FacebookClient(accessToken);
+                var myInfo = fb.Get<FBUser>("/me?fields=email,first_name,last_name,gender");
+                userEmail = myInfo.email;
+
+            }
+
+            Claim msftType = ClaimsPrincipal.Current.FindFirst("preferred_username");
+            if (msftType != null)
+            {
+                var accessToken = ClaimsPrincipal.Current.FindFirst("nonce").Value;
+                userEmail = ClaimsPrincipal.Current.FindFirst("preferred_username").Value;
+            }
+            var user = UserManager.FindByEmail(userEmail);
+            return user?.Id ?? null;
+        }
+
         // GET: Projects/Create
+        [Authorize]
         public async Task<ActionResult> Create()
         {
             var client = new HttpClient();
-            Project item = new Project();
-            var response = client.GetAsync("http://localhost:51041/api/member/all").Result;
-            var rep = await response.Content.ReadAsStringAsync();
-            if (response.Content != null)
-            {
-                var members = JsonConvert.DeserializeObject<List<Member>>(rep);
-                if (response.IsSuccessStatusCode)
-                {
-                    ViewBag.MemberId = new SelectList(members, "MemberId", "AspNetUserId");
-                    var response2 = client.GetAsync("http://localhost:51041/api/category/all").Result;
-                    var rep2 = await response2.Content.ReadAsStringAsync();
-                    if (response2.Content != null)
-                    {
-                        var projects = JsonConvert.DeserializeObject<List<ProjectCategory>>(rep2);
-                        if (response.IsSuccessStatusCode)
-                        {
-                            ViewBag.ProjectCategoryId = new SelectList(projects, "ProjectCategoryId", "CategoryName");
-                        }
-                        return View(item);
-                    }
+            var item = new Project {Member = _memberService.GetMemberById(GetUserId())};
+            item.MemberId = item.Member.MemberId;
 
-                    return View(item);
-                }
-                else
+            //members.Select(x =>
+            //new SelectListItem
+            //{
+            //    Text = x.MemberId.ToString(),
+            //    Value = x.AspNetUserId.ToString()
+            //});
+
+            var response2 = client.GetAsync("http://localhost:51041/api/category/all").Result;
+            var rep2 = await response2.Content.ReadAsStringAsync();
+            if (response2.Content != null)
+            {
+                var projects = JsonConvert.DeserializeObject<List<ProjectCategory>>(rep2);
+                if (response2.IsSuccessStatusCode)
                 {
-                    return View(item);
+                    var ins = new List<SelectListItem>();
+                    ins.Add(new SelectListItem { Text = "Select ...", Value = "Select", Selected = true });
+                    ins.AddRange(projects.Select(
+                            x =>
+                                new SelectListItem
+                                {
+                                    Text = x.CategoryName,
+                                    Value = x.ProjectCategoryId.ToString(),
+                                    Selected = false
+                                }));
+
+                    ViewBag.ProjectCategoryId = ins;
+
                 }
+                return View(item);
             }
             return View(item);
         }
@@ -94,7 +143,7 @@ namespace VivaFund.WEB.Controllers
         {
             _projectService.SetProject(project);
 
-            return View(project);
+            return RedirectToAction("Index", "Projects");
 
             //var client = new HttpClient();
 
@@ -118,7 +167,7 @@ namespace VivaFund.WEB.Controllers
             if (project == null)
                 RedirectToAction("Error", "Home");
 
-            return View(project);           
+            return View(project);
         }
 
         // POST: Projects/Edit/5

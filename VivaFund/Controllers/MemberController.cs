@@ -37,7 +37,7 @@ namespace VivaFund.Controllers
 
         [HttpGet]
         [Route("{id}")]
-        public Member GetMemberById(int id)
+        public Member GetMemberById(string id)
         {
             var member = _memberService.GetMemberById(id);
 

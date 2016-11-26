@@ -9,7 +9,7 @@ namespace VivaFund.Interfaces
 {
     public interface IMemberRepository
     {
-        Member GetMemberById(int id);
+        Member GetMemberById(string id);
         IEnumerable<Member> GetAllMembers();
         Member GetMemberByToken(Guid token);
         void InsertOrUpdateMember(Member user);
