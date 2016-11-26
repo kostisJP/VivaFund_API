@@ -52,7 +52,7 @@ namespace VivaFund.Repository
 
         public Project GetProjectById(int id)
         {
-            var project = _context.Projects.Single(u => u.ProjectId == id);
+            var project = _context.Projects.Include(x => x.ProjectCategory).Include(x=>x.Member).Single(u => u.ProjectId == id);
 
             return project;
         }
@@ -84,17 +84,17 @@ namespace VivaFund.Repository
         {
 
             project.UpdatedDate = DateTime.Now;
-            if (_context.Projects.Find(project.ProjectId) == null)
-            {
-                _context.Projects.Add(project);
+            //if (_context.Projects.Find(project.ProjectId) == null)
+            //{
+            //    _context.Projects.Add(project);
 
-                //_context.Entry(member).State = EntityState.Added;
-            }
-            else
-            {
-                _context.Entry(project).State = EntityState.Modified;
-            }
-            //_context.Set<Project>().AddOrUpdate(project);
+            //    //_context.Entry(member).State = EntityState.Added;
+            //}
+            //else
+            //{
+            //    _context.Entry(project).State = EntityState.Modified;
+            //}
+            _context.Set<Project>().AddOrUpdate(project);
             _context.SaveChanges();
         }
     }
