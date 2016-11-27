@@ -9,6 +9,6 @@ namespace VivaFund.DomainModels
 
         public DateTime UpdatedDate { get; set; } = DateTime.Now;
 
-        public bool IsActive { get; set; }
+        public bool IsActive { get; set; } = true;
     }
 }
