@@ -9,13 +9,13 @@
     int randNumber = r.Next(100);
     string progressid = "progressbar" + Model.ProjectId;
 }
-<div style="height: 30px; width: 200px; text-align: center; background-color: oldlace">
+@*<div style="height: 30px; width: 200px; text-align: center; background-color: oldlace">
     @Html.DisplayFor(model => model.TitleEn)
 </div>
 <table>
     <tr style="height: 100px;">
         <td style="width: 100px;">
-            <img src="@imagePath" alt="Sample Image" width="100px" height="100px" />
+            <img src="@imagePath" alt="Sample Image"  />
         </td>
         <td style="width: 100px; vertical-align: text-top;">
             @Html.DisplayFor(model => model.SubtitleEn)
@@ -29,4 +29,23 @@
 </script>
 <div style="height: 50px; width: 200px;">
     @Html.DisplayFor(model => model.BodyEn)
+</div>*@
+
+<div id="browse" class="content-section-a" style="border-top: 4px">
+    <div class="container">
+            <div class=" wow fadeInDown text-center">
+                @*<img class="rotate" src="~/Content/Images/Project.png" alt="Generic placeholder image">*@
+                <h3>@Html.DisplayFor(model => model.TitleEn)</h3>
+                <p class="lead">@Html.DisplayFor(model => model.SubtitleEn)</p>
+                <div id="@progressid"></div>
+                <script type="text/javascript">
+                 $("#@Html.Raw(progressid)")
+                         .progressbar({ value: @Html.Raw(randNumber.ToString()) });
+                </script>
+                <div>
+                    @Html.DisplayFor(model => model.BodyEn)
+                </div><!-- <p><a class="btn btn-embossed btn-primary view" role="button">View Details</a></p> -->
+            </div><!-- /.col-lg-4 -->
+      
+    </div>
 </div>
