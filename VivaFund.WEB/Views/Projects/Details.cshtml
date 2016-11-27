@@ -4,19 +4,16 @@
     ViewBag.Title = "Details";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
-<h2>Details</h2>
-
 <div>
-    <h4>Project</h4>
+    <h4>@Html.DisplayFor(model => model.TitleEn)</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.Member.FirstName)
+            @Html.DisplayNameFor(model => model.Member.LastName)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Member.FirstName)
+            @Html.DisplayFor(model => model.Member)
         </dd>
 
         <dt>

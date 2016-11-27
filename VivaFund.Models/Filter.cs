@@ -11,11 +11,11 @@ namespace VivaFund.DomainModels
     public class Filter : BaseModel
     {
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        //[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int FilterId { get; set; }
 
         [Required]
-        public int FilterType { get; set; }
+        public string FilterType { get; set; }
 
         [Required]
         [MaxLength(50)]

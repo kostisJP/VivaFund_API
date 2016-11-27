@@ -1,0 +1,32 @@
+﻿@model VivaFund.DomainModels.Project
+@{  var imagePath = "";
+    //if (Request["photoChoice"] != null)
+    //{
+    imagePath = @"Content\Images\Project.png";
+    //+ Request["photoChoice"];
+    //}
+    Random r = new Random();
+    int randNumber = r.Next(100);
+    string progressid = "progressbar" + Model.ProjectId;
+}
+<div style="height: 30px; width: 200px; text-align: center; background-color: oldlace">
+    @Html.DisplayFor(model => model.TitleEn)
+</div>
+<table>
+    <tr style="height: 100px;">
+        <td style="width: 100px;">
+            <img src="@imagePath" alt="Sample Image" width="100px" height="100px" />
+        </td>
+        <td style="width: 100px; vertical-align: text-top;">
+            @Html.DisplayFor(model => model.SubtitleEn)
+        </td>
+    </tr>
+</table>
+<div id="@progressid"></div>
+<script type="text/javascript">
+    $("#@Html.Raw(progressid)")
+        .progressbar({ value: @Html.Raw(randNumber.ToString()) });
+</script>
+<div style="height: 50px; width: 200px;">
+    @Html.DisplayFor(model => model.BodyEn)
+</div>

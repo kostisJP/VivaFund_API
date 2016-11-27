@@ -11,7 +11,7 @@ namespace VivaFund.DomainModels
     public class Comment : BaseModel
     {
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        //[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int CommentID { get; set; }
 
         public int MemberId { get; set; }

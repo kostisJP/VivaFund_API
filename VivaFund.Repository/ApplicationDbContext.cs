@@ -13,7 +13,6 @@ namespace VivaFund.Repository
     public class ApplicationDbContext : DbContext
 
     {
-        public DbSet<User> Users { get; set; }
         public DbSet<Member> Members { get; set; }
         public DbSet<ProjectCategory> ProjectCategories { get; set; }
         public DbSet<ProjectMedia> ProjectMedia { get; set; }

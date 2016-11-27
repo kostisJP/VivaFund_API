@@ -1,149 +1,134 @@
-﻿@model VivaFund.DomainModels.Project
+﻿
+    @model VivaFund.DomainModels.Project
 
-@{
-    ViewBag.Title = "Create";
-    Layout = "~/Views/Shared/_Layout.cshtml";
-}
+    @{
+        ViewBag.Title = "Create";
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    }
 
-<h2>Create</h2>
+    <h2 align="center">Create a Project</h2>
 
 
-@using (Html.BeginForm()) 
-{
-    @Html.AntiForgeryToken()
-    
-    <div class="form-horizontal">
-        <h4>Project</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.LabelFor(model => model.MemberId, "MemberId", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("MemberId", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.MemberId, "", new { @class = "text-danger" })
-            </div>
-        </div>
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        <ul class="tab">
+            <li><a href="javascript:void(0)" class="tablinks" onclick="openEvent(event, 'Basic')" id="defaultOpen">Basic</a></li>
+            <li><a href="javascript:void(0)" class="tablinks" onclick="openEvent(event, 'Rewards')">Rewards</a></li>
+            <li><a href="javascript:void(0)" class="tablinks" onclick="openEvent(event, 'Preview')">Preview</a></li>
+        </ul>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.ProjectCategoryId, "ProjectCategoryId", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("ProjectCategoryId", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.ProjectCategoryId, "", new { @class = "text-danger" })
-            </div>
-        </div>
+        <div id="Basic" class="tabcontent">
+            <h3>Basic</h3>
+           
+            <div class="form-horizontal">
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.TitleEn, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.TitleEn, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.TitleEn, "", new { @class = "text-danger" })
-            </div>
-        </div>
+                <h4 class="text-center">Project </h4>
+                <hr />
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                @Html.HiddenFor(model => model.MemberId)
+                @Html.HiddenFor(model => model.Member)
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.TitleEl, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.TitleEl, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.TitleEl, "", new { @class = "text-danger" })
-            </div>
-        </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.TitleEn, "Give your Project a Title", htmlAttributes: new { @class = "control-label col-md-6" })
+                    <div class="col-md-6">
+                        @Html.EditorFor(model => model.TitleEn, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.TitleEn, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.ProjectCategoryId, "Choose a Category", htmlAttributes: new { @class = "control-label col-md-6 text-right" })
+                    <div class="col-md-6">
+                        @Html.DropDownList("ProjectCategoryId", (IEnumerable<SelectListItem>)ViewBag.ProjectCategoryId, htmlAttributes: new { @class = "form-control text-center" })
+                        @Html.ValidationMessageFor(model => model.ProjectCategoryId, "", new { @class = "text-danger" })
+                    </div>
+                </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.SubtitleEn, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.SubtitleEn, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.SubtitleEn, "", new { @class = "text-danger" })
-            </div>
-        </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Goal, "Set a Goal", htmlAttributes: new { @class = "control-label col-md-6 text-right" })
+                    <div class="col-md-6">
+                        @Html.EditorFor(model => model.Goal, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Goal, "", new { @class = "text-danger" })
+                    </div>
+                </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.SubtitleEl, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.SubtitleEl, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.SubtitleEl, "", new { @class = "text-danger" })
-            </div>
-        </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.BodyEn, "What's your project about?", htmlAttributes: new { @class = "control-label col-md-6 text-right" })
+                    <div class="col-md-6">
+                        @Html.TextAreaFor(model => model.BodyEn, new { @class = "form-control", style = "width: 100%; max-width: 100%;" })
+                        @Html.ValidationMessageFor(model => model.BodyEn, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                @*<div class="form-group">
+                        @Html.LabelFor(model => model.Goal, "Completed By", htmlAttributes: new { @class = "control-label col-md-6 text-right" })
+                        <div class="col-md-6">
+                            @Html.EditorFor(model => model.InsertedDate, new { htmlAttributes = new { @class = "form-control datepicker" } })
+                            @Html.ValidationMessageFor(model => model.InsertedDate, "", new { @class = "text-danger" })
+                        </div>
+                    </div>*@
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.BodyEn, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.BodyEn, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.BodyEn, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.BodyEl, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.BodyEl, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.BodyEl, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Goal, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Goal, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Goal, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Views, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Views, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Views, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Completed, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <div class="checkbox">
-                    @Html.EditorFor(model => model.Completed)
-                    @Html.ValidationMessageFor(model => model.Completed, "", new { @class = "text-danger" })
+                <div class="form-group ">
+                    <div class="text-center">
+                        <input type="submit" value="Create" class="btn btn-primary" />
+                    </div>
                 </div>
             </div>
         </div>
+            
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.InsertedDate, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.InsertedDate, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.InsertedDate, "", new { @class = "text-danger" })
-            </div>
+
+
+        <div id="Rewards" class="tabcontent">
+            <h3>Rewards</h3>
+          
         </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.UpdatedDate, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.UpdatedDate, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.UpdatedDate, "", new { @class = "text-danger" })
-            </div>
+        <div id="Preview" class="tabcontent">
+            <h3>Preview</h3>
+            <p>Tokyo is the capital of Japan.</p>
         </div>
+      
+    }
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.IsActive, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <div class="checkbox">
-                    @Html.EditorFor(model => model.IsActive)
-                    @Html.ValidationMessageFor(model => model.IsActive, "", new { @class = "text-danger" })
-                </div>
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
-            </div>
-        </div>
+    <div>
+        @Html.ActionLink("Back to List", "Index")
     </div>
-}
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
+    @section Scripts {
+        @Scripts.Render("~/bundles/jqueryval")
+<script type="text/javascript">
+    $(function () { // will trigger when the document is ready
+       $('.datepicker').datepicker(); //Initialise any date pickers
+    });
 
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}
+    function openDefault() {
+        // Get the element with id="defaultOpen" and click on it
+        document.getElementById("defaultOpen").click();
+    }
+
+    function openEvent(evt, cityName) {
+        // Declare all variables
+        var i, tabcontent, tablinks;
+
+        // Get all elements with class="tabcontent" and hide them
+        tabcontent = document.getElementsByClassName("tabcontent");
+        for (i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].style.display = "none";
+        }
+
+        // Get all elements with class="tablinks" and remove the class "active"
+        tablinks = document.getElementsByClassName("tablinks");
+        for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].className = tablinks[i].className.replace(" active", "");
+        }
+
+        // Show the current tab, and add an "active" class to the link that opened the tab
+        document.getElementById(cityName).style.display = "block";
+        evt.currentTarget.className += " active";
+
+
+
+    }
+</script>
+
+    }

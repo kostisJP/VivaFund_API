@@ -11,26 +11,22 @@ namespace VivaFund.DomainModels
     public class Member: BaseModel
     {
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        //[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int MemberId { get; set; }
 
-        public int UserID { get; set; }
-
-        public virtual User User { get; set; }
+        [Required]
+        [MaxLength(128)]
+        public string AspNetUserId { get; set; }
 
         public Guid Token { get; set; } = Guid.NewGuid();
 
-        [Required]
         [MaxLength(50)]
         public string FirstName { get; set; }
 
-        [Required]
         [MaxLength(50)]
         public string LastName { get; set; }
 
-       
-
-        public List<Project> Projects { get; set; }
+        public virtual IEnumerable<Project> Projects { get; set; }
 
 
         //[Required]

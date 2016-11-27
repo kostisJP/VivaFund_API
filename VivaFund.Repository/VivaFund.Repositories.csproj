@@ -50,18 +50,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApplicationDbContext.cs" />
-    <Compile Include="Migrations\201611121510018_InitialSetup.cs" />
-    <Compile Include="Migrations\201611121510018_InitialSetup.Designer.cs">
-      <DependentUpon>201611121510018_InitialSetup.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201611121529213_AddedTables.cs" />
-    <Compile Include="Migrations\201611121529213_AddedTables.Designer.cs">
-      <DependentUpon>201611121529213_AddedTables.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201611121534161_AddedTables1.cs" />
-    <Compile Include="Migrations\201611121534161_AddedTables1.Designer.cs">
-      <DependentUpon>201611121534161_AddedTables1.cs</DependentUpon>
-    </Compile>
+    <Compile Include="FilterRepository.cs" />
+    <Compile Include="ProjectCategoryRepository.cs" />
+    <Compile Include="MemberRepository.cs" />
+    <Compile Include="RewardRepository.cs" />
+    <Compile Include="DonationRepository.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="ProjectRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -79,17 +72,6 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201611121510018_InitialSetup.resx">
-      <DependentUpon>201611121510018_InitialSetup.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201611121529213_AddedTables.resx">
-      <DependentUpon>201611121529213_AddedTables.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201611121534161_AddedTables1.resx">
-      <DependentUpon>201611121534161_AddedTables1.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

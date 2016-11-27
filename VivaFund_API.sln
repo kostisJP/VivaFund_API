@@ -13,6 +13,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VivaFund.DomainModels", "Vi
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VivaFund.WEB", "VivaFund.WEB\VivaFund.WEB.csproj", "{01512421-473D-4C33-9C00-726354758A28}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VivaFund.Services", "VivaFund.Services\VivaFund.Services.csproj", "{87804F20-9431-4AC8-9FE7-E395391AF464}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VivaFund.ServicesInterfaces", "VivaFund.ServicesInterfaces\VivaFund.ServicesInterfaces.csproj", "{ACB49569-9306-4255-8053-9195967C820E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +43,14 @@ Global
 		{01512421-473D-4C33-9C00-726354758A28}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{01512421-473D-4C33-9C00-726354758A28}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{01512421-473D-4C33-9C00-726354758A28}.Release|Any CPU.Build.0 = Release|Any CPU
+		{87804F20-9431-4AC8-9FE7-E395391AF464}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{87804F20-9431-4AC8-9FE7-E395391AF464}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{87804F20-9431-4AC8-9FE7-E395391AF464}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{87804F20-9431-4AC8-9FE7-E395391AF464}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ACB49569-9306-4255-8053-9195967C820E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ACB49569-9306-4255-8053-9195967C820E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ACB49569-9306-4255-8053-9195967C820E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ACB49569-9306-4255-8053-9195967C820E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

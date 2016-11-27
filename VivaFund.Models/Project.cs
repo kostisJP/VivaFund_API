@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -6,12 +7,6 @@ namespace VivaFund.DomainModels
 {
     public class Project: BaseModel
     {
-        public Project()
-        {
-            ListOfProjectMedia = new List<ProjectMedia>();
-            //ProjectCategory = new ProjectCategory();
-            //Member = new Member();
-        }
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ProjectId { get; set; }
@@ -25,8 +20,6 @@ namespace VivaFund.DomainModels
         public int ProjectCategoryId { get; set; }
 
         public virtual ProjectCategory ProjectCategory { get; set; }
-
-        public List<ProjectMedia> ListOfProjectMedia { get; set; }
 
         public string TitleEn { get; set; }
 

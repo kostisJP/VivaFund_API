@@ -12,38 +12,33 @@ using StructureMap;
 using VivaFund.DomainModels;
 using VivaFund.Interfaces;
 using VivaFund.Repository;
+using VivaFund.ServicesInterfaces;
 
 namespace VivaFund.Controllers
 {
     [RoutePrefix("api/donation")]
     public class DonationsController : ApiController
     {
-        private readonly IProjectRepository _userRepo;
+        private readonly IDonationService _donationService;
 
-        public DonationsController()
+        public DonationsController(IDonationService donationService)
         {
-            _userRepo = ObjectFactory.GetInstance<IProjectRepository>();
-        }
-
-        public DonationsController(IProjectRepository userRepo)
-        {
-            _userRepo = userRepo;
+            _donationService = donationService;
         }
 
         [HttpGet]
         [Route("all")]
         public IEnumerable<Donation> GetAllDonations()
         {
-            var allDonations = _userRepo.GetAllDonations();
+            var allDonations = _donationService.GetAllDonations();
             return allDonations;
-            //return new StringContent(allUsers.ToString(), System.Text.Encoding.UTF8, "application/json");
         }
 
         [HttpGet]
         [Route("member/{id}")]
         public IEnumerable<Donation> GetDonationById(int id)
         {
-            var donation = _userRepo.GetAllDonationByMember(id);
+            var donation = _donationService.GetAllDonationsByMemberId(id);
 
             return donation;
         }
@@ -52,7 +47,7 @@ namespace VivaFund.Controllers
         [Route("save")]
         public Donation SetDonation(Donation donation)
         {
-             _userRepo.InsertOrUpdateDonation(donation);
+             _donationService.SetDonation(donation);
 
             return donation;
         }

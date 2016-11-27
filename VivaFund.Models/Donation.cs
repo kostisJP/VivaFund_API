@@ -11,7 +11,7 @@ namespace VivaFund.DomainModels
     public class Donation : BaseModel
     {
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        //[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int DonationID { get; set; }
 
         public int MemberId { get; set; }

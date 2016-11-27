@@ -12,49 +12,54 @@ using StructureMap;
 using VivaFund.DomainModels;
 using VivaFund.Interfaces;
 using VivaFund.Repository;
+using VivaFund.ServicesInterfaces;
 
 namespace VivaFund.Controllers
 {
     [RoutePrefix("api/project")]
     public class ProjectsController : ApiController
     {
-        private readonly IProjectRepository _userRepo;
+        private readonly IProjectService _projectService;
 
-        public ProjectsController()
-        {
-            _userRepo = ObjectFactory.GetInstance<IProjectRepository>();
-        }
+    
 
-        public ProjectsController(IProjectRepository userRepo)
+        public ProjectsController(IProjectService projectService)
         {
-            _userRepo = userRepo;
+            _projectService = projectService;
         }
 
         [HttpGet]
         [Route("all")]
-        public IEnumerable<Project> GetAllCategories()
+        public IEnumerable<Project> GetAllProjects()
         {
-            var allUsers = _userRepo.GetAllProjects();
-            return allUsers;
-            //return new StringContent(allUsers.ToString(), System.Text.Encoding.UTF8, "application/json");
-        }
+            var projects = _projectService.GetAllProjects();
 
+            return projects;
+        }
+        [HttpGet]
+        [Route("Category/{id}")]
+        public IEnumerable<Project> GetAllProjectsByCategory(int id)
+        {
+            var projects = _projectService.GetAllProjects().Where(u=>u.ProjectCategoryId==id);
+
+            return projects;
+        }
         [HttpGet]
         [Route("{id}")]
-        public Project GetUserById(int id)
+        public Project GetProjectById(int id)
         {
-            var user = _userRepo.GetProjectById(id);
+            var project = _projectService.GetProjectById(id);
 
-            return user;
+            return project;
         }
 
         [HttpPost]
         [Route("save")]
-        public Project SetCategory(Project user)
+        public Project SetProject(Project project)
         {
-             _userRepo.InsertOrUpdateProject(user);
+             _projectService.SetProject(project);
 
-            return user;
+            return project;
         }
     }
 }
