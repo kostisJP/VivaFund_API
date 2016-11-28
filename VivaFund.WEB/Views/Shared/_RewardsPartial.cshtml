@@ -1,0 +1,27 @@
+﻿@model VivaFund.DomainModels.Reward
+
+<div class="form-horizontal">
+
+    <h4 class="text-center">Rewards </h4>
+    <hr />
+    <div class="form-group">
+        <label class="control-label col-md-6 text-right">Reward Title</label>
+        <div class="col-md-6">
+            @Html.LabelFor(model => model.RewardDescription, "What's the reward about?", htmlAttributes: new { @class = "control-label col-md-6 text-right",@placeholder = "Enter Reward Name" }) />
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-md-6 text-right">Value</label>
+        <div class="col-md-6">
+            @Html.LabelFor(model => model.Value, "Value", htmlAttributes: new { @class = "control-label col-md-6 text-right", @placeholder = "enter Value" })  />
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.RewardDescription, "What's the reward about?", htmlAttributes: new { @class = "control-label col-md-6 text-right" })
+        <div class="col-md-6">
+            @Html.TextAreaFor(model => model.RewardDescription, new { @class = "form-control", style = "width: 100%; max-width: 100%;" })
+            @Html.ValidationMessageFor(model => model.RewardDescription, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    
+</div>

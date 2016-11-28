@@ -74,7 +74,7 @@ namespace VivaFund.WEB.Controllers
             return user.Id;
         }
 
-        //
+       
         // GET: /Manage/Index
         public async Task<ActionResult> Index(ManageMessageId? message)
         {

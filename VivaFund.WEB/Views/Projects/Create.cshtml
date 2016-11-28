@@ -17,7 +17,7 @@
             <li><a href="javascript:void(0)" class="tablinks" onclick="openEvent(event, 'Rewards')">Rewards</a></li>
             <li><a href="javascript:void(0)" class="tablinks" onclick="openEvent(event, 'Preview')">Preview</a></li>
         </ul>*@
-    <div class="container">
+    <div class="container ">
 
         <div class="stepwizard col-md-offset-3">
             <div class="stepwizard-row setup-panel">
@@ -99,9 +99,10 @@
                 </div>
             </div>
             <div class="row setup-content" id="step-2">
-                <div >
+                <div>
                     <div class="col-md-10">
                         <h3> Step 2</h3>
+                        @*@Html.Partial("_RewardsPartial")*@
                         <div class="form-horizontal">
 
                             <h4 class="text-center">Rewards </h4>
@@ -127,7 +128,7 @@
                             </div>
                             <button class="btn btn-primary nextBtn btn-lg pull-right" type="button">Next</button>
                         </div>
-                     </div>
+                    </div>
                 </div>
             </div>
             <div class="row setup-content" id="step-3">
@@ -141,13 +142,19 @@
         </form>
 
     </div>
+    <br />
+    <br />
+
 }
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
+
+
+<div class="content-section-c text-center height='20'">
+    <button class="btn btn-embossed btn-primary" onclick="location.href='@Url.Action("Index")'">Back to List</button>
+
+    @*@Html.ActionLink("Create New", "Create", new { @class="btn btn-embossed btn-primary", @role="button"},null)*@
+
 </div>
-
-
 
 @*@section scripts {
             @scripts.Render("~/bundles/jqueryval")

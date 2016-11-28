@@ -9,43 +9,45 @@
     int randNumber = r.Next(100);
     string progressid = "progressbar" + Model.ProjectId;
 }
-@*<div style="height: 30px; width: 200px; text-align: center; background-color: oldlace">
-    @Html.DisplayFor(model => model.TitleEn)
-</div>
-<table>
-    <tr style="height: 100px;">
-        <td style="width: 100px;">
-            <img src="@imagePath" alt="Sample Image"  />
-        </td>
-        <td style="width: 100px; vertical-align: text-top;">
-            @Html.DisplayFor(model => model.SubtitleEn)
-        </td>
-    </tr>
-</table>
-<div id="@progressid"></div>
-<script type="text/javascript">
-    $("#@Html.Raw(progressid)")
-        .progressbar({ value: @Html.Raw(randNumber.ToString()) });
-</script>
-<div style="height: 50px; width: 200px;">
-    @Html.DisplayFor(model => model.BodyEn)
-</div>*@
 
-<div id="browse" class="content-section-a" style="border-top: 4px">
+<div class="content-section-a">
+
     <div class="container">
-            <div class=" wow fadeInDown text-center">
-                @*<img class="rotate" src="~/Content/Images/Project.png" alt="Generic placeholder image">*@
-                <h3>@Html.DisplayFor(model => model.TitleEn)</h3>
-                <p class="lead">@Html.DisplayFor(model => model.SubtitleEn)</p>
-                <div id="@progressid"></div>
-                <script type="text/javascript">
-                 $("#@Html.Raw(progressid)")
-                         .progressbar({ value: @Html.Raw(randNumber.ToString()) });
-                </script>
-                <div>
+        <div class="row">
+            <div class="col-sm-6 wow fadeInLeftBig">
+                <div id="owl-demo-1" class="owl-carousel">
+                    <a href="~/Content/img/iphone.png" class="image-link">
+                        <div class="item">
+                            <img class="img-responsive img-rounded" src="~/Content/img/iphone.png" alt="">
+                        </div>
+                    </a>
+                    <a href="~/Content/img/iphone.png" class="image-link">
+                        <div class="item">
+                            <img class="img-responsive img-rounded" src="~/Content/img/iphone.png" alt="">
+                        </div>
+                    </a>
+                    <a href="~/Content/img/iphone.png" class="image-link">
+                        <div class="item">
+                            <img class="img-responsive img-rounded" src="~/Content/img/iphone.png" alt="">
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+            <div class="col-sm-6 wow fadeInRightBig" data-animation-delay="200">
+                <h3 class="section-heading">@Html.DisplayFor(model => model.TitleEn)</h3>
+                <div class="sub-title lead3">@Html.DisplayFor(model => model.SubtitleEn)</div>
+                <p class="lead">
                     @Html.DisplayFor(model => model.BodyEn)
-                </div><!-- <p><a class="btn btn-embossed btn-primary view" role="button">View Details</a></p> -->
-            </div><!-- /.col-lg-4 -->
-      
+                </p>
+
+                <p>
+                    <button class="btn btn-embossed btn-primary" onclick="location.href='@Url.Action("Details", new { id = Model.ProjectId })'"> View Details</button>
+                    <button class="btn btn-embossed btn-info" onclick="location.href='@Url.Action("Edit", new { id = Model.ProjectId })'"> Edit</button>
+                    <button class="btn btn-embossed btn-embossed " onclick="location.href='@Url.Action("Delete", new { id = Model.ProjectId })'"> Delete</button>
+                </p>
+            </div>
+        </div>
     </div>
 </div>
+
