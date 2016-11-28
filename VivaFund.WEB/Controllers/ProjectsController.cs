@@ -170,22 +170,12 @@ namespace VivaFund.WEB.Controllers
         {
             project.Member = _memberService.GetMemberById(GetUserId());
             project.MemberId = _memberService.GetMemberById(GetUserId()).MemberId;
+
             _projectService.SetProject(project);
+
 
             return RedirectToAction("Index", "Projects");
 
-            //var client = new HttpClient();
-
-            //var response = client.PostAsync("http://localhost:51041/api/project/save", new StringContent(new JavaScriptSerializer().Serialize(project), Encoding.UTF8, "application/json")).Result;
-            //var rep = await response.Content.ReadAsStringAsync();
-            //if (response.IsSuccessStatusCode)
-            //{
-            //    return RedirectToAction("Index", "Projects");
-            //}
-            //else
-            //{
-            //    return RedirectToAction("Index", "Projects");
-            //}
         }
 
         // GET: Projects/Edit/5
