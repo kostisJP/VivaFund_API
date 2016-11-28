@@ -3,8 +3,14 @@
 @{
     ViewBag.Title = "Details";
     Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var IsLoggedIn = false;
+
+    IsLoggedIn = User.Identity.IsAuthenticated;
+
+    var DonationsSum = Model.Donations.Sum(d => d.DonatedAmount);
 }
-<div>
+@*<div>
     <h4>@Html.DisplayFor(model => model.TitleEn)</h4>
     <hr />
     <dl class="dl-horizontal">
@@ -125,4 +131,40 @@
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.ProjectId }) |
     @Html.ActionLink("Back to List", "Index")
-</p>
+</p>*@
+<section>
+    <div class="row">
+        <div class="col-lg-12">
+            <h1>@Model.TitleEl</h1>
+            <hr />
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-4">
+            <img class="img-responsive" src="http://wallpapersonthe.net/wallpapers/b/5120x4096/5120x4096-underwater_beaches_sea_bottom_bottom_of_the_sea_ocean-10752.jpg" width="400" />
+        </div>
+        <div class="col-md-8">
+            <h3>@Model.SubtitleEl</h3>
+            
+            <div>@Model.Donations.Select(u=>u.MemberId).Distinct().Count() Backer(s)
+
+            <div class="text-right">$@DonationsSum of $@Model.Goal</div>
+
+            <div class="progress">
+                <div class="progress-bar progress-bar-striped" role="progressbar" aria-valuenow="@DonationsSum"
+                     aria-valuemin="0" aria-valuemax="@Model.Goal" style="width:@((double)DonationsSum / Model.Goal * 100)%">
+                    <span class="sr-only">@DonationsSum% Complete</span>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+</section>
+<section>
+    <div class="row">
+        <div class="col-md-12 col-lg-offset-4">
+            @Model.BodyEl
+        </div>
+    </div>
+</section>

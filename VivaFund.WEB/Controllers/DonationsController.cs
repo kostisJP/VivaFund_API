@@ -122,7 +122,7 @@ namespace VivaFund.WEB.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async System.Threading.Tasks.Task<ActionResult> Create([Bind(Include = "DonationID,MemberId,ProjectId,DonatedAmount,RewardId,InsertedDate,UpdatedDate,IsActive")] Donation donation)
+        public async System.Threading.Tasks.Task<ActionResult> Create([Bind(Include = "DonationId,MemberId,ProjectId,DonatedAmount,RewardId,InsertedDate,UpdatedDate,IsActive")] Donation donation)
         {
             var client = new HttpClient();
 

@@ -9,7 +9,7 @@ namespace VivaFund.Repository.Migrations
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = true;
+            AutomaticMigrationsEnabled = false;
         }
 
         protected override void Seed(VivaFund.Repository.ApplicationDbContext context)

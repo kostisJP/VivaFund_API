@@ -16,6 +16,8 @@ namespace VivaFund.ServicesInterfaces
 
         Donation GetDonationById(int id);
 
+        Donation GetDonationByProjectId(int id);
+
         void SetDonation(Donation donation);
     }
 }

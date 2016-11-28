@@ -13,6 +13,8 @@ namespace VivaFund.WEB
         {
             ConfigureAuth(app);
             System.Web.Helpers.AntiForgeryConfig.UniqueClaimTypeIdentifier = ClaimTypes.NameIdentifier;
+
+            
         }
     }
 }

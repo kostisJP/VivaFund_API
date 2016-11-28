@@ -1,47 +1,30 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using VivaFund.DomainModels;
 
-namespace VivaFund.DomainModels
+namespace VivaFund.ViewModels
 {
-    public class Project: BaseModel
+    public class ProjectViewModel
     {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ProjectId { get; set; }
-
-        [Required]
         public int MemberId { get; set; }
-
-        public virtual Member Member { get; set; }
-
-        [Required]
+        public Member Member { get; set; }
         public int ProjectCategoryId { get; set; }
-
-        public virtual ProjectCategory ProjectCategory { get; set; }
-
+        public ProjectCategory ProjectCategory { get; set; }
         public string TitleEn { get; set; }
-
         public string TitleEl { get; set; }
-
         public string SubtitleEn { get; set; }
-
         public string SubtitleEl { get; set; }
-
         public string BodyEn { get; set; }
-
         public string BodyEl { get; set; }
-
-        [Required]
         public int Goal { get; set; }
-
         public int Views { get; set; }
-
         public bool Completed { get; set; }
 
-        public ICollection<Donation> Donations { get; set; }
-
-
+        //IEnumerable<Donation> Donations;
+        //IEnumerable<ProjectMedia> Media;
     }
 }
