@@ -10,144 +10,22 @@
 
     var DonationsSum = Model.Donations.Sum(d => d.DonatedAmount);
 }
-@*<div>
-    <h4>@Html.DisplayFor(model => model.TitleEn)</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Member.LastName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Member)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.ProjectCategory.CategoryName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.ProjectCategory.CategoryName)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.TitleEn)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.TitleEn)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.TitleEl)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.TitleEl)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.SubtitleEn)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.SubtitleEn)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.SubtitleEl)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.SubtitleEl)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.BodyEn)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.BodyEn)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.BodyEl)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.BodyEl)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Goal)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Goal)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Views)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Views)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Completed)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Completed)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.InsertedDate)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.InsertedDate)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.UpdatedDate)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.UpdatedDate)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.IsActive)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.IsActive)
-        </dd>
-
-    </dl>
-</div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.ProjectId }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>*@
 <section>
     <div class="row">
         <div class="col-lg-12">
-            <h1>@Model.TitleEl</h1>
+            <h1>@Model.TitleEn</h1>
             <hr />
         </div>
     </div>
 
     <div class="row">
-        <div class="col-md-4">
-            <img class="img-responsive" src="http://wallpapersonthe.net/wallpapers/b/5120x4096/5120x4096-underwater_beaches_sea_bottom_bottom_of_the_sea_ocean-10752.jpg" width="400" />
+        <div class="col-md-7">
+            <iframe width="640" height="360" src="@Model.ProjectMedia.Select(v=>v.URL).FirstOrDefault()" frameborder="0" allowfullscreen></iframe>
         </div>
-        <div class="col-md-8">
-            <h3>@Model.SubtitleEl</h3>
-            
-            <div>@Model.Donations.Select(u=>u.MemberId).Distinct().Count() Backer(s)
+        <div class="col-md-5">
+            <h3>@Model.SubtitleEn</h3>
+
+            <div>@Model.Donations.Select(u => u.MemberId).Distinct().Count() Backer(s)</div>
 
             <div class="text-right">$@DonationsSum of $@Model.Goal</div>
 
@@ -157,14 +35,62 @@
                     <span class="sr-only">@DonationsSum% Complete</span>
                 </div>
             </div>
-            
+            <div>
+                <form id="myform" action="/checkout" method="post">
+                    <button type="button"
+                            data-vp-publickey="XAs}{V"
+                            data-vp-baseurl="https://demo.vivapayments.com"
+                            data-vp-lang="el"
+                            data-vp-amount="1000"
+                            data-vp-description="My product"></button>
+                </form>
+            </div>
+
         </div>
     </div>
 </section>
-<section>
+<section style="margin-top: 30px;">
     <div class="row">
-        <div class="col-md-12 col-lg-offset-4">
-            @Model.BodyEl
+
+        @* Main Section *@
+        <div class="col-md-8">
+            <div id="tabs">
+                <ul class="nav nav-tabs">
+                    <li><a href="#projectBody">Description</a></li>
+                    <li><a href="#projectUpdates">Updates</a></li>
+                    <li><a href="#projectComments">Comments</a></li>
+                </ul>
+
+                <div id="projectBody">@Model.BodyEn</div>
+                <div id="projectUpdates">No updates yet.</div>
+                <div id="projectComments">No comments yet. Why don't you write something?</div>
+            </div>
+        </div>
+
+        @* Rewards Column *@
+        <div class="col-md-4">
+            @if (Model.Rewards.Count() > 0)
+            {
+                foreach (var reward in Model.Rewards)
+                {
+                    <div>
+                        <h3>@reward.Title</h3>
+                        Donate $@reward.Value or more<br />
+                        @reward.RewardDescription<hr />
+                    </div>
+                }
+            }
+
         </div>
     </div>
+
 </section>
+
+@section Scripts
+{
+    <script src="https://code.jquery.com/jquery-1.11.2.min.js"></script>
+    <script src="https://demo.vivapayments.com/web/checkout/js"></script>
+    <script>
+        $("#tabs").tabs();
+    </script>
+}

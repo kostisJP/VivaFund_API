@@ -67,6 +67,10 @@
     <Compile Include="Migrations\201611281940080_UpdateProjectModel2.Designer.cs">
       <DependentUpon>201611281940080_UpdateProjectModel2.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201611291802471_UpdatebaseModel.cs" />
+    <Compile Include="Migrations\201611291802471_UpdatebaseModel.Designer.cs">
+      <DependentUpon>201611291802471_UpdatebaseModel.cs</DependentUpon>
+    </Compile>
     <Compile Include="ProjectCategoryRepository.cs" />
     <Compile Include="MemberRepository.cs" />
     <Compile Include="RewardRepository.cs" />
@@ -101,6 +105,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201611281940080_UpdateProjectModel2.resx">
       <DependentUpon>201611281940080_UpdateProjectModel2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611291802471_UpdatebaseModel.resx">
+      <DependentUpon>201611291802471_UpdatebaseModel.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

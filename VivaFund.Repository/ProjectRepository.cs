@@ -55,6 +55,8 @@ namespace VivaFund.Repository
             var project = _context.Projects.Include(x => x.ProjectCategory)
                             .Include(x=>x.Member)
                             .Include(x=>x.Donations)
+                            .Include(x=>x.ProjectMedia)
+                            .Include(x=>x.Rewards)
                             .Single(u => u.ProjectId == id);
 
             return project;
