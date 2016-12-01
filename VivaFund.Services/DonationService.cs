@@ -63,6 +63,20 @@ namespace VivaFund.Services
             }
         }
 
+        public Donation GetDonationByProjectId(int id)
+        {
+            try
+            {
+                var donation = _donationRepo.GetDonationById(id);
+
+                return donation;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
         public void SetDonation(Donation donation)
         {
             _donationRepo.InsertOrUpdateDonation(donation);

@@ -11,6 +11,7 @@ namespace VivaFund.Interfaces
     {
         IEnumerable<Donation> GetAllDonations();
         Donation GetDonationById(int id);
+        Donation GetDonationByProjectId(int id);
         IEnumerable<Donation> GetAllDonationByProjectId(int projectId);
         IEnumerable<Donation> GetAllDonationByMemberId(int memberId);
         void InsertOrUpdateDonation(Donation donation);

@@ -18,8 +18,6 @@ namespace VivaFund.DomainModels
 
         [MaxLength(50)]
         [Required]
-        public string CategoryName { get; set; }
-
-       
+        public string CategoryName { get; set; }     
     }
 }

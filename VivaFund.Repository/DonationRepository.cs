@@ -32,7 +32,14 @@ namespace VivaFund.Repository
 
         public Donation GetDonationById(int id)
         {
-            var donation = _context.Donations.FirstOrDefault(u => u.DonationID == id);
+            var donation = _context.Donations.FirstOrDefault(u => u.DonationId == id);
+
+            return donation;
+        }
+
+        public Donation GetDonationByProjectId(int id)
+        {
+            var donation = _context.Donations.FirstOrDefault(u => u.ProjectId == id);
 
             return donation;
         }
@@ -59,7 +66,7 @@ namespace VivaFund.Repository
             try
             {
                 donation.UpdatedDate = DateTime.Now;
-                if (_context.Donations.Find(donation.DonationID) == null)
+                if (_context.Donations.Find(donation.DonationId) == null)
                 {
                     _context.Donations.Add(donation);
 

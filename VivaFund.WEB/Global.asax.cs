@@ -1,6 +1,8 @@
-﻿using System.Web.Mvc;
+﻿using AutoMapper;
+using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using VivaFund.WEB.App_Start;
 
 namespace VivaFund.WEB
 {
@@ -12,6 +14,8 @@ namespace VivaFund.WEB
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+            //AutoMapperConfig.RegisterMappings();
+            Mapper.Initialize(c => c.AddProfile<AutoMapperConfig>());
         }
     }
 }

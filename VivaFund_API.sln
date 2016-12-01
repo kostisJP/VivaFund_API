@@ -17,6 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VivaFund.Services", "VivaFu
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VivaFund.ServicesInterfaces", "VivaFund.ServicesInterfaces\VivaFund.ServicesInterfaces.csproj", "{ACB49569-9306-4255-8053-9195967C820E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VivaFund.ViewModels", "VivaFund.ViewModels\VivaFund.ViewModels.csproj", "{93E439FB-DE5C-4342-A35D-0FAE37C0E5B2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +53,10 @@ Global
 		{ACB49569-9306-4255-8053-9195967C820E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ACB49569-9306-4255-8053-9195967C820E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{ACB49569-9306-4255-8053-9195967C820E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{93E439FB-DE5C-4342-A35D-0FAE37C0E5B2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{93E439FB-DE5C-4342-A35D-0FAE37C0E5B2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{93E439FB-DE5C-4342-A35D-0FAE37C0E5B2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{93E439FB-DE5C-4342-A35D-0FAE37C0E5B2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

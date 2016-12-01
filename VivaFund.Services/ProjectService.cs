@@ -95,7 +95,7 @@ namespace VivaFund.Services
         public Project GetProjectById(int id)
         {
             try
-            {
+           {
                 var project = _projectRepository.GetProjectById(id);
 
                 return project;

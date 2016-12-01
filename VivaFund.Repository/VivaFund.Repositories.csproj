@@ -51,6 +51,26 @@
   <ItemGroup>
     <Compile Include="ApplicationDbContext.cs" />
     <Compile Include="FilterRepository.cs" />
+    <Compile Include="Migrations\201611281846045_InitialSetup.cs" />
+    <Compile Include="Migrations\201611281846045_InitialSetup.Designer.cs">
+      <DependentUpon>201611281846045_InitialSetup.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201611281852519_UpdateProjectModel.cs" />
+    <Compile Include="Migrations\201611281852519_UpdateProjectModel.Designer.cs">
+      <DependentUpon>201611281852519_UpdateProjectModel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201611281920453_UpdateProjectModel1.cs" />
+    <Compile Include="Migrations\201611281920453_UpdateProjectModel1.Designer.cs">
+      <DependentUpon>201611281920453_UpdateProjectModel1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201611281940080_UpdateProjectModel2.cs" />
+    <Compile Include="Migrations\201611281940080_UpdateProjectModel2.Designer.cs">
+      <DependentUpon>201611281940080_UpdateProjectModel2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201611291802471_UpdatebaseModel.cs" />
+    <Compile Include="Migrations\201611291802471_UpdatebaseModel.Designer.cs">
+      <DependentUpon>201611291802471_UpdatebaseModel.cs</DependentUpon>
+    </Compile>
     <Compile Include="ProjectCategoryRepository.cs" />
     <Compile Include="MemberRepository.cs" />
     <Compile Include="RewardRepository.cs" />
@@ -72,6 +92,23 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201611281846045_InitialSetup.resx">
+      <DependentUpon>201611281846045_InitialSetup.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611281852519_UpdateProjectModel.resx">
+      <DependentUpon>201611281852519_UpdateProjectModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611281920453_UpdateProjectModel1.resx">
+      <DependentUpon>201611281920453_UpdateProjectModel1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611281940080_UpdateProjectModel2.resx">
+      <DependentUpon>201611281940080_UpdateProjectModel2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611291802471_UpdatebaseModel.resx">
+      <DependentUpon>201611291802471_UpdatebaseModel.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

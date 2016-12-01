@@ -40,6 +40,10 @@ namespace VivaFund.DomainModels
 
         public bool Completed { get; set; }
 
-       
+        public ICollection<Donation> Donations { get; set; }
+        public ICollection<ProjectMedia> ProjectMedia { get; set; }
+        public ICollection<Reward> Rewards { get; set; }
+
+
     }
 }

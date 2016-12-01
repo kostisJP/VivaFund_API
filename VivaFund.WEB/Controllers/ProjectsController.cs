@@ -19,6 +19,8 @@ using VivaFund.DomainModels;
 using VivaFund.WEB.Models;
 using VivaFund.ServicesInterfaces;
 using VivaFund.Services;
+using VivaFund.ViewModels;
+using AutoMapper;
 
 namespace VivaFund.WEB.Controllers
 {
@@ -26,11 +28,15 @@ namespace VivaFund.WEB.Controllers
     {
         private readonly IProjectService _projectService;
         private readonly IMemberService _memberService;
+        private readonly IDonationService _donationService;
 
-        public ProjectsController(IProjectService projectService, IMemberService memberService)
+        public ProjectsController(IProjectService projectService, 
+            IMemberService memberService, 
+            IDonationService donationService)
         {
             _projectService = projectService;
             _memberService = memberService;
+            _donationService = donationService;
         }
 
         // GET: Projects
@@ -45,10 +51,22 @@ namespace VivaFund.WEB.Controllers
 
         }
 
+        //public ActionResult Details()
+        //{
+        //    return RedirectToAction("Error", "Home");
+        //}
+
         // GET: Projects/Details/5
-        public ActionResult Details(int id)
+        public ActionResult Details(int? id)
         {
-            var project = _projectService.GetProjectById(id);
+            var project = _projectService.GetProjectById(id??0);
+
+            var donations = _donationService.GetDonationByProjectId(id??0);
+
+            //var projectVM = new ProjectViewModel();
+
+            //projectVM = Mapper.Map<ProjectViewModel>(project);
+            //projectVM = Mapper.Map<ProjectViewModel>(donations);
 
             if (project != null)
                 return View(project);
@@ -107,7 +125,7 @@ namespace VivaFund.WEB.Controllers
         public async Task<ActionResult> Create()
         {
             var client = new HttpClient();
-            var item = new Project {Member = _memberService.GetMemberById(GetUserId())};
+            var item = new Project { Member = _memberService.GetMemberById(GetUserId()) };
             item.MemberId = item.Member.MemberId;
 
             //members.Select(x =>

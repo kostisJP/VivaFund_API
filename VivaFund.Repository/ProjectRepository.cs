@@ -52,7 +52,12 @@ namespace VivaFund.Repository
 
         public Project GetProjectById(int id)
         {
-            var project = _context.Projects.Include(x => x.ProjectCategory).Include(x=>x.Member).Single(u => u.ProjectId == id);
+            var project = _context.Projects.Include(x => x.ProjectCategory)
+                            .Include(x=>x.Member)
+                            .Include(x=>x.Donations)
+                            .Include(x=>x.ProjectMedia)
+                            .Include(x=>x.Rewards)
+                            .Single(u => u.ProjectId == id);
 
             return project;
         }
@@ -62,6 +67,7 @@ namespace VivaFund.Repository
             var project = _context.Projects
                 .Include(x => x.Member)
                 .Include(x => x.ProjectCategory)
+                //.Include(x => x.Donations)
                 .ToList();
 
             return project;

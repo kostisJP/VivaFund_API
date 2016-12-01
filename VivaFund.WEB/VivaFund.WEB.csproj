@@ -49,6 +49,10 @@
       <HintPath>..\packages\Autofac.4.0.0\lib\net451\Autofac.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="AutoMapper, Version=4.1.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.4.1.1\lib\net45\AutoMapper.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Facebook, Version=6.0.10.0, Culture=neutral, PublicKeyToken=58cb4f2111d1e6de, processorArchitecture=MSIL">
       <HintPath>..\packages\Facebook.7.0.6\lib\net45\Facebook.dll</HintPath>
       <Private>True</Private>
@@ -237,6 +241,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_Start\AutoMapperConfig.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\IdentityConfig.cs" />
@@ -556,6 +561,10 @@
     <ProjectReference Include="..\VivaFund.Services\VivaFund.Services.csproj">
       <Project>{87804F20-9431-4AC8-9FE7-E395391AF464}</Project>
       <Name>VivaFund.Services</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\VivaFund.ViewModels\VivaFund.ViewModels.csproj">
+      <Project>{93E439FB-DE5C-4342-A35D-0FAE37C0E5B2}</Project>
+      <Name>VivaFund.ViewModels</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
