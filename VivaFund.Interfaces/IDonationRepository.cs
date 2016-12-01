@@ -9,7 +9,7 @@ namespace VivaFund.Interfaces
 {
     public interface IDonationRepository
     {
-        IEnumerable<Donation> GetAllDonations();
+        IEnumerable<Donation> GetAllDonationsByProjectId(int id);
         Donation GetDonationById(int id);
         Donation GetDonationByProjectId(int id);
         IEnumerable<Donation> GetAllDonationByProjectId(int projectId);

@@ -28,9 +28,9 @@ namespace VivaFund.Controllers
 
         [HttpGet]
         [Route("all")]
-        public IEnumerable<Donation> GetAllDonations()
+        public IEnumerable<Donation> GetAllDonationsByProjectId(int id)
         {
-            var allDonations = _donationService.GetAllDonations();
+            var allDonations = _donationService.GetAllDonationsByProjectId(id);
             return allDonations;
         }
 

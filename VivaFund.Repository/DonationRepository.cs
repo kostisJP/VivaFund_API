@@ -20,10 +20,10 @@ namespace VivaFund.Repository
             _context = context;
         }
 
-        public IEnumerable<Donation> GetAllDonations()
+        public IEnumerable<Donation> GetAllDonationsByProjectId(int id)
         {
           
-                var donations = _context.Donations.ToList();
+                var donations = _context.Donations.Where(d => d.ProjectId == id).ToList();
 
                 return donations;
          
