@@ -10,9 +10,9 @@
     string progressid = "progressbar" + Model.ProjectId;
 }
 
-<div class="content-section-a">
+<div class="content-section-a" >
 
-    <div class="container">
+    <div class="container" >
         <div class="row">
             <div class="col-sm-6 wow fadeInLeftBig">
                 <div id="owl-demo-1" class="owl-carousel">
@@ -34,7 +34,7 @@
                 </div>
             </div>
 
-            <div class="col-sm-6 wow fadeInRightBig" data-animation-delay="200">
+            <div class="col-sm-6 wow fadeInRightBig" data-animation-delay="200" onclick="location.href='@Url.Action("Details", new { id = Model.ProjectId })'">
                 <h3 class="section-heading">@Html.DisplayFor(model => model.TitleEn)</h3>
                 <div class="sub-title lead3">@Html.DisplayFor(model => model.SubtitleEn)</div>
                 <p class="lead">
