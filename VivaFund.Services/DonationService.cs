@@ -19,11 +19,11 @@ namespace VivaFund.Services
             _donationRepo = donationRepo;
         }
 
-        public IEnumerable<Donation> GetAllDonations()
+        public IEnumerable<Donation> GetAllDonationsByProjectId(int id)
         {
             try
             {
-                var allDonations = _donationRepo.GetAllDonations();
+                var allDonations = _donationRepo.GetAllDonationsByProjectId(id);
 
                 return allDonations;
             }

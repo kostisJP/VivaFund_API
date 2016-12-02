@@ -61,12 +61,17 @@ namespace VivaFund.WEB.Controllers
         {
             var project = _projectService.GetProjectById(id??0);
 
-            var donations = _donationService.GetDonationByProjectId(id??0);
+            //var donations = _donationService.GetAllDonationsByProjectId(id??0).ToList();
 
             //var projectVM = new ProjectViewModel();
 
+            //if (donations != null)
+            //{
+            //    var don = Mapper.Map<IEnumerable<DonationViewModel>>(donations);
+            //    projectVM = Mapper.Map<IEnumerable<DonationViewModel> ,ProjectViewModel >(don);
+            //}
+
             //projectVM = Mapper.Map<ProjectViewModel>(project);
-            //projectVM = Mapper.Map<ProjectViewModel>(donations);
 
             if (project != null)
                 return View(project);

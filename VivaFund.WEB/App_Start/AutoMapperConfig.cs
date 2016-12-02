@@ -13,7 +13,8 @@ namespace VivaFund.WEB.App_Start
         public AutoMapperConfig()
         {
             Mapper.CreateMap<Project, ProjectViewModel>();
-            Mapper.CreateMap<Donation, ProjectViewModel>();
+            Mapper.CreateMap<Reward, RewardViewModel>();
+            Mapper.CreateMap<Donation, DonationViewModel>();
             //var config = new MapperConfiguration(cfg =>
             //{
             //    cfg.CreateMap<Project, ProjectViewModel>();

@@ -7,13 +7,11 @@ using VivaFund.DomainModels;
 
 namespace VivaFund.ViewModels
 {
-    public class ProjectViewModel
+    public class ProjectViewModel: DonationViewModel
     {
         public int ProjectId { get; set; }
         public int MemberId { get; set; }
-        public Member Member { get; set; }
         public int ProjectCategoryId { get; set; }
-        public ProjectCategory ProjectCategory { get; set; }
         public string TitleEn { get; set; }
         public string TitleEl { get; set; }
         public string SubtitleEn { get; set; }
@@ -24,7 +22,7 @@ namespace VivaFund.ViewModels
         public int Views { get; set; }
         public bool Completed { get; set; }
 
-        //IEnumerable<Donation> Donations;
+        IEnumerable<DonationViewModel> Donations;
         //IEnumerable<ProjectMedia> Media;
     }
 }

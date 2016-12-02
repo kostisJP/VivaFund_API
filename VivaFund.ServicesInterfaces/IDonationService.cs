@@ -9,7 +9,7 @@ namespace VivaFund.ServicesInterfaces
 {
     public interface IDonationService
     {
-        IEnumerable<Donation> GetAllDonations();
+        IEnumerable<Donation> GetAllDonationsByProjectId(int id);
 
 
         IEnumerable<Donation> GetAllDonationsByMemberId(int id);
