@@ -17,21 +17,18 @@
             <li><a href="javascript:void(0)" class="tablinks" onclick="openEvent(event, 'Preview')">Preview</a></li>
         </ul>*@
     <div class="container">
-
-        <div class="stepwizard col-md-offset-3">
-            <div class="stepwizard-row setup-panel">
-                <div class="stepwizard-step">
-                    <a href="#step-1" type="button" class="btn btn-primary btn-circle">1</a>
-                    <p>Step 1</p>
-                </div>
-                <div class="stepwizard-step">
-                    <a href="#step-2" type="button" class="btn btn-default btn-circle" disabled="disabled">2</a>
-                    <p>Step 2</p>
-                </div>
-                <div class="stepwizard-step">
-                    <a href="#step-3" type="button" class="btn btn-default btn-circle" disabled="disabled">3</a>
-                    <p>Step 3</p>
-                </div>
+        <div class="stepwizard-row setup-panel col-md-offset-5" style="display: inline-block; width:300px;">
+            <div class="stepwizard-step col-md-offset-1" style="display: inline-block;">
+                <a class="btn btn-circle btn-default " href="#step-1" type="button">1</a>
+                <p>Step 1</p>
+            </div>
+            <div class="stepwizard-step col-md-offset-1" style="display: inline-block;">
+                <a class="btn btn-default btn-circle btn-primary" href="#step-2" type="button">2</a>
+                <p>Step 2</p>
+            </div>
+            <div class="stepwizard-step col-md-offset-1" style="display: inline-block;">
+                <a disabled="disabled" class="btn btn-default btn-circle" href="#step-3" type="button">3</a>
+                <p>Step 3</p>
             </div>
         </div>
         <div class="row setup-content" id="step-1">
@@ -124,8 +121,6 @@
                             </div>
                         </div>
                         @Html.Button("Back To List", new {@class = "btn btn-primary btn-lg pull-left", @type = "button", @onclick = "location.href='/Projects'"})
-
-
 
                         @Html.Button("Next", new {@class = "btn btn-primary nextBtn btn-lg pull-right", @type = "button"})
                     </div>

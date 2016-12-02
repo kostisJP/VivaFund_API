@@ -106,6 +106,10 @@
       <HintPath>..\packages\CommonServiceLocator.1.3\lib\portable-net4+sl5+netcore45+wpa81+wp8\Microsoft.Practices.ServiceLocation.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="RestSharp, Version=105.2.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\RestSharp.105.2.3\lib\net452\RestSharp.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="StructureMap, Version=3.1.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\structuremap.3.1.1.134\lib\net40\StructureMap.dll</HintPath>
       <Private>True</Private>
@@ -351,6 +355,7 @@
     <Content Include="Content\img\icon\tweet.svg" />
     <Content Include="Content\img\icon\watch.svg" />
     <Content Include="Content\img\intro\banner-bg.jpg" />
+    <Content Include="Content\img\intro\bgViva.jpg" />
     <Content Include="Content\img\intro\intro-bg.jpg" />
     <Content Include="Content\img\intro\intro4.jpg" />
     <Content Include="Content\img\intro\intro5.jpg" />

@@ -11,6 +11,8 @@
     var DonationsSum = Model.Donations.Sum(d => d.DonatedAmount);
 }
 <section>
+    <br />
+    <br />
     <div class="row">
         <div class="container">
             <h1>@Model.TitleEn</h1>
@@ -37,14 +39,23 @@
                     </div>
                 </div>
                 <div>
-                    <form id="myform" action="/checkout" method="post">
+                    @using (Html.BeginForm("Checkout", "Projects", FormMethod.Post, new { enctype = "multipart/form-data" })) 
+                    { 
+                        @Html.HiddenFor(model => model.ProjectId)
+                        @Html.HiddenFor(model => model.MemberId)
                         <button type="button"
-                                data-vp-publickey="XAs}{V"
+                                data-vp-sourcecode="Default"
+                                data-vp-publickey="Ob/Mdq9m9azAOHhsX1m8FHOYYaa95hY+mPAqGuJAyAQ="
                                 data-vp-baseurl="https://demo.vivapayments.com"
                                 data-vp-lang="el"
                                 data-vp-amount="1000"
+                                data-vp-customeremail="customer@vivawallet.com"
+                                data-vp-customerfirstname="John"
+                                data-vp-customersurname="Smith"
+                                data-vp-merchantref="test merchant ref"
+                                data-vp-expandcard="true"
                                 data-vp-description="My product"></button>
-                    </form>
+                    }
                 </div>
 
             </div>

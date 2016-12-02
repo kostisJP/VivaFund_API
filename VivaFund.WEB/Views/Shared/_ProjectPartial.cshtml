@@ -5,17 +5,14 @@
     imagePath = @"Content\Images\Project.png";
     //+ Request["photoChoice"];
     //}
-    Random r = new Random();
-    int randNumber = r.Next(100);
     string progressid = "progressbar" + Model.ProjectId;
 }
 
-<div class="content-section-a" >
-
-    <div class="container" >
+<div class="content-section-a">
+    <div class="container">
         <div class="row">
             <div class="col-sm-6 wow fadeInLeftBig">
-                <div id="owl-demo-1" class="owl-carousel">
+                <div id="owl-demo-1" class="owl-carousel owl-demo">
                     <a href="~/Content/img/iphone.png" class="image-link">
                         <div class="item">
                             <img class="img-responsive img-rounded" src="~/Content/img/iphone.png" alt="">
@@ -34,17 +31,18 @@
                 </div>
             </div>
 
-            <div class="col-sm-6 wow fadeInRightBig" data-animation-delay="200" onclick="location.href='@Url.Action("Details", new { id = Model.ProjectId })'">
+            <div class="col-sm-6 wow fadeInRightBig" data-animation-delay="200" >
                 <h3 class="section-heading">@Html.DisplayFor(model => model.TitleEn)</h3>
-                <div class="sub-title lead3">@Html.DisplayFor(model => model.SubtitleEn)</div>
-                <p class="lead">
+                <div class="sub-title lead3" onclick="location.href='@Url.Action("Details", new { id = Model.ProjectId })'">@Html.DisplayFor(model => model.SubtitleEn)</div>
+                <p class="lead" onclick="location.href='@Url.Action("Details", new { id = Model.ProjectId })'">
                     @Html.DisplayFor(model => model.BodyEn)
                 </p>
 
                 <p>
-                    <button class="btn btn-embossed btn-primary" onclick="location.href='@Url.Action("Details", new { id = Model.ProjectId })'"> View Details</button>
-                    <button class="btn btn-embossed btn-info" onclick="location.href='@Url.Action("Edit", new { id = Model.ProjectId })'"> Edit</button>
-                    <button class="btn btn-embossed btn-embossed " onclick="location.href='@Url.Action("Delete", new { id = Model.ProjectId })'"> Delete</button>
+                    @Html.Button("Details", new { @class = "btn btn-primary", @type = "button", @onclick = "location.href='/Projects/Details/" + @Html.Raw(Model.ProjectId) + "'" })
+                    @Html.Button("Edit", new { @class = "btn btn-info", @type = "button", @onclick = "location.href='/Projects/Edit/" + @Html.Raw(Model.ProjectId) + "'" })
+                    @Html.Button("Delete", new { @class = "btn btn-embossed", @type = "button", @onclick = "location.href='/Projects/Delete/" + @Html.Raw(Model.ProjectId) + "'" })
+
                 </p>
             </div>
         </div>

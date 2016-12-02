@@ -89,4 +89,17 @@ namespace VivaFund.WEB
             return html.Button(innerHtml, attrs);
         }
     }
+    public class TransactionResult
+
+    {
+
+        public int ErrorCode { get; set; }
+
+        public string ErrorText { get; set; }
+
+        public decimal Amount { get; set; }
+
+        public Guid TransactionId { get; set; }
+
+    }
 }

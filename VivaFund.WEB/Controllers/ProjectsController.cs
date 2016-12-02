@@ -21,6 +21,8 @@ using VivaFund.ServicesInterfaces;
 using VivaFund.Services;
 using VivaFund.ViewModels;
 using AutoMapper;
+using RestSharp;
+using RestSharp.Authenticators;
 
 namespace VivaFund.WEB.Controllers
 {
@@ -30,8 +32,8 @@ namespace VivaFund.WEB.Controllers
         private readonly IMemberService _memberService;
         private readonly IDonationService _donationService;
 
-        public ProjectsController(IProjectService projectService, 
-            IMemberService memberService, 
+        public ProjectsController(IProjectService projectService,
+            IMemberService memberService,
             IDonationService donationService)
         {
             _projectService = projectService;
@@ -51,6 +53,18 @@ namespace VivaFund.WEB.Controllers
 
         }
 
+        // GET: Projects/Category/5
+        public ActionResult Category(int id)
+        {
+            var projects = _projectService.GetAllProjectsByCategory(id);
+
+            if (projects != null)
+                return View("Index", projects);
+
+            return RedirectToAction("Error", "Home");
+
+        }
+
         //public ActionResult Details()
         //{
         //    return RedirectToAction("Error", "Home");
@@ -59,7 +73,7 @@ namespace VivaFund.WEB.Controllers
         // GET: Projects/Details/5
         public ActionResult Details(int? id)
         {
-            var project = _projectService.GetProjectById(id??0);
+            var project = _projectService.GetProjectById(id ?? 0);
 
             var donations = _donationService.GetAllDonationsByProjectId(id ?? 0).ToList();
             var projectMedia = _projectService.GetProjectMediaByProjectId(id ?? 0).ToList();
@@ -211,6 +225,65 @@ namespace VivaFund.WEB.Controllers
             _projectService.SetProject(project);
 
             return View();
+        }
+
+
+        private const string merchantId = "6466348D-85B2-4CBC-978B-422C688D2D45";
+
+        private const string apiKey = "Y^!xL#";
+        [HttpPost]
+        //[ValidateAntiForgeryToken]
+        public async Task<ActionResult> Checkout(Project project)
+        {
+
+            var cl = new RestClient("https://demo.vivapayments.com/api/")
+            {
+
+                Authenticator = new HttpBasicAuthenticator(merchantId, apiKey)
+
+            };
+
+            var request = new RestRequest("transactions", Method.POST)
+            {
+
+                RequestFormat = DataFormat.Json
+
+            };
+
+
+            request.AddParameter("PaymentToken", Request.Form["vivaWalletToken"]);
+
+
+
+            var response = await cl.ExecuteTaskAsync<TransactionResult>(request);
+
+
+
+            if (response.Data != null)
+            {
+
+                Response.Write(response.Data.ErrorCode + "--" + response.Data.ErrorText);
+
+                if (response.StatusCode == System.Net.HttpStatusCode.OK)
+                {
+
+                }
+                Donation don = new Donation()
+                {
+                    ProjectId = project.ProjectId,
+                    DonatedAmount = Convert.ToInt32(response.Data.Amount),
+                    Member = _memberService.GetMemberById(GetUserId()),
+                    MemberId = _memberService.GetMemberById(GetUserId()).MemberId,
+                    IsActive = true,
+                    Reward = null
+                };
+                _donationService.SetDonation(don);
+                return Redirect(HttpContext.Request.UrlReferrer.AbsoluteUri);
+            }
+            else
+            {
+                return Redirect(HttpContext.Request.UrlReferrer.AbsoluteUri);
+            }
         }
 
         // GET: Projects/Delete/5

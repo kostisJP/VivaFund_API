@@ -70,8 +70,16 @@ namespace VivaFund.WEB.Controllers
                 var accessToken = ClaimsPrincipal.Current.FindFirst("nonce").Value;
                 userEmail = ClaimsPrincipal.Current.FindFirst("preferred_username").Value;
             }
+            Claim AspNetType = ClaimsPrincipal.Current.FindFirst("http://schemas.microsoft.com/accesscontrolservice/2010/07/claims/identityprovider");
+            if (AspNetType != null && AspNetType.Value == "ASP.NET Identity")
+            {
+                var user_ = UserManager.FindById(ClaimsPrincipal.Current.FindFirst("http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Value);
+                return user_?.Id ?? null;
+                //var accessToken = ClaimsPrincipal.Current.FindFirst("http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Value;
+                //userEmail = ClaimsPrincipal.Current.FindFirst("preferred_username").Value;
+            }
             var user = UserManager.FindByEmail(userEmail);
-            return user.Id;
+            return user?.Id ?? null;
         }
 
        

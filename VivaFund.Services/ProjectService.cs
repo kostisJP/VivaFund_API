@@ -32,7 +32,6 @@ namespace VivaFund.Services
             _donationRepository = donationRepository;
             _filterRepository = filterRepository;
             _rewardRepository = rewardRepository;
-            
         }
 
         #region PROJECTCATEGORY
@@ -90,7 +89,20 @@ namespace VivaFund.Services
             {
                 return null;
             }
-            
+        }
+
+        public IEnumerable<Project> GetAllProjectsByCategory(int categoryId)
+        {
+            try
+            {
+                var allProjects = _projectRepository.GetProjectsByCategory(categoryId);
+
+                return allProjects;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
         }
 
         public IEnumerable<ProjectMedia> GetProjectMediaByProjectId(int projectId)

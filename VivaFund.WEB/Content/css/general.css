@@ -83,19 +83,10 @@ margin: auto;
 
 /*own carousel */
 
-#owl-demo .item{
+.owl-demo .item{
   margin: 3px;
 }
-#owl-demo .item img{
-  display: block;
-  width: 100%;
-  height: auto;
-}
-
-#owl-demo-1 .item{
-  margin: 3px;
-}
-#owl-demo-1 .item img{
+.owl-demo .item img{
   display: block;
   width: 100%;
   height: auto;
@@ -136,8 +127,9 @@ filter: alpha(opacity=95) !important;
 
 /* Button */ 
 .mybutton_standard {
-	border: 1px solid #fff;
-	color: #fff;
+    background-color: #DCDAD3;
+	border: 1px solid #161515;
+	color: #161515;
 }
 
 .mybutton_cyano{
@@ -189,6 +181,7 @@ width: 50px;
 }
 
 .box-icon:hover {
+
 	background-color: #1abc9c;
 	color: #fff;
 }
@@ -245,8 +238,8 @@ color: #ECEBEB;
 	height: 100%; /* Full PAge */
 	padding-top: 50px; /* If you're making other pages, make sure there is 50px of padding to make sure the navbar doesn't overlap content! */
 	padding-bottom: 50px;
-	color: #f8f8f8;
-	background: url(../img/intro/intro5.jpg) no-repeat center center;
+	color: #fefefe;
+	background: url(../img/intro/bgViva.jpg) no-repeat center center;
 	background-size: cover;
 	text-align: center;
 }

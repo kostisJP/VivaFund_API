@@ -6,10 +6,7 @@
 }
 
 <div class="content-section-c text-center">
-      <button class="btn btn-embossed btn-primary" onclick="location.href='@Url.Action("Create")'"  >Create new Project</button>
-    
-        @*@Html.ActionLink("Create New", "Create", new { @class="btn btn-embossed btn-primary", @role="button"},null)*@
-    
+    @Html.Button("Create new Project", new { @class = "btn btn-embossed btn-primary", @type = "button", @onclick = "location.href='/Projects/Create'" })
 </div>
 
 <ul class="ProjectList">
@@ -19,10 +16,6 @@
 
             <div>
                 @Html.Partial("_ProjectPartial", item)
-           
-                @*@Html.ActionLink("Edit", "Edit", new { id = item.ProjectId }) |
-                @Html.ActionLink("Details", "Details", new { id = item.ProjectId }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.ProjectId })*@
             </div>
             <br />
         </li>
