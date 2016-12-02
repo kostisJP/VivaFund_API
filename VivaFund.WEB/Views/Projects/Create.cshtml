@@ -1,13 +1,12 @@
-﻿
-@model VivaFund.DomainModels.Project
+﻿@model VivaFund.DomainModels.Project
 
 @{
     ViewBag.Title = "Create";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
+<br />
+<br />
 <h2 align="center">Create a Project</h2>
-
 
 @using (Html.BeginForm())
 {
@@ -17,7 +16,7 @@
             <li><a href="javascript:void(0)" class="tablinks" onclick="openEvent(event, 'Rewards')">Rewards</a></li>
             <li><a href="javascript:void(0)" class="tablinks" onclick="openEvent(event, 'Preview')">Preview</a></li>
         </ul>*@
-    <div class="container ">
+    <div class="container">
 
         <div class="stepwizard col-md-offset-3">
             <div class="stepwizard-row setup-panel">
@@ -35,175 +34,121 @@
                 </div>
             </div>
         </div>
+        <div class="row setup-content" id="step-1">
+            <div>
+                <div class="col-md-10">
+                    <h3> Step 1</h3>
+                    <div class="form-horizontal">
 
-        <form role="form" action="" method="post">
-            <div class="row setup-content" id="step-1">
-                <div>
-                    <div class="col-md-10">
-                        <h3> Step 1</h3>
-                        <div class="form-horizontal">
+                        <h4 class="text-center">Basic </h4>
+                        <hr/>
+                        @Html.ValidationSummary(true, "", new {@class = "text-danger"})
+                        @Html.HiddenFor(model => model.MemberId)
+                        @Html.HiddenFor(model => model.Member)
 
-                            <h4 class="text-center">Basic </h4>
-                            <hr />
-                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                            @Html.HiddenFor(model => model.MemberId)
-                            @Html.HiddenFor(model => model.Member)
-
-                            <div class="form-group">
-                                @Html.LabelFor(model => model.TitleEn, "Give your Project a Title", htmlAttributes: new { @class = "control-label col-md-6" })
-                                <div class="col-md-6">
-                                    @Html.EditorFor(model => model.TitleEn, new { htmlAttributes = new { @class = "form-control", @type = "text", @placeholder = "Enter Title" } })
-                                    @Html.ValidationMessageFor(model => model.TitleEn, "", new { @class = "text-danger" })
-                                </div>
-
-                            </div>
-                            <div class="form-group">
-                                @Html.LabelFor(model => model.ProjectCategoryId, "Choose a Category", htmlAttributes: new { @class = "control-label col-md-6 text-right" })
-                                <div class="col-md-6">
-                                    @Html.DropDownList("ProjectCategoryId", (IEnumerable<SelectListItem>)ViewBag.ProjectCategoryId, htmlAttributes: new { @class = "form-control text-center" })
-                                    @Html.ValidationMessageFor(model => model.ProjectCategoryId, "", new { @class = "text-danger" })
-                                </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.TitleEn, "Give your Project a Title", htmlAttributes: new {@class = "control-label col-md-6"})
+                            <div class="col-md-6">
+                                @Html.EditorFor(model => model.TitleEn, new {htmlAttributes = new {@class = "form-control", @type = "text", @placeholder = "Enter Title"}})
+                                @Html.ValidationMessageFor(model => model.TitleEn, "", new {@class = "text-danger"})
                             </div>
 
-                            <div class="form-group">
-                                @Html.LabelFor(model => model.Goal, "Set a Goal", htmlAttributes: new { @class = "control-label col-md-6 text-right" })
-                                <div class="col-md-6">
-                                    @Html.EditorFor(model => model.Goal, new { htmlAttributes = new { @class = "form-control" } })
-                                    @Html.ValidationMessageFor(model => model.Goal, "", new { @class = "text-danger" })
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                @Html.LabelFor(model => model.BodyEn, "What's your project about?", htmlAttributes: new { @class = "control-label col-md-6 text-right" })
-                                <div class="col-md-6">
-                                    @Html.TextAreaFor(model => model.BodyEn, new { @class = "form-control", style = "width: 100%; max-width: 100%;" })
-                                    @Html.ValidationMessageFor(model => model.BodyEn, "", new { @class = "text-danger" })
-                                </div>
-                            </div>
-                            @*<div class="form-group">
-                                    @Html.LabelFor(model => model.Goal, "Completed By", htmlAttributes: new { @class = "control-label col-md-6 text-right" })
-                                    <div class="col-md-6">
-                                        @Html.EditorFor(model => model.InsertedDate, new { htmlAttributes = new { @class = "form-control datepicker" } })
-                                        @Html.ValidationMessageFor(model => model.InsertedDate, "", new { @class = "text-danger" })
-                                    </div>
-                                </div>*@
-
-                            <div class="form-group ">
-                                <div class="text-center">
-                                    <input type="submit" value="Create" class="btn btn-primary" />
-                                </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.ProjectCategoryId, "Choose a Category", htmlAttributes: new {@class = "control-label col-md-6 text-right"})
+                            <div class="col-md-6">
+                                @Html.DropDownList("ProjectCategoryId", (IEnumerable<SelectListItem>) ViewBag.ProjectCategoryId, htmlAttributes: new {@class = "form-control text-center"})
+                                @Html.ValidationMessageFor(model => model.ProjectCategoryId, "", new {@class = "text-danger"})
                             </div>
                         </div>
-                        <button class="btn btn-primary nextBtn btn-lg pull-right" type="button">Next</button>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Goal, "Set a Goal", htmlAttributes: new {@class = "control-label col-md-6 text-right"})
+                            <div class="col-md-6">
+                                @Html.EditorFor(model => model.Goal, new {htmlAttributes = new {@class = "form-control"}})
+                                @Html.ValidationMessageFor(model => model.Goal, "", new {@class = "text-danger"})
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.BodyEn, "What's your project about?", htmlAttributes: new {@class = "control-label col-md-6 text-right"})
+                            <div class="col-md-6">
+                                @Html.TextAreaFor(model => model.BodyEn, new {@class = "form-control", style = "width: 100%; max-width: 100%;"})
+                                @Html.ValidationMessageFor(model => model.BodyEn, "", new {@class = "text-danger"})
+                            </div>
+                        </div>
+                        @*<div class="form-group">
+                                @Html.LabelFor(model => model.Goal, "Completed By", htmlAttributes: new { @class = "control-label col-md-6 text-right" })
+                                <div class="col-md-6">
+                                    @Html.EditorFor(model => model.InsertedDate, new { htmlAttributes = new { @class = "form-control datepicker" } })
+                                    @Html.ValidationMessageFor(model => model.InsertedDate, "", new { @class = "text-danger" })
+                                </div>
+                            </div>*@
+
+
+                    </div>
+                    @Html.Button("Back To List", new {@class = "btn btn-primary btn-lg pull-left", @type = "button", @onclick = "location.href='/Projects'"})
+
+
+
+                    @Html.Button("Next", new {@class = "btn btn-primary nextBtn btn-lg pull-right", @type = "button"})
+                </div>
+            </div>
+        </div>
+        <div class="row setup-content" id="step-2">
+            <div>
+                <div class="col-md-10">
+                    <h3> Step 2</h3>
+                    @*@Html.Partial("_RewardsPartial")*@
+                    <div class="form-horizontal">
+
+                        <h4 class="text-center">Rewards </h4>
+                        <hr/>
+                        <div class="form-group">
+                            <label class="control-label col-md-6 text-right">Reward Title</label>
+                            <div class="col-md-6">
+                                <input maxlength="200" type="text" required="required" class="form-control" placeholder="Enter Reward Name"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-6 text-right">Value</label>
+                            <div class="col-md-6">
+                                <input maxlength="200" type="number" required="required" class="form-control" placeholder="STILL HAVENT LINKED WITH MODEL REWARDS"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.BodyEn, "What's the reward about?", htmlAttributes: new {@class = "control-label col-md-6 text-right"})
+                            <div class="col-md-6">
+                                @Html.TextAreaFor(model => model.BodyEl, new {@class = "form-control", style = "width: 100%; max-width: 100%;"})
+                                @Html.ValidationMessageFor(model => model.BodyEn, "", new {@class = "text-danger"})
+                            </div>
+                        </div>
+                        @Html.Button("Back To List", new {@class = "btn btn-primary btn-lg pull-left", @type = "button", @onclick = "location.href='/Projects'"})
+
+
+
+                        @Html.Button("Next", new {@class = "btn btn-primary nextBtn btn-lg pull-right", @type = "button"})
                     </div>
                 </div>
             </div>
-            <div class="row setup-content" id="step-2">
-                <div>
-                    <div class="col-md-10">
-                        <h3> Step 2</h3>
-                        @*@Html.Partial("_RewardsPartial")*@
-                        <div class="form-horizontal">
-
-                            <h4 class="text-center">Rewards </h4>
-                            <hr />
-                            <div class="form-group">
-                                <label class="control-label col-md-6 text-right">Reward Title</label>
-                                <div class="col-md-6">
-                                    <input maxlength="200" type="text" required="required" class="form-control" placeholder="Enter Reward Name" />
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label col-md-6 text-right">Value</label>
-                                <div class="col-md-6">
-                                    <input maxlength="200" type="number" required="required" class="form-control" placeholder="STILL HAVENT LINKED WITH MODEL REWARDS" />
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                @Html.LabelFor(model => model.BodyEn, "What's the reward about?", htmlAttributes: new { @class = "control-label col-md-6 text-right" })
-                                <div class="col-md-6">
-                                    @Html.TextAreaFor(model => model.BodyEl, new { @class = "form-control", style = "width: 100%; max-width: 100%;" })
-                                    @Html.ValidationMessageFor(model => model.BodyEn, "", new { @class = "text-danger" })
-                                </div>
-                            </div>
-                            <button class="btn btn-primary nextBtn btn-lg pull-right" type="button">Next</button>
+        </div>
+        <div class="row setup-content" id="step-3">
+            <div class="col-xs-6 col-md-offset-3">
+                <div class="col-md-12">
+                    <h3> Step 3 - Submit Your Project</h3>
+                    <div class="form-group ">
+                        <div class="text-center">
+                            <input type="submit" value="Create" class="btn btn-primary" />
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="row setup-content" id="step-3">
-                <div class="col-xs-6 col-md-offset-3">
-                    <div class="col-md-12">
-                        <h3> Step 3</h3>
-                        <button class="btn btn-success btn-lg pull-right" type="submit">Submit</button>
-                    </div>
-                </div>
-            </div>
-        </form>
-
+        </div>
     </div>
     <br />
     <br />
-
 }
-
-
-
-<div class="content-section-c text-center height='20'">
-    <button class="btn btn-embossed btn-primary" onclick="location.href='@Url.Action("Index")'">Back to List</button>
-
-    @*@Html.ActionLink("Create New", "Create", new { @class="btn btn-embossed btn-primary", @role="button"},null)*@
-
-</div>
-@*@Scripts.Render("~/bundles/bootstrap")*@
-@*@section scripts {*
-         
-    <script type="text/javascript">
-        $(document).ready(function () {
-            var navlistitems = $('div.setup-panel div a'),
-                    allwells = $('.setup-content'),
-                    allnextbtn = $('.nextbtn');
-
-            allwells.hide();
-
-            navlistitems.click(function (e) {
-                e.preventdefault();
-                var $target = $($(this).attr('href')),
-                        $item = $(this);
-
-                if (!$item.hasclass('disabled')) {
-                    navlistitems.removeclass('btn-primary').addclass('btn-default');
-                    $item.addclass('btn-primary');
-                    allwells.hide();
-                    $target.show();
-                    $target.find('input:eq(0)').focus();
-                }
-            });
-
-            allnextbtn.click(function () {
-                var curstep = $(this).closest(".setup-content"),
-                    curstepbtn = curstep.attr("id"),
-                    nextstepwizard = $('div.setup-panel div a[href="#' + curstepbtn + '"]').parent().next().children("a"),
-                    curinputs = curstep.find("input[type='text'],input[type='url']"),
-                    isvalid = true;
-
-                $(".form-group").removeclass("has-error");
-                for (var i = 0; i < curinputs.length; i++) {
-                    if (!curinputs[i].validity.valid) {
-                        isvalid = false;
-                        $(curinputs[i]).closest(".form-group").addclass("has-error");
-                    }
-                }
-
-                if (isvalid)
-                    nextstepwizard.removeattr('disabled').trigger('click');
-            });
-
-            $('div.setup-panel div a.btn-primary').trigger('click');
-        })
-    </script>
-
-    }*@
-
-
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
 
