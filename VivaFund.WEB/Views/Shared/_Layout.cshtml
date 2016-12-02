@@ -1,207 +1,411 @@
-﻿@{
-    ViewBag.Title = "Viva Fund";
-}
-
-@section styles 
-    {
-    <link href="~/Content/Site.css" type="text/css" />
+﻿@*@{
+        ViewBag.Title = "Viva Fund";
     }
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title</title>
-    @Styles.Render("~/Content/css")
-    @Scripts.Render("~/bundles/modernizr")
-    <style>
-        body {
-            font-family: "Trebuchet MS", sans-serif;
-            margin: 50px;
+
+    @section styles
+        {
+        <link href="~/Content/Site.css" type="text/css" />
         }
-
-        .sameline {
-            max-width: 1200px;
-            margin: 0 auto;
-            text-align: center;
-        }
-
-        .same_vertical {
-
-            vertical-align: bottom;
-            margin-top: 0px;
-            margin-bottom: 100px;
-        }
-
-        .sameline :first-child {
-            margin-left: 0;
-        }
-
-        .textline {
-            border-bottom-width: thin;
-            border-bottom-style: solid;
-            border-bottom-color: #CCC;
-            padding-top: 10px;
-            color: #626262;
-            font-size: 11px;
-            line-height: 1.5em;
-            font-family: Verdana, Geneva, sans-serif;
-            text-align: center;
-        }
-
-        select {
-            width: 200px;
-        }
-
-        .ProjectList {
-            background-color: transparent;
-            list-style-type: none;
-            padding-left: 0px;
-        }
-
-
-            .ProjectList li {
-                width: 200px;
-                display: inline-block;
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>@ViewBag.Title</title>
+        @Styles.Render("~/Content/css")
+        @Scripts.Render("~/bundles/modernizr")
+        <style>
+            body {
+                font-family: "Trebuchet MS", sans-serif;
+                margin: 50px;
             }
-    </style>
+
+            .sameline {
+                max-width: 1200px;
+                margin: 0 auto;
+                text-align: center;
+            }
+
+            .same_vertical {
+
+                vertical-align: bottom;
+                margin-top: 0px;
+                margin-bottom: 100px;
+            }
+
+            .sameline :first-child {
+                margin-left: 0;
+            }
+
+            .textline {
+                border-bottom-width: thin;
+                border-bottom-style: solid;
+                border-bottom-color: #CCC;
+                padding-top: 10px;
+                color: #626262;
+                font-size: 11px;
+                line-height: 1.5em;
+                font-family: Verdana, Geneva, sans-serif;
+                text-align: center;
+            }
+
+            select {
+                width: 200px;
+            }
+
+            .ProjectList {
+                background-color: transparent;
+                list-style-type: none;
+                padding-left: 0px;
+            }
+
+
+                .ProjectList li {
+                    width: 200px;
+                    display: inline-block;
+                }
+        </style>
+
+    <script type = 'text/javascript' >
+        var appInsights=window.appInsights||function(config)
+        {
+            function r(config){ t[config] = function(){ var i = arguments; t.queue.push(function(){ t[config].apply(t, i)})} }
+            var t = { config:config},u=document,e=window,o='script',s=u.createElement(o),i,f;for(s.src=config.url||'//az416426.vo.msecnd.net/scripts/a/ai.0.js',u.getElementsByTagName(o)[0].parentNode.appendChild(s),t.cookie=u.cookie,t.queue=[],i=['Event','Exception','Metric','PageView','Trace','Ajax'];i.length;)r('track'+i.pop());return r('setAuthenticatedUserContext'),r('clearAuthenticatedUserContext'),config.disableExceptionTracking||(i='onerror',r('_'+i),f=e[i],e[i]=function(config, r, u, e, o) { var s = f && f(config, r, u, e, o); return s !== !0 && t['_' + i](config, r, u, e, o),s}),t
+        }({
+            instrumentationKey:'427658c2-d897-4428-b46f-5212de872cf1'
+        });
+        
+        window.appInsights=appInsights;
+        appInsights.trackPageView();
+    </script>
+    </head>
+    <body>
+        @Scripts.Render("~/bundles/jquery")
+        @Scripts.Render("~/bundles/jqueryUI")
+        <div class="navbar navbar-default navbar-fixed-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    @Html.ActionLink("Viva Fund", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                </div>
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li>@Html.ActionLink("Projects", "Index", "Projects")</li>
+                    </ul>
+                    @Html.Partial("_LoginPartial")
+                </div>
+            </div>
+        </div>
+        <div class="container body-content">
+            @RenderBody()
+            <hr />
+            <footer>
+                <p>&copy; @DateTime.Now.Year - Viva Fund - 1st Coding School - Viva Team 3</p>
+            </footer>
+        </div>
+        <script type="text/javascript">
+            $("btn").button();
+
+            $("#accordion").accordion();
+
+            var availableTags = [
+                "ActionScript",
+                "AppleScript",
+                "Asp",
+                "BASIC",
+                "C",
+                "C++",
+                "Clojure",
+                "COBOL",
+                "ColdFusion",
+                "Erlang",
+                "Fortran",
+                "Groovy",
+                "Haskell",
+                "Java",
+                "JavaScript",
+                "Lisp",
+                "Perl",
+                "PHP",
+                "Python",
+                "Ruby",
+                "Scala",
+                "Scheme"
+            ];
+            $("#autocomplete")
+                .autocomplete({
+                    source: availableTags
+                });
+
+
+            $("#button-icon")
+                .button({
+                    icon: "ui-icon-gear",
+                    showLabel: false
+                });
+            $("#radioset").buttonset();
+            $("#controlgroup").controlgroup();
+            $("#tabs").tabs();
+            $("#dialog")
+                .dialog({
+                    autoOpen: false,
+                    width: 400,
+                    buttons: [
+                        {
+                            text: "Ok",
+                            click: function () {
+                                $(this).dialog("close");
+                            }
+                        },
+                        {
+                            text: "Cancel",
+                            click: function () {
+                                $(this).dialog("close");
+                            }
+                        }
+                    ]
+                });
+
+            // Link to open the dialog
+            $("#dialog-link")
+                .click(function (event) {
+                    $("#dialog").dialog("open");
+                    event.preventDefault();
+                });
+
+            $("#datepicker")
+                .datepicker({
+                    inline: true
+                });
+
+            $("#slider")
+                .slider({
+                    range: true,
+                    values: [17, 67]
+                });
+
+            $("#progressbar")
+                .progressbar({
+                    value: 90
+                });
+
+            $("#spinner").spinner();
+
+            $("#menu").menu();
+
+            $("#tooltip").tooltip();
+
+            $("#selectmenu").selectmenu();
+
+            // Hover states on the static widgets
+            $("#dialog-link, #icons li")
+                .hover(
+                    function () {
+                        $(this).addClass("ui-state-hover");
+                    },
+                    function () {
+                        $(this).removeClass("ui-state-hover");
+                    }
+                );
+        </script>
+        @Scripts.Render("~/bundles/bootstrap")
+        @RenderSection("scripts", required: false)
+
+    </body>
+    </html>*@
+
+
+
+
+<!-- FlatFy Theme - Andrea Galanti /-->
+<!doctype html>
+<!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js ie7 oldie" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js ie8 oldie" lang="en"> <![endif]-->
+<!--[if IE 9]>    <html class="no-js ie9" lang="en"> <![endif]-->
+<!--[if gt IE 9]><!-->
+<html>
+<!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
+    <meta name="description" content="VivaFund_team 3 ">
+    <meta name="author" content="">
+
+    <title>Viva team #3</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="~/Content/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom Google Web Font -->
+    <link href="~/Content/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <link href='http://fonts.googleapis.com/css?family=Lato:100,300,400,700,900,100italic,300italic,400italic,700italic,900italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Arvo:400,700' rel='stylesheet' type='text/css'>
+
+    <!-- Custom CSS-->
+    <link href="~/Content/css/general.css" rel="stylesheet">
+
+    <!-- Owl-Carousel -->
+    <link href="~/Content/css/custom.css" rel="stylesheet">
+    <link href="~/Content/css/owl.carousel.css" rel="stylesheet">
+    <link href="~/Content/css/owl.theme.css" rel="stylesheet">
+    <link href="~/Content/css/style.css" rel="stylesheet">
+    <link href="~/Content/css/animate.css" rel="stylesheet">
+
+    <!-- Magnific Popup core CSS file -->
+    <link rel="stylesheet" href="~/Content/css/magnific-popup.css">
+
+
+    <script src="~/Scripts/js/modernizr-2.8.3.min.js"></script>  <!-- Modernizr /-->
+    <!--[if IE 9]>
+        <script src="js/PIE_IE9.js"></script>
+    <![endif]-->
+    <!--[if lt IE 9]>
+        <script src="js/PIE_IE678.js"></script>
+    <![endif]-->
+    <!--[if lt IE 9]>
+        <script src="js/html5shiv.js"></script>
+    <![endif]-->
 
 </head>
-<body>
+
+<body id="home">
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/jqueryUI")
-    <div class="navbar navbar-default navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("Viva Fund", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Projects", "Index", "Projects")</li>
+<!-- NavBar-->
+<nav class="navbar-default" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            @Html.ActionLink("VivaFund#3", "Index", "Home", new {area = ""}, new {@class = "navbar-brand"})
+            @*<a class="navbar-brand" href="#home"></a>*@
+        </div>
+
+        <div class="collapse navbar-collapse navbar-right navbar-ex1-collapse">
+            <ul class="nav navbar-nav">
+                <li>@Html.ActionLink("Browse Projects", "Index", "Projects")</li>
+
+                @*<li class="menuItem"><a href="#browse">Browse</a></li>
+                        <li class="menuItem"><a href="#myaccount">My account</a></li>
+                        <li class="menuItem"><a href="#signin">Sign in</a></li>*@
+            </ul>
+            @Html.Partial("_LoginPartial")
+        </div>
+
+    </div>
+</nav>
+
+@RenderBody()
+
+
+
+<footer>
+    <div class="container">
+
+        <div class="col-md-7">
+            <h3 class="footer-title">About</h3>
+            <p>
+                a project for the 1st Coding School<br/>
+                a crowdfunding platform<br/>
+                Go to: <a href="http://viva.gr" target="_blank">viva.gr</a>
+            </p>
+        </div> <!-- /col-xs-7 -->
+
+        <div class="col-md-5">
+            <div class="footer-banner">
+                <h3 class="footer-title">Coding School</h3>
+                <ul>
+                    <li>Powered by <a href="http://viva.gr" target="_blank">viva.gr</a></li>
+                    <li>Powered by <a href="https://www.microsoft.com/el-gr/" target="_blank">Microsoft Hellas</a></li>
+                    <li>Powered by <a href="http://www.kariera.gr/r" target="_blank">kariera.gr</a></li>
                 </ul>
-                @Html.Partial("_LoginPartial")
             </div>
         </div>
     </div>
-    <div class="container body-content">
-        @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - Viva Fund - 1st Coding School - Viva Team 3</p>
-        </footer>
-    </div>
-    <script type="text/javascript">
-        $("btn").button();
 
-        $("#accordion").accordion();
+</footer>
+<!-- JavaScript -->
+    @Scripts.Render("~/bundles/bootstrap")
+<script src="~/Scripts/js/owl.carousel.js"></script>
+<script src="~/Scripts/js/script.js"></script>
+<!-- StikyMenu -->
+<script src="~/Scripts/js/stickUp.min.js"></script>
+<script type="text/javascript">
+    jQuery(function($) {
 
-        var availableTags = [
-            "ActionScript",
-            "AppleScript",
-            "Asp",
-            "BASIC",
-            "C",
-            "C++",
-            "Clojure",
-            "COBOL",
-            "ColdFusion",
-            "Erlang",
-            "Fortran",
-            "Groovy",
-            "Haskell",
-            "Java",
-            "JavaScript",
-            "Lisp",
-            "Perl",
-            "PHP",
-            "Python",
-            "Ruby",
-            "Scala",
-            "Scheme"
-        ];
-        $("#autocomplete")
-            .autocomplete({
-                source: availableTags
-            });
+        $(document)
+            .ready(function() {
+                $('.navbar-default').stickUp();
+                var navListItems = $('div.setup-panel div a'),
+                    allWells = $('.setup-content'),
+                    allNextBtn = $('.nextBtn');
 
+                allWells.hide();
 
-        $("#button-icon")
-            .button({
-                icon: "ui-icon-gear",
-                showLabel: false
-            });
-        $("#radioset").buttonset();
-        $("#controlgroup").controlgroup();
-        $("#tabs").tabs();
-        $("#dialog")
-            .dialog({
-                autoOpen: false,
-                width: 400,
-                buttons: [
-                    {
-                        text: "Ok",
-                        click: function () {
-                            $(this).dialog("close");
-                        }
-                    },
-                    {
-                        text: "Cancel",
-                        click: function () {
-                            $(this).dialog("close");
+                navListItems.click(function(e) {
+                    e.preventDefault();
+                    var $target = $($(this).attr('href')),
+                        $item = $(this);
+
+                    if (!$item.hasClass('disabled')) {
+                        navListItems.removeClass('btn-primary').addClass('btn-default');
+                        $item.addClass('btn-primary');
+                        allWells.hide();
+                        $target.show();
+                        $target.find('input:eq(0)').focus();
+                    }
+                });
+
+                allNextBtn.click(function() {
+                    var curStep = $(this).closest(".setup-content"),
+                        curStepBtn = curStep.attr("id"),
+                        nextStepWizard = $('div.setup-panel div a[href="#' + curStepBtn + '"]')
+                            .parent()
+                            .next()
+                            .children("a"),
+                        curInputs = curStep.find("input[type='text'],input[type='url']"),
+                        isValid = true;
+
+                    $(".form-group").removeClass("has-error");
+                    for (var i = 0; i < curInputs.length; i++) {
+                        if (!curInputs[i].validity.valid) {
+                            isValid = false;
+                            $(curInputs[i]).closest(".form-group").addClass("has-error");
                         }
                     }
-                ]
+
+                    if (isValid)
+                        nextStepWizard.removeAttr('disabled').trigger('click');
+                });
+
+                $('div.setup-panel div a.btn-primary').trigger('click');
+
             });
 
-        // Link to open the dialog
-        $("#dialog-link")
-            .click(function (event) {
-                $("#dialog").dialog("open");
-                event.preventDefault();
-            });
+    });
 
-        $("#datepicker")
-            .datepicker({
-                inline: true
-            });
+</script>
+<!-- Smoothscroll -->
+<script type="text/javascript" src="~/Scripts/js/jquery.corner.js"></script>
+<script src="~/Scripts/js/wow.min.js"></script>
+<script>
+    new WOW().init();
+</script>
+<script src="~/Scripts/js/classie.js"></script>
+<script src="~/Scripts/js/uiMorphingButton_inflow.js"></script>
+<!-- Magnific Popup core JS file -->
+<script src="~/Scripts/js/jquery.magnific-popup.js"></script>
 
-        $("#slider")
-            .slider({
-                range: true,
-                values: [17, 67]
-            });
-
-        $("#progressbar")
-            .progressbar({
-                value: 90
-            });
-
-        $("#spinner").spinner();
-
-        $("#menu").menu();
-
-        $("#tooltip").tooltip();
-
-        $("#selectmenu").selectmenu();
-
-        // Hover states on the static widgets
-        $("#dialog-link, #icons li")
-            .hover(
-                function () {
-                    $(this).addClass("ui-state-hover");
-                },
-                function () {
-                    $(this).removeClass("ui-state-hover");
-                }
-            );
-    </script>
-    @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
-
 </body>
+
 </html>

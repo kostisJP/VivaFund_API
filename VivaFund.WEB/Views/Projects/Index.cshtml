@@ -5,21 +5,27 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+<div class="content-section-c text-center">
+      <button class="btn btn-embossed btn-primary" onclick="location.href='@Url.Action("Create")'"  >Create new Project</button>
+    
+        @*@Html.ActionLink("Create New", "Create", new { @class="btn btn-embossed btn-primary", @role="button"},null)*@
+    
+</div>
+
 <ul class="ProjectList">
     @foreach (var item in Model)
     {
         <li>
-            @Html.Partial("_ProjectPartial", item)
+
             <div>
-                @Html.ActionLink("Edit", "Edit", new { id = item.ProjectId }) |
+                @Html.Partial("_ProjectPartial", item)
+           
+                @*@Html.ActionLink("Edit", "Edit", new { id = item.ProjectId }) |
                 @Html.ActionLink("Details", "Details", new { id = item.ProjectId }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.ProjectId })
+                @Html.ActionLink("Delete", "Delete", new { id = item.ProjectId })*@
             </div>
+            <br />
         </li>
     }
 </ul>
-<div class="jumbotron">
-    <p>
-        @Html.ActionLink("Create New", "Create")
-    </p>
-</div>
+
