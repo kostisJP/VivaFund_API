@@ -16,6 +16,7 @@ namespace VivaFund.Interfaces
         IEnumerable<Project> GetProjectsByCategory(int categoryId);
         IEnumerable<Project> GetProjectsByMember(int memberId);
         IEnumerable<ProjectMedia> GetProjectMediaByProjectId(int projectId);
+        IEnumerable<Comment> GetCommentsByProjectId(int projectId);
         Project GetProjectById(int id);
         void InsertOrUpdateProject(Project project);
         

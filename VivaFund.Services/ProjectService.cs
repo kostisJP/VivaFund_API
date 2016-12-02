@@ -107,6 +107,20 @@ namespace VivaFund.Services
             }
         }
 
+        public IEnumerable<Comment> GetCommentsByProjectId(int projectId)
+        {
+            try
+            {
+                var comments = _projectRepository.GetCommentsByProjectId(projectId);
+
+                return comments;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
         public Project GetProjectById(int id)
         {
             try

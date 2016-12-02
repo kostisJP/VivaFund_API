@@ -54,9 +54,6 @@ namespace VivaFund.Repository
         {
             var project = _context.Projects.Include(x => x.ProjectCategory)
                             .Include(x=>x.Member)
-                            //.Include(x=>x.Donations)
-                            //.Include(x=>x.ProjectMedia)
-                            //.Include(x=>x.Rewards)
                             .Single(u => u.ProjectId == id);
 
             return project;
@@ -92,6 +89,13 @@ namespace VivaFund.Repository
             var projectMedia = _context.ProjectMedia.Where(p => p.ProjectId == projectId).ToList();
 
             return projectMedia;
+        }
+
+        public IEnumerable<Comment> GetCommentsByProjectId(int projectId)
+        {
+            var comments = _context.Comments.Where(c => c.ProjectId == projectId).ToList();
+
+            return comments;
         }
 
         public void InsertOrUpdateProject(Project project)
