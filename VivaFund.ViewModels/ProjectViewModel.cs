@@ -22,5 +22,6 @@ namespace VivaFund.ViewModels
         public IEnumerable<RewardViewModel> Rewards;
         public IEnumerable<DonationViewModel> Donations;
         public IEnumerable<ProjectMediaViewModel> ProjectMedia;
+        public IEnumerable<CommentViewModel> Comments;
     }
 }

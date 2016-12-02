@@ -533,6 +533,7 @@
     <Content Include="Views\Home\Error.cshtml" />
     <Content Include="Views\Shared\_RewardsPartial.cshtml" />
     <Content Include="Service References\Application Insights\ConnectedService.json" />
+    <Content Include="Views\Shared\_CommentPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -20,6 +20,7 @@ namespace VivaFund.ServicesInterfaces
         IEnumerable<Project> GetAllProjects();
         IEnumerable<Project> GetAllProjectsByCategory(int categoryId);
         IEnumerable<ProjectMedia> GetProjectMediaByProjectId(int projectId);
+        IEnumerable<Comment> GetCommentsByProjectId(int projectId);
         Project GetProjectById(int id);
         void SetProject(Project project);
         #endregion PROJECT

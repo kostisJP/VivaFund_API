@@ -16,6 +16,7 @@ namespace VivaFund.WEB.App_Start
             Mapper.CreateMap<Reward, RewardViewModel>();
             Mapper.CreateMap<Donation, DonationViewModel>();
             Mapper.CreateMap<ProjectMedia, ProjectMediaViewModel>();
+            Mapper.CreateMap<Comment, CommentViewModel>();
 
            
             //var config = new MapperConfiguration(cfg =>
