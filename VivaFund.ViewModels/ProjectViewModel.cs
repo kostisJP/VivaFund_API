@@ -13,16 +13,14 @@ namespace VivaFund.ViewModels
         public int MemberId { get; set; }
         public int ProjectCategoryId { get; set; }
         public string TitleEn { get; set; }
-        public string TitleEl { get; set; }
         public string SubtitleEn { get; set; }
-        public string SubtitleEl { get; set; }
         public string BodyEn { get; set; }
-        public string BodyEl { get; set; }
         public int Goal { get; set; }
         public int Views { get; set; }
         public bool Completed { get; set; }
 
-        IEnumerable<DonationViewModel> Donations;
-        //IEnumerable<ProjectMedia> Media;
+        public IEnumerable<RewardViewModel> Rewards;
+        public IEnumerable<DonationViewModel> Donations;
+        public IEnumerable<ProjectMediaViewModel> ProjectMedia;
     }
 }

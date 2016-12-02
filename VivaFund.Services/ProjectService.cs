@@ -92,6 +92,21 @@ namespace VivaFund.Services
             }
             
         }
+
+        public IEnumerable<ProjectMedia> GetProjectMediaByProjectId(int projectId)
+        {
+            try
+            {
+                var projectMedia = _projectRepository.GetProjectMediaByProjectId(projectId);
+
+                return projectMedia;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
         public Project GetProjectById(int id)
         {
             try

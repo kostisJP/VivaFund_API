@@ -18,6 +18,7 @@ namespace VivaFund.ServicesInterfaces
 
         #region PROJECT
         IEnumerable<Project> GetAllProjects();
+        IEnumerable<ProjectMedia> GetProjectMediaByProjectId(int projectId);
         Project GetProjectById(int id);
         void SetProject(Project project);
         #endregion PROJECT

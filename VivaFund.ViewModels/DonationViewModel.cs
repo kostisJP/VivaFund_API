@@ -13,6 +13,8 @@ namespace VivaFund.ViewModels
 
         public int DonatedAmount { get; set; }
 
+        public int MemberId { get; set; }
+
         public int? RewardId { get; set; }
     }
 }
