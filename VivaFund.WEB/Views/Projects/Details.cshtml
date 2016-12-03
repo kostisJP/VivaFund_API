@@ -2,7 +2,9 @@
 
 @{
     ViewBag.Title = "Details";
-    var myIdentityflag = (bool)ViewBag.Flag;
+
+    var memberId = ViewBag.MemberId;
+
     Layout = "~/Views/Shared/_Layout.cshtml";
 
     var IsLoggedIn = false;
@@ -40,7 +42,7 @@
                     </div>
                 </div>
                 <div>
-                    @{ if (myIdentityflag)
+                    @{ if (User.Identity.IsAuthenticated)
                         {
                             using (Html.BeginForm("Checkout", "Projects", FormMethod.Post, new { enctype = "multipart/form-data" }))
                             {
@@ -95,6 +97,15 @@
                             {
                                 @Html.Partial("_CommentPartial", comment)
                             }
+
+                            // Add Comment
+                            if (ViewBag.MemberId != null)
+                            {
+                                @Html.BeginForm("SetComment","Projects", FormMethod.Post) {
+                                    
+                                }
+                            }
+
                         }
 
 

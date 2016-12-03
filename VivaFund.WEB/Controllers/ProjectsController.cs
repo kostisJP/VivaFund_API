@@ -88,6 +88,7 @@ namespace VivaFund.WEB.Controllers
             if ( GetUserId() != null)
             {
                 ViewBag.Flag = true;
+                ViewBag.MemberId = _memberService.GetMemberById(GetUserId()).MemberId;
             }
             else
             {
