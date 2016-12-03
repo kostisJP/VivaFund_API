@@ -531,7 +531,7 @@
     <Content Include="Views\Shared\DisplayTemplates\Member.cshtml" />
     <Content Include="Views\Shared\_ProjectPartial.cshtml" />
     <Content Include="Views\Home\Error.cshtml" />
-    <Content Include="Views\Shared\_RewardsPartial.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Rewards.cshtml" />
     <Content Include="Service References\Application Insights\ConnectedService.json" />
     <Content Include="Views\Shared\_CommentPartial.cshtml" />
     <Content Include="Views\Shared\_CreateRewardPartial.cshtml" />
@@ -539,7 +539,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Views\Product\" />
-    <Folder Include="Views\Shared\EditorTemplates\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\fonts\glyphicons-halflings-regular.woff" />
