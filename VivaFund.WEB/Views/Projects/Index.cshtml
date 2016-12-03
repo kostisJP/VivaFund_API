@@ -5,18 +5,19 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div class="content-section-c text-center">
-    @Html.Button("Create new Project", new { @class = "btn btn-embossed btn-primary", @type = "button", @onclick = "location.href='/Projects/Create'" })
+<div class="row col-md-12">
+    <div class="content-section-c text-center">
+        @Html.Button("Create new Project", new { @class = "btn btn-embossed btn-primary", @type = "button", @onclick = "location.href='/Projects/Create'" })
+    </div>
+
+    <div style="position:relative">
+        @foreach (var item in Model)
+        {
+            <div class="col-md-4" style="height:580px; margin-top:30px">
+                @Html.Partial("_ProjectPartial", item)
+            </div>
+
+        }
+    </div>
+    <div style="margin-bottom:100px"></div>
 </div>
-
-<div style="position:relative">
-    @foreach (var item in Model)
-    {
-        <div class="col-md-4" style="height:580px; padding-top:30px">
-            @Html.Partial("_ProjectPartial", item)
-        </div>
-
-    }
-</div>
-<br/>
-
