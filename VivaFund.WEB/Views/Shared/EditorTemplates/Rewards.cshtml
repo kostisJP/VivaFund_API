@@ -4,33 +4,6 @@
     <h4 class="text-center">Rewards </h4>
     @foreach (VivaFund.DomainModels.Reward rew in Model)
     {
-        <hr />
-
-
-        <div class="form-group">
-            @Html.Label(rew.Title, "Reward Title", htmlAttributes: new { @class = "control-label col-md-6" })
-            <div class="col-md-6">
-                @Html.Editor(rew.Title, new { htmlAttributes = new { @class = "form-control", @type = "text", @placeholder = "Enter Title" } })
-                @Html.ValidationMessage(rew.Title, "", new { @class = "text-danger" })
-            </div>
-
-        </div>
-
-
-            <div class="form-group">
-                @Html.Label("", "Set Value", htmlAttributes: new { @class = "control-label col-md-6 text-right" })
-                <div class="col-md-6">
-                    @Html.Editor(rew.Value.ToString(), new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessage(rew.Value.ToString(), "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.Label(rew.RewardDescription, htmlAttributes: new { @class = "control-label col-md-6 text-right" })
-                <div class="col-md-6">
-                    @Html.TextArea(rew.RewardDescription, new { @class = "form-control", style = "width: 100%; max-width: 100%;" })
-                    @Html.ValidationMessage(rew.RewardDescription, "", new { @class = "text-danger" })
-                </div>
-            </div>
+        @Html.EditorFor(model => rew)
     }
 </div>

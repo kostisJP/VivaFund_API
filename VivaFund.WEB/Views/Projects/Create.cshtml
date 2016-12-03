@@ -4,7 +4,12 @@
     ViewBag.Title = "Create";
     Layout = "~/Views/Shared/_Layout.cshtml";
     Model.Rewards = new List<VivaFund.DomainModels.Reward>();
-    Model.Rewards.Add(new VivaFund.DomainModels.Reward());
+    var rew =new VivaFund.DomainModels.Reward();
+    rew.ProjectID = Model.ProjectId;
+    rew.Project = Model;
+    rew.Title = "";
+    rew.RewardDescription = "";
+    Model.Rewards.Add(rew);
 }
 <br />
 <br />
@@ -93,7 +98,11 @@
             <div>
                 <div class="col-md-10">
                     <h3> Step 2</h3>
-                    @Html.EditorFor( model => model.Rewards, "Rewards")
+                    <div class="form-horizontal">
+
+                        <h4 class="text-center">Rewards </h4>
+                            @Html.EditorFor(model => model.Rewards)
+                    </div>
 
                     @Html.Button("Back To List", new { @class = "btn btn-primary btn-lg pull-left", @type = "button", @onclick = "location.href='/Projects'" })
 
