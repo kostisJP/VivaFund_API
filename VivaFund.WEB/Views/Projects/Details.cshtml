@@ -187,15 +187,18 @@
 
         $("#RewardId").change(function () {
             //$('#vpButton').attr('data-vp-amount', $("#RewardId").find(":selected").text());
+            var amnt = $("#RewardId").find(":selected").val();
+            var amount = (amnt != "") ? amnt : 1;
+
             $('#viva_empty').empty();
                 $('#viva_button').html( '  \
                     <form id="myform" method="post"> \
                         <button type="button" \
-                            data-vp-sourcecode="Default" \
+                            data-vp-sourcecode="Default" id="vpButton" \
                             data-vp-publickey="GL0WTFkmyONDEaVYSa9EpZmxNBRNz3+el1EfAMVJ9nU=" \
                             data-vp-baseurl="https://demo.vivapayments.com" \
                             data-vp-lang="en" \
-                            data-vp-amount="' + $("#RewardId").find(":selected").val() * 100 + '" \
+                            data-vp-amount="' + amount * 100 + '" \
                             data-vp-customeremail="customer@vivawallet.com" \
                             data-vp-customerfirstname = "John" \
                             data-vp-customersurname = "Smith" \
@@ -205,14 +208,17 @@
                         </button> \
                     </form>');
 
-
                 var script = document.createElement( 'script' );
                 script.type = 'text/javascript';
                 script.src = "https://demo.vivapayments.com/web/checkout/js";
                 $("#viva_button").append(script);
 
+                if (amnt == "") {
+                    $('#vpButton').prop('disabled', true);
+                }
+
         });
-        
+ 
     });
 </script>
    

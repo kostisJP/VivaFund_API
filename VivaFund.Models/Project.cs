@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace VivaFund.DomainModels
 {
-    public class Project: BaseModel
+    public class Project : BaseModel
     {
         //public Project()
         //{
@@ -47,7 +47,24 @@ namespace VivaFund.DomainModels
 
         public DateTime ExpirationDate { get; set; } = DateTime.Now.AddDays(60);
 
-        public string Url { get; set; }
+        private string _url;
+        public string Url
+        {
+            get
+            {
+                return _url;
+            }
+            set
+            {
+                if (value.Contains("https://www.youtube.com/watch?v="))
+                {
+                    value.Replace("https://www.youtube.com/watch?v=", "https://www.youtube.com/embed/");
+                    _url = value;
+                }
+
+                _url = value;
+            }
+        }
 
         public ICollection<Donation> Donations { get; set; }
         public ICollection<ProjectMedia> ProjectMedia { get; set; }
