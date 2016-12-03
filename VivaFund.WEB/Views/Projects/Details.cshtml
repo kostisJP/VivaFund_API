@@ -12,6 +12,7 @@
     IsLoggedIn = User.Identity.IsAuthenticated;
 
     var DonationsSum = Model.Donations.Sum(d => d.DonatedAmount);
+    var donationPercentage = (int)((double)DonationsSum / Model.Goal * 100);
 }
 <section>
     <br />
@@ -31,13 +32,15 @@
             <div class="col-md-4">
                 <h3>@Model.SubtitleEn</h3>
 
+                <span style="font-size:32px;">@Model.daysToGo</span> days to go!
+
                 <div>@Model.Donations.Select(u => u.MemberId).Distinct().Count() Backer(s)</div>
 
                 <div class="text-right">$@DonationsSum of $@Model.Goal</div>
 
                 <div class="progress">
                     <div class="progress-bar progress-bar-striped" role="progressbar" aria-valuenow="@DonationsSum"
-                         aria-valuemin="0" aria-valuemax="@Model.Goal" style="width:@((double)DonationsSum / Model.Goal * 100)%">
+                         aria-valuemin="0" aria-valuemax="@Model.Goal" style="width:@donationPercentage%">
                         <span class="sr-only">@DonationsSum% Complete</span>
                     </div>
                 </div>
@@ -48,7 +51,8 @@
                                 @Html.DropDownListFor(m=>m.RewardId, new SelectList(Model.Rewards, "RewardId", "Value"),"- Please Select -", new { @class= "form-control" })
                             </div>
 
-                            using (Html.BeginForm("Checkout", "Projects", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                            <a href="#" class="btn btn-success">Fund this Project</a>
+                            @*using (Html.BeginForm("Checkout", "Projects", FormMethod.Post, new { enctype = "multipart/form-data" }))
                             {
                                 @Html.HiddenFor(model => model.ProjectId)
                                 @Html.HiddenFor(model => model.MemberId)
@@ -67,7 +71,7 @@
                                         data-vp-expandcard="true"
                                         data-vp-description="My product"></button>
                              </div>
-                            }
+                            }*@
                         }
                     }
                 </div>
@@ -147,9 +151,6 @@
     <script src="https://code.jquery.com/jquery-1.11.2.min.js"></script>
     <script src="https://demo.vivapayments.com/web/checkout/js"></script>
     <script>
-        $("#tabs").tabs();
-    </script>
-    <script>
         function openTAB(evt, cityName) {
     // Declare all variables
     var i, tabcontent, tablinks;
@@ -176,27 +177,6 @@
     $(document).ready(function () {
         $("#RewardId").change(function () {
             $('#vpButton').attr('data-vp-amount', $("#RewardId").find(":selected").text());
-
-            var str = '<html><head><script src="https://code.jquery.com/jquery-1.11.2.min.js"><\/script><script src="https://demo.vivapayments.com/web/checkout/js"><\/script><\/head>'
-            + '<body>'
-            + ' <button type="button" id="vpButton"'
-            + ' data-vp-sourcecode="Default"'
-            + ' data-vp-publickey="GL0WTFkmyONDEaVYSa9EpZmxNBRNz3+el1EfAMVJ9nU="'
-            + ' data-vp-baseurl="https://demo.vivapayments.com"'
-            + ' data-vp-lang="el"'
-            + ' data-vp-amount="1"'
-            + ' data-vp-customeremail="customer@vivawallet.com"'
-            + ' data-vp-customerfirstname="John"'
-            + ' data-vp-customersurname="Smith"'
-            + ' data-vp-merchantref="test merchant ref"'
-            + ' data-vp-expandcard="true"'
-            + ' data-vp-description="My product"></button> '
-            + '</body></html>';
-            var htmll = $.parseHTML(str);
-            $("#vivaButton").empty();
-            $("#vivaButton").append(htmll);
-            var wind = window.open("", "popupWindow", "width=600,height=600,scrollbars=yes");
-            wind.document.write(str);
         });
         
     });

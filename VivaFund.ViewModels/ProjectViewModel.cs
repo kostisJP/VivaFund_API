@@ -18,6 +18,17 @@ namespace VivaFund.ViewModels
         public int Goal { get; set; }
         public int Views { get; set; }
         public bool Completed { get; set; }
+        public DateTime ExpirationDate { get; set; }
+
+        public int daysToGo {
+            get {
+                var days = (int)(ExpirationDate - DateTime.Now).TotalDays;
+                return days;
+            }
+            set {
+                this.daysToGo = value; 
+            }
+        }
 
         public IEnumerable<RewardViewModel> Rewards;
         public IEnumerable<DonationViewModel> Donations;
