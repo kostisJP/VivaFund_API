@@ -26,7 +26,8 @@ using RestSharp.Authenticators;
 
 namespace VivaFund.WEB.Controllers
 {
-    public class ProjectsController : Controller
+
+    public class ProjectsController : VivaBaseController
     {
         private readonly IProjectService _projectService;
         private readonly IMemberService _memberService;
@@ -105,52 +106,6 @@ namespace VivaFund.WEB.Controllers
             return RedirectToAction("Error", "Home");
         }
 
-        private ApplicationUserManager _userManager;
-
-        public ApplicationUserManager UserManager
-        {
-            get
-            {
-                return _userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
-            }
-            private set
-            {
-                _userManager = value;
-            }
-        }
-
-        public string GetUserId()
-        {
-            var userEmail = "";
-            var identity = ClaimsPrincipal.Current.FindFirst("urn:facebook:name");
-            if (identity != null)
-            {
-                var accessToken = ClaimsPrincipal.Current.FindFirst("FacebookAccessToken").Value;
-                var fb = new FacebookClient(accessToken);
-                var myInfo = fb.Get<FBUser>("/me?fields=email,first_name,last_name,gender");
-                userEmail = myInfo.email;
-
-            }
-
-            Claim msftType = ClaimsPrincipal.Current.FindFirst("preferred_username");
-            if (msftType != null)
-            {
-                var accessToken = ClaimsPrincipal.Current.FindFirst("nonce").Value;
-                userEmail = ClaimsPrincipal.Current.FindFirst("preferred_username").Value;
-            }
-            Claim AspNetType = ClaimsPrincipal.Current.FindFirst("http://schemas.microsoft.com/accesscontrolservice/2010/07/claims/identityprovider");
-            if (AspNetType != null && AspNetType.Value == "ASP.NET Identity")
-            {
-                var user_ = UserManager.FindById(ClaimsPrincipal.Current.FindFirst("http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Value);
-                return user_?.Id ?? null;
-                //var accessToken = ClaimsPrincipal.Current.FindFirst("http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Value;
-                //userEmail = ClaimsPrincipal.Current.FindFirst("preferred_username").Value;
-            }
-            var user = UserManager.FindByEmail(userEmail);
-            return user?.Id ?? null;
-            //ASP.NET Identity
-        }
-
         // GET: Projects/Create
         [Authorize]
         public async Task<ActionResult> Create()
@@ -210,14 +165,20 @@ namespace VivaFund.WEB.Controllers
         }
 
         // GET: Projects/Edit/5
+        [Authorize]
         public ActionResult Edit(int id)
         {
             var project = _projectService.GetProjectById(id);
 
-            if (project == null)
-                RedirectToAction("Error", "Home");
+            if (project != null)
+            {
+                if (project.Member.AspNetUserId == GetUserId())
+                {
+                    return View(project);
+                }
+            }
 
-            return View(project);
+           return RedirectToAction("Error", "Home");
         }
 
         // POST: Projects/Edit/5

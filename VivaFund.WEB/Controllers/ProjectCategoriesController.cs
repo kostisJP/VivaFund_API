@@ -16,7 +16,7 @@ using VivaFund.WEB.Models;
 
 namespace VivaFund.WEB.Controllers
 {
-    public class ProjectCategoriesController : Controller
+    public class ProjectCategoriesController : VivaBaseController
     {
 
         // GET: ProjectCategories

@@ -12,7 +12,7 @@ using VivaFund.WEB.Models;
 namespace VivaFund.WEB.Controllers
 {
     [Authorize]
-    public class ManageController : Controller
+    public class ManageController : VivaBaseController
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;

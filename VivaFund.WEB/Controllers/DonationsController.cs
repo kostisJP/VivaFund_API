@@ -15,7 +15,7 @@ using VivaFund.WEB.Models;
 
 namespace VivaFund.WEB.Controllers
 {
-    public class DonationsController : Controller
+    public class DonationsController : VivaBaseController
     {
         // GET: Donations
         public async System.Threading.Tasks.Task<ActionResult> Index()

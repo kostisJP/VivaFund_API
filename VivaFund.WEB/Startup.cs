@@ -6,6 +6,11 @@ using Owin;
 using VivaFund.WEB;
 using System.Linq.Expressions;
 using System;
+using System.Web;
+using Microsoft.AspNet.Identity.Owin;
+using System.Security.Claims;
+using Facebook;
+using Microsoft.AspNet.Identity;
 
 [assembly: OwinStartup(typeof(Startup))]
 namespace VivaFund.WEB
@@ -16,7 +21,7 @@ namespace VivaFund.WEB
         public void Configuration(IAppBuilder app)
         {
             ConfigureAuth(app);
-            System.Web.Helpers.AntiForgeryConfig.UniqueClaimTypeIdentifier = ClaimTypes.NameIdentifier;
+            System.Web.Helpers.AntiForgeryConfig.UniqueClaimTypeIdentifier = System.Security.Claims.ClaimTypes.NameIdentifier;
 
 
         }
@@ -101,5 +106,55 @@ namespace VivaFund.WEB
 
         public Guid TransactionId { get; set; }
 
+    }
+
+    public class VivaBaseController : Controller
+    {
+        private ApplicationUserManager _userManager;
+
+        public ApplicationUserManager UserManager
+        {
+            get
+            {
+                return _userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+            }
+            private set
+            {
+                _userManager = value;
+            }
+
+
+        }
+        public string GetUserId()
+        {
+            var userEmail = "";
+            var identity = ClaimsPrincipal.Current.FindFirst("urn:facebook:name");
+            if (identity != null)
+            {
+                var accessToken = ClaimsPrincipal.Current.FindFirst("FacebookAccessToken").Value;
+                var fb = new FacebookClient(accessToken);
+                var myInfo = fb.Get<Controllers.FBUser>("/me?fields=email,first_name,last_name,gender");
+                userEmail = myInfo.email;
+
+            }
+
+            System.Security.Claims.Claim msftType = ClaimsPrincipal.Current.FindFirst("preferred_username");
+            if (msftType != null)
+            {
+                var accessToken = ClaimsPrincipal.Current.FindFirst("nonce").Value;
+                userEmail = ClaimsPrincipal.Current.FindFirst("preferred_username").Value;
+            }
+            System.Security.Claims.Claim AspNetType = ClaimsPrincipal.Current.FindFirst("http://schemas.microsoft.com/accesscontrolservice/2010/07/claims/identityprovider");
+            if (AspNetType != null && AspNetType.Value == "ASP.NET Identity")
+            {
+                var user_ = UserManager.FindById(ClaimsPrincipal.Current.FindFirst("http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Value);
+                return user_?.Id ?? null;
+                //var accessToken = ClaimsPrincipal.Current.FindFirst("http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Value;
+                //userEmail = ClaimsPrincipal.Current.FindFirst("preferred_username").Value;
+            }
+            var user = UserManager.FindByEmail(userEmail);
+            return user?.Id ?? null;
+            //ASP.NET Identity
+        }
     }
 }

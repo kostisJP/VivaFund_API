@@ -4,7 +4,7 @@ using System.Web.Mvc;
 
 namespace VivaFund.WEB.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : VivaBaseController
     {
         public ActionResult Index()
         {

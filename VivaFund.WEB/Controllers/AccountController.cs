@@ -41,7 +41,7 @@ namespace VivaFund.WEB.Controllers
         }
     }
     [Authorize]
-    public class AccountController : Controller
+    public class AccountController : VivaBaseController
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;

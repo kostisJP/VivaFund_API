@@ -39,8 +39,8 @@
                     </div>
                 </div>
                 <div>
-                    @using (Html.BeginForm("Checkout", "Projects", FormMethod.Post, new { enctype = "multipart/form-data" })) 
-                    { 
+                    @using (Html.BeginForm("Checkout", "Projects", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                    {
                         @Html.HiddenFor(model => model.ProjectId)
                         @Html.HiddenFor(model => model.MemberId)
                         <button type="button"
@@ -91,13 +91,13 @@
                                 @Html.Partial("_CommentPartial", comment)
                             }
                         }
-                        
-                        
+
+
                     </div>
                 </div>
             </div>
 
-       
+
 
             @* Rewards Column *@
             <div class="col-md-4">
@@ -106,13 +106,13 @@
             {
                 foreach (var reward in Model.Rewards)
                 {
-            <div>
-                <h3>@reward.Title</h3>
-                Donate $@reward.Value or more<br />
-                @reward.RewardDescription<hr />
-            </div>
+                        <div>
+                            <h3>@reward.Title</h3>
+                            Donate $@reward.Value or more<br />
+                            @reward.RewardDescription<hr />
+                        </div>
+                    }
                 }
-            }
 
             </div>
         </div>
