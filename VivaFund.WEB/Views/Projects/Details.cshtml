@@ -78,18 +78,18 @@
             <div class="col-md-8">
                 <div id="tabs">
                     <ul class="nav nav-tabs">
-                        <li class="active"><a href="#projectBody" data-toggle="tab">Description</a></li>
-                        <li><a href="#projectUpdates" data-toggle="tab">Updates</a></li>
-                        <li><a href="#projectComments" data-toggle="tab">Comments</a></li>
+                        <li><a href="javascript:void(0)" class="active tablinks" onclick="openTAB(event, 'projectBody')" data-toggle="tab">Description</a></li>
+                        <li><a href="javascript:void(0)" class="tablinks" onclick="openTAB(event, 'projectUpdates')" data-toggle="tab">Updates</a></li>
+                        <li><a href="javascript:void(0)" class="tablinks" onclick="openTAB(event, 'projectComments')" data-toggle="tab">Comments</a></li>
                     </ul>
 
-                    <div id="projectBody" class="tab-pane fade in active" align="justify">
+                    <div id="projectBody" class="tabcontent" align="justify">
                         <p>@Model.BodyEn</p>
                     </div>
-                    <div id="projectUpdates" class="tab-pane fade">
+                    <div id="projectUpdates" class="tabcontent">
                         <p>No updates yet.</p>
                     </div>
-                    <div id="projectComments" class="tab-pane fade">
+                    <div id="projectComments"  class="tabcontent">
                         <p>No comments yet. Why don't you write something?</p>
                         @if (Model.Comments.Count() > 0)
                         {
@@ -142,4 +142,28 @@
     <script>
         $("#tabs").tabs();
     </script>
+    <script>
+        function openTAB(evt, cityName) {
+    // Declare all variables
+    var i, tabcontent, tablinks;
+
+    // Get all elements with class="tabcontent" and hide them
+    tabcontent = document.getElementsByClassName("tabcontent");
+    for (i = 0; i < tabcontent.length; i++) {
+        tabcontent[i].style.display = "none";
+    }
+
+    // Get all elements with class="tablinks" and remove the class "active"
+    tablinks = document.getElementsByClassName("tablinks");
+    for (i = 0; i < tablinks.length; i++) {
+        tablinks[i].className = tablinks[i].className.replace(" active", "");
+    }
+
+    // Show the current tab, and add an "active" class to the link that opened the tab
+    document.getElementById(cityName).style.display = "block";
+    evt.currentTarget.className += " active";
+}
+       
+</script>
+   
 }
