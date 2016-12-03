@@ -1,33 +1,18 @@
 ﻿@model VivaFund.ViewModels.ProjectViewModel
-@{  var imagePath = "";
-    //if (Request["photoChoice"] != null)
-    //{
-    imagePath = @"Content\Images\Project.png";
-    //+ Request["photoChoice"];
-    //}
+@{  
     string progressid = "progressbar" + Model.ProjectId;
 }
 
 <div class="content-section-d" style="height:100%;" >
     <div class="container" style="width:100%">
         <div class="row" style="height:inherit">
-            <div class=" wow fadeInLeftBig">
+            <div class="wow fadeInLeftBig">
                 <div id="owl-demo-1" class="owl-carousel owl-demo">
                     <a href="Projects/Details/@Model.ProjectId" >
                         <div >
                             <img class="img-responsive @*img-rounded*@" style='width:100%;' src="@Model.ThumbnailImage" alt="">
                         </div>
                     </a>
-                    @*<a href="~/Content/img/iphone.png" class="image-link">
-                        <div class="item">
-                            <img class="img-responsive img-rounded" src="~/Content/img/iphone.png" alt="">
-                        </div>
-                    </a>
-                    <a href="~/Content/img/iphone.png" class="image-link">
-                        <div class="item">
-                            <img class="img-responsive img-rounded" src="~/Content/img/iphone.png" alt="">
-                        </div>
-                    </a>*@
                 </div>
             </div>
 
@@ -38,10 +23,10 @@
                     @Html.DisplayFor(model => model.desc)
                 </p>
 
-                <p>
+                <p class="text-center">
                     @Html.Button("Details", new { @class = "btn btn-primary", @type = "button", @onclick = "location.href='/Projects/Details/" + @Html.Raw(Model.ProjectId) + "'" })
-                    @Html.Button("Edit", new { @class = "btn btn-info", @type = "button", @onclick = "location.href='/Projects/Edit/" + @Html.Raw(Model.ProjectId) + "'" })
-                    @Html.Button("Delete", new { @class = "btn btn-embossed", @type = "button", @onclick = "location.href='/Projects/Delete/" + @Html.Raw(Model.ProjectId) + "'" })
+                    @*@Html.Button("Edit", new { @class = "btn btn-info", @type = "button", @onclick = "location.href='/Projects/Edit/" + @Html.Raw(Model.ProjectId) + "'" })
+                    @Html.Button("Delete", new { @class = "btn btn-embossed", @type = "button", @onclick = "location.href='/Projects/Delete/" + @Html.Raw(Model.ProjectId) + "'" })*@
 
                 </p>
             </div>

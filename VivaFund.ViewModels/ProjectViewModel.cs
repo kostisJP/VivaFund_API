@@ -47,7 +47,7 @@ namespace VivaFund.ViewModels
                     videoId = "http://img.youtube.com/vi/" + videoId + "/mqdefault.jpg";
                     return videoId;
                 }
-                return "";
+                return URL;
             }
 
             set {

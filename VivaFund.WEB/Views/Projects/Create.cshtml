@@ -81,10 +81,10 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            @Html.LabelFor(model => model.Url, "Select a video from Youtube", htmlAttributes: new { @class = "control-label col-md-6" })
+                            @Html.LabelFor(model => model.URL, "Select a video from Youtube", htmlAttributes: new { @class = "control-label col-md-6" })
                             <div class="col-md-6">
-                                @Html.EditorFor(model => model.Url, new { htmlAttributes = new { @class = "form-control", @type = "text", @placeholder = "Enter Title", required = "required" } })
-                                @Html.ValidationMessageFor(model => model.Url, "", new { @class = "text-danger" })
+                                @Html.EditorFor(model => model.URL, new { htmlAttributes = new { @class = "form-control", @type = "text", @placeholder = "Enter Title", required = "required" } })
+                                @Html.ValidationMessageFor(model => model.URL, "", new { @class = "text-danger" })
                             </div>
 
                         </div>
