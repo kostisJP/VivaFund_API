@@ -3,13 +3,22 @@
 @{
     ViewBag.Title = "Create";
     Layout = "~/Views/Shared/_Layout.cshtml";
-    Model.Rewards = new List<VivaFund.DomainModels.Reward>();
-    var rew =new VivaFund.DomainModels.Reward();
-    rew.ProjectID = Model.ProjectId;
-    rew.Project = Model;
-    rew.Title = "";
-    rew.RewardDescription = "";
-    Model.Rewards.Add(rew);
+    if(Model.Rewards == null)
+    {
+        Model.Rewards = Model.Rewards ?? new List<VivaFund.DomainModels.Reward>();
+        var rew = new VivaFund.DomainModels.Reward();
+        rew.ProjectID = Model.ProjectId;
+        rew.Project = Model;
+        rew.Title = "";
+        rew.RewardDescription = "";
+        Model.Rewards.Add(rew);
+    }
+    else
+    {
+
+    }
+
+
 }
 <br />
 <br />
