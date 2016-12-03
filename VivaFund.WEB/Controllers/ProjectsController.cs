@@ -58,7 +58,7 @@ namespace VivaFund.WEB.Controllers
         // GET: Projects
         public ActionResult Index()
         {
-            var projects = _projectService.GetAllProjects().ToList();
+            var projects = _projectService.GetAllProjects();
 
             var projectsVM = Mapper.Map<IEnumerable<ProjectViewModel>>(projects);
 

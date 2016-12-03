@@ -56,7 +56,7 @@ namespace VivaFund.DomainModels
             }
             set
             {
-                if (value.Contains("https://www.youtube.com/watch?v="))
+                if (value != null && value.Contains("https://www.youtube.com/watch?v="))
                 {
                     value.Replace("https://www.youtube.com/watch?v=", "https://www.youtube.com/embed/");
                     _url = value;
