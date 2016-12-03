@@ -5,6 +5,8 @@
     var donation = ViewBag.Donations as List<VivaFund.DomainModels.Donation>;
     var member = ViewBag.Member as VivaFund.DomainModels.Member;
     int i = 0;
+    int counter = 0;
+    string project;
 }
 
 <h2>@ViewBag.Title</h2>
@@ -116,10 +118,31 @@
             </dd>
         }
         <dd>
-            <dt>
-                Donations Count
-            </dt>
+        <dt>
+            Donations Count:
+        </dt>
+        <dd style="border: 25px">
+
+            @foreach (var ItemDonation in donation)
+            {
+                counter += ItemDonation.DonatedAmount;
+            }
+            [@counter]
         </dd>
+
+           <dt>
+               Projects:
+           </dt>
+        <dd>
+            @foreach(var item in member.Projects)
+            {
+                project = item.TitleEn;
+                @project
+                <br/>
+            }
+            
+        </dd>
+  
 
     </dl>
 </div>
