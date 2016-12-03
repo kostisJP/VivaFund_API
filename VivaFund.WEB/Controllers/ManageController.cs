@@ -11,6 +11,8 @@ using VivaFund.WEB.Models;
 using VivaFund.ServicesInterfaces;
 using VivaFund.DomainModels;
 using System.Collections.Generic;
+using AutoMapper;
+using VivaFund.ViewModels;
 
 namespace VivaFund.WEB.Controllers
 {
@@ -124,10 +126,11 @@ namespace VivaFund.WEB.Controllers
             Member memberUser;
             memberUser = _memberService.GetMemberById(GetUserId());
 
-            memberUser.Projects = _projectService.GetProjectsByMember(memberUser.MemberId);
+            var projects = _projectService.GetProjectsByMember(memberUser.MemberId);
 
             ViewBag.Donations = _donataionService.GetAllDonationsByMemberId(memberUser.MemberId);
             ViewBag.Member = memberUser;
+            ViewBag.Projects = Mapper.Map<IEnumerable<ProjectViewModel>>(projects);
             return View(model);
         }
 
