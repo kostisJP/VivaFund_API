@@ -32,14 +32,17 @@ namespace VivaFund.WEB.Controllers
         private readonly IProjectService _projectService;
         private readonly IMemberService _memberService;
         private readonly IDonationService _donationService;
+        private readonly IRewardService _rewardService;
 
         public ProjectsController(IProjectService projectService,
             IMemberService memberService,
-            IDonationService donationService)
+            IDonationService donationService,
+            IRewardService rewardService)
         {
             _projectService = projectService;
             _memberService = memberService;
             _donationService = donationService;
+            _rewardService = rewardService;
         }
 
         // GET: Projects
@@ -79,6 +82,7 @@ namespace VivaFund.WEB.Controllers
             var donations = _donationService.GetAllDonationsByProjectId(id ?? 0).ToList();
             var projectMedia = _projectService.GetProjectMediaByProjectId(id ?? 0).ToList();
             var comments = _projectService.GetCommentsByProjectId(id ?? 0).ToList();
+            var rewards = _rewardService.GetAllRewardsByProjectId(id ?? 0).ToList();
 
             var projectVM = new ProjectViewModel();
 
@@ -98,6 +102,11 @@ namespace VivaFund.WEB.Controllers
             {
                 var comm = Mapper.Map<IEnumerable<CommentViewModel>>(comments);
                 projectVM.Comments = comm;
+            }
+            if (rewards != null)
+            {
+                var rwd = Mapper.Map<IEnumerable<RewardViewModel>>(rewards);
+                projectVM.Rewards = rwd;
             }
 
             if (project != null)
