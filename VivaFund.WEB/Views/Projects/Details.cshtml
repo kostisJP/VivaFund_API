@@ -2,6 +2,7 @@
 
 @{
     ViewBag.Title = "Details";
+    var myIdentityflag = (bool)ViewBag.Flag;
     Layout = "~/Views/Shared/_Layout.cshtml";
 
     var IsLoggedIn = false;
@@ -39,22 +40,26 @@
                     </div>
                 </div>
                 <div>
-                    @using (Html.BeginForm("Checkout", "Projects", FormMethod.Post, new { enctype = "multipart/form-data" }))
-                    {
-                        @Html.HiddenFor(model => model.ProjectId)
-                        @Html.HiddenFor(model => model.MemberId)
-                        <button type="button"
-                                data-vp-sourcecode="Default"
-                                data-vp-publickey="Ob/Mdq9m9azAOHhsX1m8FHOYYaa95hY+mPAqGuJAyAQ="
-                                data-vp-baseurl="https://demo.vivapayments.com"
-                                data-vp-lang="el"
-                                data-vp-amount="1000"
-                                data-vp-customeremail="customer@vivawallet.com"
-                                data-vp-customerfirstname="John"
-                                data-vp-customersurname="Smith"
-                                data-vp-merchantref="test merchant ref"
-                                data-vp-expandcard="true"
-                                data-vp-description="My product"></button>
+                    @{ if (myIdentityflag)
+                        {
+                            using (Html.BeginForm("Checkout", "Projects", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                            {
+                                @Html.HiddenFor(model => model.ProjectId)
+                                @Html.HiddenFor(model => model.MemberId)
+                                <button type="button"
+                                        data-vp-sourcecode="Default"
+                                        data-vp-publickey="Ob/Mdq9m9azAOHhsX1m8FHOYYaa95hY+mPAqGuJAyAQ="
+                                        data-vp-baseurl="https://demo.vivapayments.com"
+                                        data-vp-lang="el"
+                                        data-vp-amount="1000"
+                                        data-vp-customeremail="customer@vivawallet.com"
+                                        data-vp-customerfirstname="John"
+                                        data-vp-customersurname="Smith"
+                                        data-vp-merchantref="test merchant ref"
+                                        data-vp-expandcard="true"
+                                        data-vp-description="My product"></button>
+                            }
+                        }
                     }
                 </div>
 

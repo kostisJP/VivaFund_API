@@ -85,7 +85,14 @@ namespace VivaFund.WEB.Controllers
             var rewards = _rewardService.GetAllRewardsByProjectId(id ?? 0).ToList();
 
             var projectVM = new ProjectViewModel();
-
+            if ( GetUserId() != null)
+            {
+                ViewBag.Flag = true;
+            }
+            else
+            {
+                ViewBag.Flag = false;
+            }
             projectVM = Mapper.Map<ProjectViewModel>(project);
 
             if (donations != null)
