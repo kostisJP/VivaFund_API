@@ -10,7 +10,7 @@ using VivaFund.ServicesInterfaces;
 
 namespace VivaFund.Services
 {
-    public class ProjectService : IProjectService 
+    public class ProjectService : IProjectService
     {
         private readonly IProjectRepository _projectRepository;
         private readonly IProjectCategoryRepository _projectCategoryRepository;
@@ -18,13 +18,13 @@ namespace VivaFund.Services
         private readonly IDonationRepository _donationRepository;
         private readonly IFilterRepository _filterRepository;
         private readonly IRewardRepository _rewardRepository;
-        
-        public ProjectService(IProjectRepository projectRepository 
-                        ,IProjectCategoryRepository projectCategoryRepository
-                        ,IMemberRepository memberRepository
-                        ,IDonationRepository donationRepository
-                        ,IFilterRepository filterRepository
-                        ,IRewardRepository rewardRepository)
+
+        public ProjectService(IProjectRepository projectRepository
+                        , IProjectCategoryRepository projectCategoryRepository
+                        , IMemberRepository memberRepository
+                        , IDonationRepository donationRepository
+                        , IFilterRepository filterRepository
+                        , IRewardRepository rewardRepository)
         {
             _projectRepository = projectRepository;
             _projectCategoryRepository = projectCategoryRepository;
@@ -82,7 +82,7 @@ namespace VivaFund.Services
             try
             {
                 var allProjects = _projectRepository.GetAllProjects();
-                
+
                 return allProjects;
             }
             catch (Exception ex)
@@ -136,7 +136,7 @@ namespace VivaFund.Services
         public Project GetProjectById(int id)
         {
             try
-           {
+            {
                 var project = _projectRepository.GetProjectById(id);
 
                 return project;
@@ -146,7 +146,7 @@ namespace VivaFund.Services
                 return null;
             }
         }
-       public void SetProject(Project project)
+        public void SetProject(Project project)
         {
             try
             {
@@ -159,6 +159,19 @@ namespace VivaFund.Services
         }
         #endregion PROJECT
 
+        public IEnumerable<Project> GetProjectsByMember(int id)
+        {
+            try{
+
+                var project = _projectRepository.GetProjectsByMember(id);
+
+                return project;
+            }
+            catch(Exception ex)
+            {
+                return null;
+            }
+        }
 
     }
 }

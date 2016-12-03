@@ -8,23 +8,41 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using VivaFund.WEB.Models;
+using VivaFund.ServicesInterfaces;
+using VivaFund.DomainModels;
+using System.Collections.Generic;
 
 namespace VivaFund.WEB.Controllers
 {
+
     [Authorize]
     public class ManageController : VivaBaseController
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
+        private readonly IProjectService _projectService;
+        private readonly IMemberService _memberService;
+        private readonly IDonationService _donataionService;
+        private readonly IRewardService _rewardService;
 
         public ManageController()
         {
         }
 
-        public ManageController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
+        public ManageController(ApplicationUserManager userManager, ApplicationSignInManager signInManager, 
+            IProjectService projectService, 
+            IMemberService memberService, 
+            IDonationService donataionService, 
+            IRewardService rewardService)
         {
+            _projectService = projectService;
+            _memberService = memberService;
+            _donataionService = donataionService;
+            _rewardService = rewardService;
+
             UserManager = userManager;
             SignInManager = signInManager;
+           
         }
 
         public ApplicationSignInManager SignInManager
@@ -103,7 +121,20 @@ namespace VivaFund.WEB.Controllers
                 Logins = await UserManager.GetLoginsAsync(GetUserId()),
                 BrowserRemembered = await AuthenticationManager.TwoFactorBrowserRememberedAsync(GetUserId())
             };
+            Member memberUser;
+            memberUser = _memberService.GetMemberById(GetUserId());
+
+            memberUser.Projects = _projectService.GetProjectsByMember(memberUser.MemberId);
+
+            ViewBag.Donations = _donataionService.GetAllDonationsByMemberId(memberUser.MemberId);
+            ViewBag.Member = memberUser;
             return View(model);
+        }
+
+        public ActionResult Update(Member member)
+        {
+            _memberService.SetMember(member);
+            return View("../Manage/Index");
         }
 
         //

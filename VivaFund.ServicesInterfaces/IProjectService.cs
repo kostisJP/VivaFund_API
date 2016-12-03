@@ -23,6 +23,7 @@ namespace VivaFund.ServicesInterfaces
         IEnumerable<Comment> GetCommentsByProjectId(int projectId);
         Project GetProjectById(int id);
         void SetProject(Project project);
+        IEnumerable<Project> GetProjectsByMember(int id);
         #endregion PROJECT
 
     }
