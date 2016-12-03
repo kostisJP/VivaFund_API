@@ -9,15 +9,14 @@
     @Html.Button("Create new Project", new { @class = "btn btn-embossed btn-primary", @type = "button", @onclick = "location.href='/Projects/Create'" })
 </div>
 
-<ul class="ProjectList">
+<div style="position:relative">
     @foreach (var item in Model)
     {
-        <li>
+        <div class="col-md-4" style="height:580px; padding-top:30px">
+            @Html.Partial("_ProjectPartial", item)
+        </div>
 
-            <div class="col-md-4" style="height:550px">
-                @Html.Partial("_ProjectPartial", item)
-            </div>
-            <br />
-        </li>
     }
-</ul>
+</div>
+<br/>
+

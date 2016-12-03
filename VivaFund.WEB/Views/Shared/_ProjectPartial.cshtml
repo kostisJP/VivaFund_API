@@ -7,15 +7,14 @@
     //}
     string progressid = "progressbar" + Model.ProjectId;
 }
-<br />
-<br />
-<div class="content-section-d" >
+
+<div class="content-section-d" style="height:100%;" >
     <div class="container" style="width:100%">
         <div class="row" style="height:inherit">
             <div class=" wow fadeInLeftBig">
                 <div id="owl-demo-1" class="owl-carousel owl-demo">
-                    <a href="/Details/@Model.ProjectId" class="image-link">
-                        <div class="item">
+                    <a href="Projects/Details/@Model.ProjectId" >
+                        <div >
                             <img class="img-responsive @*img-rounded*@" style='width:100%;' src="@Model.ThumbnailImage" alt="">
                         </div>
                     </a>
