@@ -47,31 +47,15 @@
                 <div>
                     @{ if (User.Identity.IsAuthenticated)
                         {
-                            <div class="">
-                                @Html.DropDownListFor(m=>m.RewardId, new SelectList(Model.Rewards, "RewardId", "Value"),"- Please Select -", new { @class= "form-control" })
+                            <text>Select a reward package to fund the project</text>
+                            <div class="" style="padding-bottom:15px;">
+                                @Html.DropDownListFor(m=>m.RewardId, new SelectList(Model.Rewards, "Value", "Title"),"- Please Select -", new { @class= "form-control" })
                             </div>
 
-                            <a href="#" class="btn btn-success">Fund this Project</a>
-                            @*using (Html.BeginForm("Checkout", "Projects", FormMethod.Post, new { enctype = "multipart/form-data" }))
-                            {
-                                @Html.HiddenFor(model => model.ProjectId)
-                                @Html.HiddenFor(model => model.MemberId)
+                            @*<a href="#" class="btn btn-success">Fund this Project</a>*@
 
-                                <div id="vivaButton">
-                                <button type="button" id="vpButton"
-                                        data-vp-sourcecode="Default"
-                                        data-vp-publickey="GL0WTFkmyONDEaVYSa9EpZmxNBRNz3+el1EfAMVJ9nU="
-                                        data-vp-baseurl="https://demo.vivapayments.com"
-                                        data-vp-lang="el"
-                                        data-vp-amount="1"
-                                        data-vp-customeremail="customer@vivawallet.com"
-                                        data-vp-customerfirstname="John"
-                                        data-vp-customersurname="Smith"
-                                        data-vp-merchantref="test merchant ref"
-                                        data-vp-expandcard="true"
-                                        data-vp-description="My product"></button>
-                             </div>
-                            }*@
+                            <div id="viva_button"></div>
+                            
                         }
                     }
                 </div>
@@ -148,8 +132,8 @@
 
 @section Scripts
 {
-    <script src="https://code.jquery.com/jquery-1.11.2.min.js"></script>
-    <script src="https://demo.vivapayments.com/web/checkout/js"></script>
+    @*<script src="https://code.jquery.com/jquery-1.11.2.min.js"></script>
+    <script src="https://demo.vivapayments.com/web/checkout/js"></script>*@
     <script>
         function openTAB(evt, cityName) {
     // Declare all variables
@@ -175,8 +159,58 @@
 </script>
 <script>
     $(document).ready(function () {
+
+
+        $('#viva_button').html('  \
+                    <form id="myform" method="post"> \
+                        <button type="button" id = "vpButton" \
+                            data-vp-sourcecode="Default" \
+                            data-vp-publickey="GL0WTFkmyONDEaVYSa9EpZmxNBRNz3+el1EfAMVJ9nU=" \
+                            data-vp-baseurl="https://demo.vivapayments.com" \
+                            data-vp-lang="en" \
+                            data-vp-amount="1" \
+                            data-vp-customeremail="customer@vivawallet.com" \
+                            data-vp-customerfirstname = "John" \
+                            data-vp-customersurname = "Smith" \
+                            data-vp-merchantref="test merchant ref   aalalalalallal" \
+                            data-vp-expandcard="true" \
+                            data-vp-description="My product"> \
+                        </button> \
+                    </form>');
+
+        $('#vpButton').prop('disabled', true);
+
+        var script = document.createElement('script');
+        script.type = 'text/javascript';
+        script.src = "https://demo.vivapayments.com/web/checkout/js";
+        $("#viva_button").append(script);
+
         $("#RewardId").change(function () {
-            $('#vpButton').attr('data-vp-amount', $("#RewardId").find(":selected").text());
+            //$('#vpButton').attr('data-vp-amount', $("#RewardId").find(":selected").text());
+            $('#viva_empty').empty();
+                $('#viva_button').html( '  \
+                    <form id="myform" method="post"> \
+                        <button type="button" \
+                            data-vp-sourcecode="Default" \
+                            data-vp-publickey="GL0WTFkmyONDEaVYSa9EpZmxNBRNz3+el1EfAMVJ9nU=" \
+                            data-vp-baseurl="https://demo.vivapayments.com" \
+                            data-vp-lang="en" \
+                            data-vp-amount="' + $("#RewardId").find(":selected").val() * 100 + '" \
+                            data-vp-customeremail="customer@vivawallet.com" \
+                            data-vp-customerfirstname = "John" \
+                            data-vp-customersurname = "Smith" \
+                            data-vp-merchantref="test merchant ref   aalalalalallal" \
+                            data-vp-expandcard="true" \
+                            data-vp-description="My product"> \
+                        </button> \
+                    </form>');
+
+
+                var script = document.createElement( 'script' );
+                script.type = 'text/javascript';
+                script.src = "https://demo.vivapayments.com/web/checkout/js";
+                $("#viva_button").append(script);
+
         });
         
     });
