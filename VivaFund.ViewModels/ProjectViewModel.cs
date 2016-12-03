@@ -18,6 +18,23 @@ namespace VivaFund.ViewModels
         public int Goal { get; set; }
         public int Views { get; set; }
         public bool Completed { get; set; }
+
+        public string URL { get; set; }
+
+        public string ThumbnailImage {
+            get {
+                if (URL != null) {
+                    var videoId = URL.Replace("https://www.youtube.com/embed/", "");
+                    videoId = "http://img.youtube.com/vi/" + videoId + "/mqdefault.jpg";
+                    return videoId;
+                }
+                return "";
+            }
+
+            set {
+                this.ThumbnailImage = value;
+            }
+        }
         public DateTime ExpirationDate { get; set; }
 
         public int daysToGo {
