@@ -19,7 +19,19 @@ namespace VivaFund.DomainModels
         public int ProjectMediaType { get; set; }
 
         [MaxLength(500)]
-        public string URL { get; set; }
+        public string URL {
+            get {
+                return this.URL;
+            }
+            set {
+                if (value.Contains("https://www.youtube.com/")) {
+                    value.Replace("https://www.youtube.com/watch?v=", "https://www.youtube.com/embed/");
+                    this.URL = value;
+                }
+
+                this.URL = value;
+            }
+        }
 
         public int ProjectId { get; set; }
         
