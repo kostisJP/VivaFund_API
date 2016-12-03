@@ -7,15 +7,16 @@
     //}
     string progressid = "progressbar" + Model.ProjectId;
 }
-
-<div class="content-section-a">
-    <div class="container">
-        <div class="row">
-            <div class="col-sm-6 wow fadeInLeftBig">
+<br />
+<br />
+<div class="content-section-d" >
+    <div class="container" style="width:100%">
+        <div class="row" style="height:inherit">
+            <div class=" wow fadeInLeftBig">
                 <div id="owl-demo-1" class="owl-carousel owl-demo">
                     <a href="/Details/@Model.ProjectId" class="image-link">
                         <div class="item">
-                            <img class="img-responsive img-rounded" src="@Model.ThumbnailImage" alt="">
+                            <img class="img-responsive @*img-rounded*@" style='width:100%;' src="@Model.ThumbnailImage" alt="">
                         </div>
                     </a>
                     @*<a href="~/Content/img/iphone.png" class="image-link">
@@ -31,11 +32,11 @@
                 </div>
             </div>
 
-            <div class="col-sm-6 wow fadeInRightBig" data-animation-delay="200" >
+            <div class="wow fadeInRightBig" stdata-animation-delay="200" style="margin-left:15px">
                 <h3 class="section-heading">@Html.DisplayFor(model => model.TitleEn)</h3>
                 <div class="sub-title lead3" onclick="location.href='@Url.Action("Details", new { id = Model.ProjectId })'">@Html.DisplayFor(model => model.SubtitleEn)</div>
                 <p class="lead" onclick="location.href='@Url.Action("Details", new { id = Model.ProjectId })'">
-                    @Html.DisplayFor(model => model.BodyEn)
+                    @Html.DisplayFor(model => model.desc)
                 </p>
 
                 <p>
