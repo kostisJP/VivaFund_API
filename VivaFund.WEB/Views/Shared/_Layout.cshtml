@@ -308,6 +308,7 @@
 
 
     <footer>
+
         <div class="container">
 
             <div class="col-md-8">
@@ -331,6 +332,7 @@
             </div>
         </div>
 
+
     </footer>
     <!-- JavaScript -->
     @Scripts.Render("~/bundles/bootstrap")
@@ -340,65 +342,65 @@
     <!-- StikyMenu -->
     <script src="~/Scripts/js/stickUp.min.js"></script>
     <script type="text/javascript">
-    jQuery(function($) {
+        jQuery(function ($) {
 
-        $(document)
-            .ready(function() {
-                $('.navbar-default').stickUp();
-                var navListItems = $('div.setup-panel div a'),
-                    allWells = $('.setup-content'),
-                    allNextBtn = $('.nextBtn');
+            $(document)
+                .ready(function () {
+                    $('.navbar-default').stickUp();
+                    var navListItems = $('div.setup-panel div a'),
+                        allWells = $('.setup-content'),
+                        allNextBtn = $('.nextBtn');
 
-                allWells.hide();
+                    allWells.hide();
 
-                navListItems.click(function(e) {
-                    e.preventDefault();
-                    var $target = $($(this).attr('href')),
-                        $item = $(this);
+                    navListItems.click(function (e) {
+                        e.preventDefault();
+                        var $target = $($(this).attr('href')),
+                            $item = $(this);
 
-                    if (!$item.hasClass('disabled')) {
-                        navListItems.removeClass('btn-primary').addClass('btn-default');
-                        $item.addClass('btn-primary');
-                        allWells.hide();
-                        $target.show();
-                        $target.find('input:eq(0)').focus();
-                    }
-                });
-
-                allNextBtn.click(function() {
-                    var curStep = $(this).closest(".setup-content"),
-                        curStepBtn = curStep.attr("id"),
-                        nextStepWizard = $('div.setup-panel div a[href="#' + curStepBtn + '"]')
-                            .parent()
-                            .next()
-                            .children("a"),
-                        curInputs = curStep.find("input[type='text'],input[type='url']"),
-                        isValid = true;
-
-                    $(".form-group").removeClass("has-error");
-                    for (var i = 0; i < curInputs.length; i++) {
-                        if (!curInputs[i].validity.valid) {
-                            isValid = false;
-                            $(curInputs[i]).closest(".form-group").addClass("has-error");
+                        if (!$item.hasClass('disabled')) {
+                            navListItems.removeClass('btn-primary').addClass('btn-default');
+                            $item.addClass('btn-primary');
+                            allWells.hide();
+                            $target.show();
+                            $target.find('input:eq(0)').focus();
                         }
-                    }
+                    });
 
-                    if (isValid)
-                        nextStepWizard.removeAttr('disabled').trigger('click');
+                    allNextBtn.click(function () {
+                        var curStep = $(this).closest(".setup-content"),
+                            curStepBtn = curStep.attr("id"),
+                            nextStepWizard = $('div.setup-panel div a[href="#' + curStepBtn + '"]')
+                                .parent()
+                                .next()
+                                .children("a"),
+                            curInputs = curStep.find("input[type='text'],input[type='url']"),
+                            isValid = true;
+
+                        $(".form-group").removeClass("has-error");
+                        for (var i = 0; i < curInputs.length; i++) {
+                            if (!curInputs[i].validity.valid) {
+                                isValid = false;
+                                $(curInputs[i]).closest(".form-group").addClass("has-error");
+                            }
+                        }
+
+                        if (isValid)
+                            nextStepWizard.removeAttr('disabled').trigger('click');
+                    });
+
+                    $('div.setup-panel div a.btn-primary').trigger('click');
+
                 });
 
-                $('div.setup-panel div a.btn-primary').trigger('click');
-
-            });
-
-    });
+        });
 
     </script>
     <!-- Smoothscroll -->
     <script type="text/javascript" src="~/Scripts/js/jquery.corner.js"></script>
     <script src="~/Scripts/js/wow.min.js"></script>
     <script>
-    new WOW().init();
+        new WOW().init();
     </script>
     <script src="~/Scripts/js/classie.js"></script>
     <script src="~/Scripts/js/uiMorphingButton_inflow.js"></script>
