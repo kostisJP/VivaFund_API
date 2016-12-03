@@ -127,7 +127,7 @@ namespace VivaFund.WEB.Controllers
             memberUser = _memberService.GetMemberById(GetUserId());
 
             var projects = _projectService.GetProjectsByMember(memberUser.MemberId);
-
+            //var donatedProjects = _projectService.GetAllProjects().Where(i=>i.Donations.Where(u=>u.MemberId == memberUser.MemberId)); 
             ViewBag.Donations = _donataionService.GetAllDonationsByMemberId(memberUser.MemberId);
             ViewBag.Member = memberUser;
             ViewBag.Projects = Mapper.Map<IEnumerable<ProjectViewModel>>(projects);

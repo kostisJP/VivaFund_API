@@ -1,52 +1,192 @@
 ﻿@model VivaFund.WEB.Models.IndexViewModel
 @{
     ViewBag.Title = "Manage";
-
+    
     var donation = ViewBag.Donations as List<VivaFund.DomainModels.Donation>;
     var member = ViewBag.Member as VivaFund.DomainModels.Member;
     var projects = ViewBag.Projects as IEnumerable<VivaFund.ViewModels.ProjectViewModel>;
+    
     int i = 0;
     int counter = 0;
     string project;
 }
-<center>
-    <br />
-    <br />
+<div class="container">
     <h2>@ViewBag.Title</h2>
-
     <p class="text-success">@ViewBag.StatusMessage</p>
-    <div>
-        <h4>Change your account settings</h4>
-        <hr />
-</center>
-<dl class="dl-horizontal">
-    <dt>Password:</dt>
-    <dd>
-        [
-        @if (Model.HasPassword)
-            {
-            @Html.ActionLink("Change your password", "ChangePassword")
+
+    <section style="margin-top: 30px;">
+        <div class="container">
+            <div class="row">
+                <div>
+                    <div id="tabs">
+                        <ul class="nav nav-tabs">
+                            <li><a href="javascript:void(0)" class="active tablinks" onclick="openTAB(event, 'My projects')" data-toggle="tab">My projects</a></li>
+                            <li><a href="javascript:void(0)" class="tablinks" onclick="openTAB(event, 'My Donations')" data-toggle="tab">My Donations</a></li>
+                            <li><a href="javascript:void(0)" class="tablinks" onclick="openTAB(event, 'Account Settings')" data-toggle="tab">Account Settings</a></li>
+                        </ul>
+
+                        <div id="Account Settings" class="tabcontent">
+
+                            <div class="row">
+                                <div class="col-md-2">Password:</div>
+                                <div class="col-md-4">
+                                    [
+                                    @if (Model.HasPassword)
+                                    {
+                                        @Html.ActionLink("Change your password", "ChangePassword")
+                                    }
+                                    else
+                                    {
+                                        @Html.ActionLink("Create", "SetPassword")
+                                    }
+                                    ]
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-2">External Logins:</div>
+                                <div class="col-md-4">
+                                    @Model.Logins.Count [
+                                    @Html.ActionLink("Manage", "ManageLogins") ]
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-2">Donations Count:</div>
+                                <div class="col-md-4">
+                                    @foreach (var ItemDonation in donation)
+                                    {
+                                        counter += ItemDonation.DonatedAmount;
+                                    }
+                                    [@counter]
+                                </div>
+                            </div>
+                            @using (Html.BeginForm("Update", "Manage", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                            {
+                                <div class="row">
+                                    <div class="col-md-2">First Name</div>
+                                    <div class="col-md-4">@Html.TextBox("FirstName", member.FirstName, new { @class = "form-control" })</div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-2">Last Name</div>
+                                    <div class="col-md-4">@Html.TextBox("LastName", member.LastName, new { @class = "form-control" })</div>
+                                </div>
+                                <div class="col-md-2"></div>
+                                <div>
+                                    <input type="submit" value="Create" class="btn btn-primary" />
+                                    @Html.Hidden("MemberId", member.MemberId)
+                                    @Html.Hidden("AspNetUserId", member.AspNetUserId)
+                                    @Html.Hidden("InsertedDate", member.InsertedDate)
+                                    @Html.Hidden("IsActive", member.IsActive)
+                                    @Html.Hidden("UpdatedDate", DateTime.Now)
+                                    @Html.Hidden("Token", member.Token)
+                                </div>
+                            }
+                           
+                        </div>
+
+                        <div id="My projects" class="tabcontent">
+                            <div style="position:relative">
+                                @foreach (var item in projects)
+                                {
+                                    {
+                                        <div class="col-md-4" style="height:580px; margin-top:30px">
+                                            @Html.Partial("_ProjectPartial", item)
+                                        </div>
+                                    }
+                                    <div style="margin-bottom:100px"></div>
+                                }
+                            </div>
+                        </div>
+                        <div id="My Donations" class="tabcontent">
+                            <div style="position:relative">
+                                <p>NEEDS A FIX</p>
+                                @foreach (var item in donation)
+                                {if (item.MemberId.ToString() == member.AspNetUserId)
+                                {
+                                    {
+
+                                        <div class="col-md-4" style="height:580px; margin-top:30px">
+                                            @Html.Partial("_ProjectPartial", item.ProjectId)
+                                        </div>
+                                    }
+                                    <div style="margin-bottom:100px"></div>
+                                }
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+@section Scripts
+{
+    @*<script src="https://code.jquery.com/jquery-1.11.2.min.js"></script>
+        <script src="https://demo.vivapayments.com/web/checkout/js"></script>*@
+    <script>
+        function openTAB(evt, cityName) {
+            // Declare all variables
+            var i, tabcontent, tablinks;
+
+            // Get all elements with class="tabcontent" and hide them
+            tabcontent = document.getElementsByClassName("tabcontent");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+            }
+
+            // Get all elements with class="tablinks" and remove the class "active"
+            tablinks = document.getElementsByClassName("tablinks");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].className = tablinks[i].className.replace(" active", "");
+            }
+
+            // Show the current tab, and add an "active" class to the link that opened the tab
+            document.getElementById(cityName).style.display = "block";
+            evt.currentTarget.className += " active";
+            
         }
-        else
-        {
-            @Html.ActionLink("Create", "SetPassword")
-        }
-        ]
-    </dd>
-    <dt>External Logins:</dt>
-    <dd>
-        @Model.Logins.Count [
-        @Html.ActionLink("Manage", "ManageLogins") ]
-    </dd>
-    @*
+
+    </script>
+}
+@*<div class="container">
+        <center>
+            <br />
+            <br />
+
+                <h4>Change your account settings</h4>
+                <hr />
+            </div>
+        </center>
+        <div class="dl-horizontal">
+
+        </div>
+
+        <h3 class="section-heading">My Projects</h3>
+        <div style="position:relative">
+            @foreach (var item in projects)
+                {
+                    {
+                    <div class="col-md-4" style="height:580px; margin-top:30px">
+                        @Html.Partial("_ProjectPartial", item)
+                    </div>
+                }
+                <div style="margin-bottom:100px"></div>
+            }
+        </div>
+    </div>*@
+
+
+
+
+
+@*
         Phone Numbers can used as a second factor of verification in a two-factor authentication system.
 
          See <a href="http://go.microsoft.com/fwlink/?LinkId=403804">this article</a>
             for details on setting up this ASP.NET application to support two-factor authentication using SMS.
 
          Uncomment the following block after you have set up two-factor authentication
-    *@
-    @*
+
         <dt>Phone Number:</dt>
         <dd>
             @(Model.PhoneNumber ?? "None")
@@ -65,15 +205,15 @@
                 <text>[&nbsp;&nbsp;@Html.ActionLink("Add", "AddPhoneNumber")
             }
         </dd>
-    *@
-    <dt>Two-Factor Authentication:</dt>
-    <dd>
+
+    <div>Two-Factor Authentication:</div>
+    <div>
         <p>
             There are no two-factor authentication providers configured. See <a href="http://go.microsoft.com/fwlink/?LinkId=403804">this article</a>
             for details on setting up this ASP.NET application to support two-factor authentication.
         </p>
         <br />
-        @*@if (Model.TwoFactor)
+        @if (Model.TwoFactor)
             {
                 using (Html.BeginForm("DisableTwoFactorAuthentication", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
                 {
@@ -93,66 +233,3 @@
                     </text>
                 }
             }*@
-    </dd>
-    @using (Html.BeginForm("Update", "Manage", FormMethod.Post, new { enctype = "multipart/form-data" }))
-            {
-        <dt>
-            First Name
-        </dt>
-                <dd>
-                    @Html.TextBox("FirstName", member.FirstName, new { @class = "form-control" })
-
-                </dd>
-                <dt>
-                    Last Name
-                </dt>
-                <dd>
-                    @Html.TextBox("LastName", member.LastName, new { @class = "form-control" })
-                </dd>
-                <dt>
-
-                </dt>
-                <dd>
-                    <input type="submit" value="Create" class="btn btn-primary" />
-                    @Html.Hidden("MemberId", member.MemberId)
-                    @Html.Hidden("AspNetUserId", member.AspNetUserId)
-                    @Html.Hidden("InsertedDate", member.InsertedDate)
-                    @Html.Hidden("IsActive", member.IsActive)
-                    @Html.Hidden("UpdatedDate", DateTime.Now)
-                    @Html.Hidden("Token", member.Token)
-                </dd>
-    }
-    <dd>
-    <dt>
-        Donations Count:
-    </dt>
-    <dd style="border: 25px">
-
-        @foreach (var ItemDonation in donation)
-            {
-                counter += ItemDonation.DonatedAmount;
-            }
-        [@counter]
-    </dd>
-
-    <dt>
-        Projects:
-    </dt>
-    <dd>
-        @foreach (var item in projects)
-        {
-
-
-
-
-
-            <div>
-                @Html.Partial("_ProjectPartial", item)
-            </div>
-                    <br />
-
-        }
-
-    </dd>
-</dl>
-    </div>
