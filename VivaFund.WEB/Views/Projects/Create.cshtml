@@ -102,6 +102,9 @@
 
                         <h4 class="text-center">Rewards </h4>
                             @Html.EditorFor(model => model.Rewards)
+                            <p>
+                                <input type="submit" value="Add" name="action:Add" />
+                            </p>
                     </div>
 
                     @Html.Button("Back To List", new { @class = "btn btn-primary btn-lg pull-left", @type = "button", @onclick = "location.href='/Projects'" })
@@ -117,7 +120,7 @@
                     <h3> Step 3 - Submit Your Project</h3>
                     <div class="form-group ">
                         <div class="text-center">
-                            <input type="submit" value="Create" class="btn btn-primary" />
+                            <input type="submit" value="Create"  name="action:Create" class="btn btn-primary" />
                         </div>
                     </div>
                 </div>

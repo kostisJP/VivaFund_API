@@ -23,6 +23,7 @@ using VivaFund.ViewModels;
 using AutoMapper;
 using RestSharp;
 using RestSharp.Authenticators;
+using System.Reflection;
 
 namespace VivaFund.WEB.Controllers
 {
@@ -181,6 +182,7 @@ namespace VivaFund.WEB.Controllers
 
         }
 
+
         // GET: Projects/Edit/5
         [Authorize]
         public ActionResult Edit(int id)
@@ -296,4 +298,6 @@ namespace VivaFund.WEB.Controllers
             return RedirectToAction("Index");
         }
     }
+
+ 
 }
