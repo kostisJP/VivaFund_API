@@ -44,22 +44,29 @@
                 <div>
                     @{ if (User.Identity.IsAuthenticated)
                         {
+                            <div class="">
+                                @Html.DropDownListFor(m=>m.RewardId, new SelectList(Model.Rewards, "RewardId", "Value"),"- Please Select -", new { @class= "form-control" })
+                            </div>
+
                             using (Html.BeginForm("Checkout", "Projects", FormMethod.Post, new { enctype = "multipart/form-data" }))
                             {
                                 @Html.HiddenFor(model => model.ProjectId)
                                 @Html.HiddenFor(model => model.MemberId)
-                                <button type="button"
+
+                                <div id="vivaButton">
+                                <button type="button" id="vpButton"
                                         data-vp-sourcecode="Default"
-                                        data-vp-publickey="Ob/Mdq9m9azAOHhsX1m8FHOYYaa95hY+mPAqGuJAyAQ="
+                                        data-vp-publickey="GL0WTFkmyONDEaVYSa9EpZmxNBRNz3+el1EfAMVJ9nU="
                                         data-vp-baseurl="https://demo.vivapayments.com"
                                         data-vp-lang="el"
-                                        data-vp-amount="1000"
+                                        data-vp-amount="1"
                                         data-vp-customeremail="customer@vivawallet.com"
                                         data-vp-customerfirstname="John"
                                         data-vp-customersurname="Smith"
                                         data-vp-merchantref="test merchant ref"
                                         data-vp-expandcard="true"
                                         data-vp-description="My product"></button>
+                             </div>
                             }
                         }
                     }
@@ -164,6 +171,35 @@
     evt.currentTarget.className += " active";
 }
        
+</script>
+<script>
+    $(document).ready(function () {
+        $("#RewardId").change(function () {
+            $('#vpButton').attr('data-vp-amount', $("#RewardId").find(":selected").text());
+
+            var str = '<html><head><script src="https://code.jquery.com/jquery-1.11.2.min.js"><\/script><script src="https://demo.vivapayments.com/web/checkout/js"><\/script><\/head>'
+            + '<body>'
+            + ' <button type="button" id="vpButton"'
+            + ' data-vp-sourcecode="Default"'
+            + ' data-vp-publickey="GL0WTFkmyONDEaVYSa9EpZmxNBRNz3+el1EfAMVJ9nU="'
+            + ' data-vp-baseurl="https://demo.vivapayments.com"'
+            + ' data-vp-lang="el"'
+            + ' data-vp-amount="1"'
+            + ' data-vp-customeremail="customer@vivawallet.com"'
+            + ' data-vp-customerfirstname="John"'
+            + ' data-vp-customersurname="Smith"'
+            + ' data-vp-merchantref="test merchant ref"'
+            + ' data-vp-expandcard="true"'
+            + ' data-vp-description="My product"></button> '
+            + '</body></html>';
+            var htmll = $.parseHTML(str);
+            $("#vivaButton").empty();
+            $("#vivaButton").append(htmll);
+            var wind = window.open("", "popupWindow", "width=600,height=600,scrollbars=yes");
+            wind.document.write(str);
+        });
+        
+    });
 </script>
    
 }

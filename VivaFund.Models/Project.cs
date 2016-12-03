@@ -40,6 +40,8 @@ namespace VivaFund.DomainModels
 
         public bool Completed { get; set; }
 
+        public DateTime ExpirationDate { get; set; } = DateTime.Now.AddDays(60);
+
         public ICollection<Donation> Donations { get; set; }
         public ICollection<ProjectMedia> ProjectMedia { get; set; }
         public ICollection<Reward> Rewards { get; set; }

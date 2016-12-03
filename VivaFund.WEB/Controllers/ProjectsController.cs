@@ -211,9 +211,9 @@ namespace VivaFund.WEB.Controllers
         }
 
 
-        private const string merchantId = "6466348D-85B2-4CBC-978B-422C688D2D45";
+        private const string merchantId = "e8189548-ee71-4a8f-a18f-8297aed6adfc";
 
-        private const string apiKey = "Y^!xL#";
+        private const string apiKey = "XAs}{V";
         [HttpPost]
         //[ValidateAntiForgeryToken]
         public async Task<ActionResult> Checkout(Project project)
