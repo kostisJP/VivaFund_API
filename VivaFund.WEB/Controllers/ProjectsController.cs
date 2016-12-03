@@ -23,10 +23,31 @@ using VivaFund.ViewModels;
 using AutoMapper;
 using RestSharp;
 using RestSharp.Authenticators;
+using System.Reflection;
 
 namespace VivaFund.WEB.Controllers
 {
+    [AttributeUsage(AttributeTargets.Method, AllowMultiple = false, Inherited = true)]
+    public class MultipleButtonAttribute : ActionNameSelectorAttribute
+    {
+        public string Name { get; set; }
+        public string Argument { get; set; }
 
+        public override bool IsValidName(ControllerContext controllerContext, string actionName, MethodInfo methodInfo)
+        {
+            var isValidName = false;
+            var keyValue = string.Format("{0}:{1}", Name, Argument);
+            var value = controllerContext.Controller.ValueProvider.GetValue(keyValue);
+
+            if (value != null)
+            {
+                controllerContext.Controller.ControllerContext.RouteData.Values[Name] = Argument;
+                isValidName = true;
+            }
+
+            return isValidName;
+        }
+    }
     public class ProjectsController : VivaBaseController
     {
         private readonly IProjectService _projectService;
@@ -87,7 +108,7 @@ namespace VivaFund.WEB.Controllers
             var rewards = _rewardService.GetAllRewardsByProjectId(id ?? 0).ToList();
 
             var projectVM = new ProjectViewModel();
-            if ( GetUserId() != null)
+            if (GetUserId() != null)
             {
                 ViewBag.Flag = true;
                 ViewBag.MemberId = _memberService.GetMemberById(GetUserId()).MemberId;
@@ -171,6 +192,7 @@ namespace VivaFund.WEB.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [MultipleButton(Name = "action", Argument = "Create")]
         public ActionResult Create(Project project)
         {
             project.Member = _memberService.GetMemberById(GetUserId());
@@ -181,6 +203,43 @@ namespace VivaFund.WEB.Controllers
 
             return RedirectToAction("Index", "Projects");
 
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [MultipleButton(Name = "action", Argument = "Add")]
+        public async Task<ActionResult> Add(Project project)
+        {
+            var client = new HttpClient();
+            var response2 = client.GetAsync("http://localhost:51041/api/category/all").Result;
+            var rep2 = await response2.Content.ReadAsStringAsync();
+            if (response2.Content != null)
+            {
+                var projects = JsonConvert.DeserializeObject<List<ProjectCategory>>(rep2);
+                if (response2.IsSuccessStatusCode)
+                {
+                    var ins = new List<SelectListItem>();
+                    ins.Add(new SelectListItem { Text = "Select ...", Value = "Select", Selected = true });
+                    ins.AddRange(projects.Select(
+                            x =>
+                                new SelectListItem
+                                {
+                                    Text = x.CategoryName,
+                                    Value = x.ProjectCategoryId.ToString(),
+                                    Selected = false
+                                }));
+
+                    ViewBag.ProjectCategoryId = ins;
+
+                }
+            }
+            var rew = new VivaFund.DomainModels.Reward();
+            rew.ProjectID = project.ProjectId;
+            rew.Project = project;
+            rew.Title = "";
+            rew.RewardDescription = "";
+            project.Rewards.Add(rew);
+            return View("../Projects/Create", project);
         }
 
         // GET: Projects/Edit/5
@@ -197,7 +256,7 @@ namespace VivaFund.WEB.Controllers
                 }
             }
 
-           return RedirectToAction("Error", "Home");
+            return RedirectToAction("Error", "Home");
         }
 
         // POST: Projects/Edit/5
@@ -298,4 +357,6 @@ namespace VivaFund.WEB.Controllers
             return RedirectToAction("Index");
         }
     }
+
+
 }
