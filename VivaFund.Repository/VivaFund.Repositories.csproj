@@ -75,6 +75,10 @@
     <Compile Include="Migrations\201612031345214_ProjectExpirationDate.Designer.cs">
       <DependentUpon>201612031345214_ProjectExpirationDate.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201612031536205_AddedUrlField.cs" />
+    <Compile Include="Migrations\201612031536205_AddedUrlField.Designer.cs">
+      <DependentUpon>201612031536205_AddedUrlField.cs</DependentUpon>
+    </Compile>
     <Compile Include="ProjectCategoryRepository.cs" />
     <Compile Include="MemberRepository.cs" />
     <Compile Include="RewardRepository.cs" />
@@ -115,6 +119,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201612031345214_ProjectExpirationDate.resx">
       <DependentUpon>201612031345214_ProjectExpirationDate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201612031536205_AddedUrlField.resx">
+      <DependentUpon>201612031536205_AddedUrlField.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -49,10 +49,12 @@ namespace VivaFund.WEB.Controllers
         // GET: Projects
         public ActionResult Index()
         {
-            var projects = _projectService.GetAllProjects();
+            var projects = _projectService.GetAllProjects().ToList();
+
+            var projectsVM = Mapper.Map<IEnumerable<ProjectViewModel>>(projects);
 
             if (projects != null)
-                return View(projects);
+                return View(projectsVM);
 
             return RedirectToAction("Error", "Home");
 

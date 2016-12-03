@@ -15,5 +15,13 @@ namespace VivaFund.ViewModels
         public int ProjectMediaType { get; set; }
 
         public string URL { get; set; }
+
+        //public string ThumbnailImage {
+        //    get {
+
+        //    }
+
+        //    set;
+        //}
     }
 }
