@@ -17,22 +17,23 @@ namespace VivaFund.DomainModels
         public bool IsCoverImage { get; set; }  //main image
 
         public int ProjectMediaType { get; set; }
-
+        private string _url;
         [MaxLength(500)]
         public string URL {
-            get;
-            set;
-            //get {
-            //    return this.URL;
-            //}
-            //set {
-            //    if (value.Contains("https://www.youtube.com//watch?v=")) {
-            //        value.Replace("https://www.youtube.com/watch?v=", "https://www.youtube.com/embed/");
-            //        this.URL = value;
-            //    }
+            get
+            {
+                return _url;
+            }
+            set
+            {
+                if (value.Contains("https://www.youtube.com/watch?v="))
+                {
+                    value.Replace("https://www.youtube.com/watch?v=", "https://www.youtube.com/embed/");
+                    _url = value;
+                }
 
-            //    this.URL = value;
-            //}
+                _url = value;
+            }
         }
 
         public int ProjectId { get; set; }
