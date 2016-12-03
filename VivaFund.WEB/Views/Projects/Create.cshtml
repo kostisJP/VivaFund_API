@@ -3,30 +3,30 @@
 @{
     ViewBag.Title = "Create";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    Model.Rewards = new List<VivaFund.DomainModels.Reward>();
+    Model.Rewards.Add(new VivaFund.DomainModels.Reward());
 }
 <br />
 <br />
 <h2 align="center">Create a Project</h2>
+<br />
+<br />
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    @*<ul class="tab">
-            <li><a href="javascript:void(0)" class="tablinks" onclick="openEvent(event, 'Basic')" id="defaultOpen">Basic</a></li>
-            <li><a href="javascript:void(0)" class="tablinks" onclick="openEvent(event, 'Rewards')">Rewards</a></li>
-            <li><a href="javascript:void(0)" class="tablinks" onclick="openEvent(event, 'Preview')">Preview</a></li>
-        </ul>*@
+
     <div class="container">
-        <div class="stepwizard-row setup-panel " style="display: inline-block; width:300px;">
-            <div class="stepwizard-step col-md-offset-4" style="display: inline-block;">
+        <div class="stepwizard-row setup-panel" align="justify">
+            <div class="stepwizard-step col-md-4">
                 <a class="btn btn-circle btn-default " href="#step-1" type="button">1</a>
                 <p>Step 1</p>
             </div>
-            <div class="stepwizard-step col-md-offset-4" style="display: inline-block;">
+            <div class="stepwizard-step col-md-4">
                 <a class="btn btn-default btn-circle btn-primary" href="#step-2" type="button">2</a>
                 <p>Step 2</p>
             </div>
-            <div class="stepwizard-step col-md-offset-4 " style="display: inline-block;">
+            <div class="stepwizard-step col-md-4">
                 <a disabled="disabled" class="btn btn-default btn-circle" href="#step-3" type="button">3</a>
                 <p>Step 3</p>
             </div>
@@ -38,40 +38,40 @@
                     <div class="form-horizontal">
 
                         <h4 class="text-center">Basic </h4>
-                        <hr/>
-                        @Html.ValidationSummary(true, "", new {@class = "text-danger"})
+                        <hr />
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                         @Html.HiddenFor(model => model.MemberId)
                         @Html.HiddenFor(model => model.Member)
 
                         <div class="form-group">
-                            @Html.LabelFor(model => model.TitleEn, "Give your Project a Title", htmlAttributes: new {@class = "control-label col-md-6"})
+                            @Html.LabelFor(model => model.TitleEn, "Give your Project a Title", htmlAttributes: new { @class = "control-label col-md-6" })
                             <div class="col-md-6">
-                                @Html.EditorFor(model => model.TitleEn, new {htmlAttributes = new {@class = "form-control", @type = "text", @placeholder = "Enter Title"}})
-                                @Html.ValidationMessageFor(model => model.TitleEn, "", new {@class = "text-danger"})
+                                @Html.EditorFor(model => model.TitleEn, new { htmlAttributes = new { @class = "form-control", @type = "text", @placeholder = "Enter Title", required = "required" } })
+                                @Html.ValidationMessageFor(model => model.TitleEn, "", new { @class = "text-danger" })
                             </div>
 
                         </div>
                         <div class="form-group">
-                            @Html.LabelFor(model => model.ProjectCategoryId, "Choose a Category", htmlAttributes: new {@class = "control-label col-md-6 text-right"})
+                            @Html.LabelFor(model => model.ProjectCategoryId, "Choose a Category", htmlAttributes: new { @class = "control-label col-md-6 text-right" })
                             <div class="col-md-6">
-                                @Html.DropDownList("ProjectCategoryId", (IEnumerable<SelectListItem>) ViewBag.ProjectCategoryId, htmlAttributes: new {@class = "form-control text-center"})
-                                @Html.ValidationMessageFor(model => model.ProjectCategoryId, "", new {@class = "text-danger"})
+                                @Html.DropDownList("ProjectCategoryId", (IEnumerable<SelectListItem>)ViewBag.ProjectCategoryId, htmlAttributes: new { @class = "form-control text-center", required = "required" })
+                                @Html.ValidationMessageFor(model => model.ProjectCategoryId, "", new { @class = "text-danger" })
                             </div>
                         </div>
 
                         <div class="form-group">
-                            @Html.LabelFor(model => model.Goal, "Set a Goal", htmlAttributes: new {@class = "control-label col-md-6 text-right"})
+                            @Html.LabelFor(model => model.Goal, "Set a Goal", htmlAttributes: new { @class = "control-label col-md-6 text-right" })
                             <div class="col-md-6">
-                                @Html.EditorFor(model => model.Goal, new {htmlAttributes = new {@class = "form-control"}})
-                                @Html.ValidationMessageFor(model => model.Goal, "", new {@class = "text-danger"})
+                                @Html.EditorFor(model => model.Goal, new { htmlAttributes = new { @class = "form-control", required = "required" } })
+                                @Html.ValidationMessageFor(model => model.Goal, "", new { @class = "text-danger" })
                             </div>
                         </div>
 
                         <div class="form-group">
-                            @Html.LabelFor(model => model.BodyEn, "What's your project about?", htmlAttributes: new {@class = "control-label col-md-6 text-right"})
+                            @Html.LabelFor(model => model.BodyEn, "What's your project about?", htmlAttributes: new { @class = "control-label col-md-6 text-right" })
                             <div class="col-md-6">
-                                @Html.TextAreaFor(model => model.BodyEn, new {@class = "form-control", style = "width: 100%; max-width: 100%;"})
-                                @Html.ValidationMessageFor(model => model.BodyEn, "", new {@class = "text-danger"})
+                                @Html.TextAreaFor(model => model.BodyEn, new { @class = "form-control", style = "width: 100%; max-width: 100%;", required = "required" })
+                                @Html.ValidationMessageFor(model => model.BodyEn, "", new { @class = "text-danger" })
                             </div>
                         </div>
                         @*<div class="form-group">
@@ -84,11 +84,8 @@
 
 
                     </div>
-                    @Html.Button("Back To List", new {@class = "btn btn-primary btn-lg pull-left", @type = "button", @onclick = "location.href='/Projects'"})
-
-
-
-                    @Html.Button("Next", new {@class = "btn btn-primary nextBtn btn-lg pull-right", @type = "button"})
+                    @Html.Button("Back To List", new { @class = "btn btn-primary btn-lg pull-left", @type = "button", @onclick = "location.href='/Projects'" })
+                    @Html.Button("Next", new { @class = "btn btn-primary nextBtn btn-lg pull-right", @type = "button" })
                 </div>
             </div>
         </div>
@@ -96,34 +93,18 @@
             <div>
                 <div class="col-md-10">
                     <h3> Step 2</h3>
-                    @*@Html.Partial("_RewardsPartial")*@
-                    <div class="form-horizontal">
+                    @Html.Partial("_RewardsPartial", Model.Rewards.First());
+                    
+                    @*@{foreach (var reward in Model.Rewards)
+                        {
+                            Html.Partial("_RewardsPartial", Model.Rewards);
+                        }
+                    }*@
 
-                        <h4 class="text-center">Rewards </h4>
-                        <hr/>
-                        <div class="form-group">
-                            <label class="control-label col-md-6 text-right">Reward Title</label>
-                            <div class="col-md-6">
-                                <input maxlength="200" type="text" required="required" class="form-control" placeholder="Enter Reward Name"/>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label col-md-6 text-right">Value</label>
-                            <div class="col-md-6">
-                                <input maxlength="200" type="number" required="required" class="form-control" placeholder="STILL HAVENT LINKED WITH MODEL REWARDS"/>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            @Html.LabelFor(model => model.BodyEn, "What's the reward about?", htmlAttributes: new {@class = "control-label col-md-6 text-right"})
-                            <div class="col-md-6">
-                                @Html.TextAreaFor(model => model.BodyEl, new {@class = "form-control", style = "width: 100%; max-width: 100%;"})
-                                @Html.ValidationMessageFor(model => model.BodyEn, "", new {@class = "text-danger"})
-                            </div>
-                        </div>
-                        @Html.Button("Back To List", new {@class = "btn btn-primary btn-lg pull-left", @type = "button", @onclick = "location.href='/Projects'"})
+                    @Html.Button("Back To List", new { @class = "btn btn-primary btn-lg pull-left", @type = "button", @onclick = "location.href='/Projects'" })
 
-                        @Html.Button("Next", new {@class = "btn btn-primary nextBtn btn-lg pull-right", @type = "button"})
-                    </div>
+                    @Html.Button("Next", new { @class = "btn btn-primary nextBtn btn-lg pull-right", @type = "button" })
+
                 </div>
             </div>
         </div>
@@ -142,7 +123,7 @@
     </div>
     <br />
     <br />
-}
+                        }
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }

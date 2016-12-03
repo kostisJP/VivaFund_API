@@ -7,6 +7,11 @@ namespace VivaFund.DomainModels
 {
     public class Project: BaseModel
     {
+        //public Project()
+        //{
+        //    Rewards = new List<Reward>();
+        //}
+
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ProjectId { get; set; }
