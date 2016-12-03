@@ -15,6 +15,25 @@ namespace VivaFund.ViewModels
         public string TitleEn { get; set; }
         public string SubtitleEn { get; set; }
         public string BodyEn { get; set; }
+        public string desc
+        {
+            get
+            {
+                if (BodyEn != null)
+                {
+                    if (BodyEn.Length > 150)
+                    {
+                        return BodyEn.Substring(0, 100)+"...";
+                    }
+                }
+                return BodyEn;
+            }
+
+            set
+            {
+                
+            }
+        }
         public int Goal { get; set; }
         public int Views { get; set; }
         public bool Completed { get; set; }
