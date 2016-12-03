@@ -47,22 +47,25 @@ namespace VivaFund.DomainModels
 
         public DateTime ExpirationDate { get; set; } = DateTime.Now.AddDays(60);
 
-        private string _url;
-        public string Url
+        private string _URL;
+        public string URL
         {
             get
             {
-                return _url;
+                return _URL;
             }
             set
             {
+
                 if (value != null && value.Contains("https://www.youtube.com/watch?v="))
                 {
-                    value.Replace("https://www.youtube.com/watch?v=", "https://www.youtube.com/embed/");
-                    _url = value;
-                }
 
-                _url = value;
+                    _URL = value.Replace("https://www.youtube.com/watch?v=", "https://www.youtube.com/embed/"); ;
+                }
+                else
+                {
+                    _URL = value;
+                }
             }
         }
 
