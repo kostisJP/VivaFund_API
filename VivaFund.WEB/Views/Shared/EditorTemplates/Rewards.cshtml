@@ -1,0 +1,9 @@
+﻿@model List<VivaFund.DomainModels.Reward>
+<div class="form-horizontal">
+
+    <h4 class="text-center">Rewards </h4>
+    @foreach (VivaFund.DomainModels.Reward rew in Model)
+    {
+        @Html.EditorFor(model => rew)
+    }
+</div>

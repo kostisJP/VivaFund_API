@@ -1,0 +1,27 @@
+﻿@model VivaFund.DomainModels.Reward
+
+<hr />
+
+
+<div class="form-group">
+    @Html.LabelFor(model => Model.Title, "Modelard Title", htmlAttributes: new { @class = "control-label col-md-6" })
+    <div class="col-md-6">
+        @Html.EditorFor( model => Model.Title, new { htmlAttributes = new { @class = "form-control", @type = "text", @placeholder = "Enter Title" } })
+    </div>
+
+</div>
+
+
+<div class="form-group">
+    @Html.LabelFor(model => Model.Value, "Set Value", htmlAttributes: new { @class = "control-label col-md-6 text-right" })
+    <div class="col-md-6">
+        @Html.EditorFor(model => Model.Value, "Value", new { htmlAttributes = new { @class = "form-control", @type = "number" } })
+    </div>
+</div>
+
+<div class="form-group">
+    @Html.LabelFor(model => Model.RewardDescription, htmlAttributes: new { @class = "control-label col-md-6 text-right" })
+    <div class="col-md-6">
+        @Html.TextAreaFor(model => Model.RewardDescription, new { @class = "form-control", style = "width: 100%; max-width: 100%;" })
+    </div>
+</div>

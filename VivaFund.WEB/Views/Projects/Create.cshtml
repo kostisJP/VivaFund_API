@@ -4,7 +4,12 @@
     ViewBag.Title = "Create";
     Layout = "~/Views/Shared/_Layout.cshtml";
     Model.Rewards = new List<VivaFund.DomainModels.Reward>();
-    Model.Rewards.Add(new VivaFund.DomainModels.Reward());
+    var rew =new VivaFund.DomainModels.Reward();
+    rew.ProjectID = Model.ProjectId;
+    rew.Project = Model;
+    rew.Title = "";
+    rew.RewardDescription = "";
+    Model.Rewards.Add(rew);
 }
 <br />
 <br />
@@ -19,11 +24,11 @@
     <div class="container">
         <div class="stepwizard-row setup-panel" align="justify">
             <div class="stepwizard-step col-md-4">
-                <a class="btn btn-circle btn-default " href="#step-1" type="button">1</a>
+                <a class="btn btn-circle btn-default btn-primary" href="#step-1" type="button">1</a>
                 <p>Step 1</p>
             </div>
             <div class="stepwizard-step col-md-4">
-                <a class="btn btn-default btn-circle btn-primary" href="#step-2" type="button">2</a>
+                <a disabled="disabled" class="btn btn-default btn-circle " href="#step-2" type="button">2</a>
                 <p>Step 2</p>
             </div>
             <div class="stepwizard-step col-md-4">
@@ -74,7 +79,7 @@
                                 @Html.ValidationMessageFor(model => model.BodyEn, "", new { @class = "text-danger" })
                             </div>
                         </div>
-                        @*<div class="form-group">
+                        @*@<div class="form-group">
                                 @Html.LabelFor(model => model.Goal, "Completed By", htmlAttributes: new { @class = "control-label col-md-6 text-right" })
                                 <div class="col-md-6">
                                     @Html.EditorFor(model => model.InsertedDate, new { htmlAttributes = new { @class = "form-control datepicker" } })
@@ -93,13 +98,11 @@
             <div>
                 <div class="col-md-10">
                     <h3> Step 2</h3>
-                    @Html.Partial("_RewardsPartial", Model.Rewards.First());
-                    
-                    @*@{foreach (var reward in Model.Rewards)
-                        {
-                            Html.Partial("_RewardsPartial", Model.Rewards);
-                        }
-                    }*@
+                    <div class="form-horizontal">
+
+                        <h4 class="text-center">Rewards </h4>
+                            @Html.EditorFor(model => model.Rewards)
+                    </div>
 
                     @Html.Button("Back To List", new { @class = "btn btn-primary btn-lg pull-left", @type = "button", @onclick = "location.href='/Projects'" })
 
@@ -123,7 +126,7 @@
     </div>
     <br />
     <br />
-                        }
+}
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }
