@@ -49,7 +49,19 @@ namespace VivaFund.Repository
             }
         }
 
+        public IEnumerable<Project> Recommended(int memberId)
+        {
+            string query = @"SELECT DISTINCT * FROM Projects WHERE Memberid <> {0}
+                                    AND Projects.IsActive = 1 AND Projects.ExpirationDate >= GETDATE()
+                            EXCEPT 
+                            SELECT Projects.* FROM Projects
+                            INNER JOIN Donations ON donations.ProjectId = Projects.ProjectId
+                            WHERE Donations.MemberId = {0}";
+            query = String.Format(query, memberId);
+            var recProjects = _context.Database.SqlQuery<Project>(query).ToList();
 
+            return recProjects;
+        }
         public Project GetProjectById(int id)
         {
             var project = _context.Projects.Include(x => x.ProjectCategory)
@@ -65,6 +77,7 @@ namespace VivaFund.Repository
                 .Include(x => x.Member)
                 .Include(x => x.ProjectCategory)
                 //.Include(x => x.Donations)
+                .Where(p => p.IsActive == true && p.ExpirationDate>=DateTime.Now).Distinct()
                 .ToList();
 
             return project;
@@ -72,14 +85,14 @@ namespace VivaFund.Repository
 
         public IEnumerable<Project> GetProjectsByCategory(int categoryId)
         {
-            var project = _context.Projects.Where(u => u.ProjectCategoryId == categoryId).ToList();
+            var project = _context.Projects.Where(u => u.ProjectCategoryId == categoryId && u.IsActive == true && u.ExpirationDate >= DateTime.Now).ToList();
 
             return project;
         }
 
         public IEnumerable<Project> GetProjectsByMember(int memberId)
         {
-            var project = _context.Projects.Where(u => u.MemberId == memberId).ToList();
+            var project = _context.Projects.Where(u => u.MemberId == memberId && u.IsActive == true && u.ExpirationDate >= DateTime.Now).ToList();
 
             return project;
         }

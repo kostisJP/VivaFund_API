@@ -173,5 +173,19 @@ namespace VivaFund.Services
             }
         }
 
+        public IEnumerable<Project> Recommended(int memberId)
+        {
+            try
+            {
+
+                var projects = _projectRepository.Recommended(memberId);
+
+                return projects;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
     }
 }

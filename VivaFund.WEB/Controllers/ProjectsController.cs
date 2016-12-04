@@ -148,6 +148,23 @@ namespace VivaFund.WEB.Controllers
             return RedirectToAction("Error", "Home");
         }
 
+        [Authorize]
+        public ActionResult Recommended()
+        {
+            var memberId = _memberService.GetMemberById(GetUserId()).MemberId;
+
+            var projects = _projectService.Recommended(memberId);
+
+            var projectVM = new List<ProjectViewModel>();
+
+            projectVM = Mapper.Map<List<ProjectViewModel>>(projects);
+
+            if (projectVM != null)
+                return View("Index",projectVM);
+
+            return RedirectToAction("Error", "Home");
+        }
+
         // GET: Projects/Create
         [Authorize]
         public async Task<ActionResult> Create()

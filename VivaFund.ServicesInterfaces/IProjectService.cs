@@ -17,6 +17,7 @@ namespace VivaFund.ServicesInterfaces
         #endregion PROJECTCATEGORY
 
         #region PROJECT
+        IEnumerable<Project> Recommended(int memberId);
         IEnumerable<Project> GetAllProjects();
         IEnumerable<Project> GetAllProjectsByCategory(int categoryId);
         IEnumerable<ProjectMedia> GetProjectMediaByProjectId(int projectId);
