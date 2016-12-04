@@ -16,7 +16,7 @@ using VivaFund.ViewModels;
 
 namespace VivaFund.WEB.Controllers
 {
-
+ 
     [Authorize]
     public class ManageController : VivaBaseController
     {
@@ -127,8 +127,17 @@ namespace VivaFund.WEB.Controllers
             memberUser = _memberService.GetMemberById(GetUserId());
 
             var projects = _projectService.GetProjectsByMember(memberUser.MemberId);
-            //var donatedProjects = _projectService.GetAllProjects().Where(i=>i.Donations.Where(u=>u.MemberId == memberUser.MemberId)); 
-            ViewBag.Donations = _donataionService.GetAllDonationsByMemberId(memberUser.MemberId);
+            List<VivaFund.DomainModels.Project> donatedProjects = null;
+           
+            var temp = _donataionService.GetAllDonationsByMemberId(memberUser.MemberId);
+            ViewBag.Donations = temp;
+         
+            foreach (var i in temp)
+            {
+                var temp2 = _projectService.GetProjectById(i.ProjectId ?? default(int));
+                //donatedProjects = donatedProjects.Add(temp2);
+            }
+            ViewBag.donatedProjects= Mapper.Map<IEnumerable<ProjectViewModel>>(donatedProjects);
             ViewBag.Member = memberUser;
             ViewBag.Projects = Mapper.Map<IEnumerable<ProjectViewModel>>(projects);
             return View(model);

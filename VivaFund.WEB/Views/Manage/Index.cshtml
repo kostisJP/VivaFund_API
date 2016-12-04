@@ -1,11 +1,11 @@
 ﻿@model VivaFund.WEB.Models.IndexViewModel
 @{
     ViewBag.Title = "Manage";
-    
+
     var donation = ViewBag.Donations as List<VivaFund.DomainModels.Donation>;
     var member = ViewBag.Member as VivaFund.DomainModels.Member;
     var projects = ViewBag.Projects as IEnumerable<VivaFund.ViewModels.ProjectViewModel>;
-    
+    var donatedProjects = ViewBag.donatedProjects as IEnumerable<VivaFund.ViewModels.ProjectViewModel>;
     int i = 0;
     int counter = 0;
     string project;
@@ -99,18 +99,22 @@
                         <div id="My Donations" class="tabcontent">
                             <div style="position:relative">
                                 <p>NEEDS A FIX</p>
-                                @foreach (var item in donation)
-                                {if (item.MemberId.ToString() == member.AspNetUserId)
-                                {
+                                @{ if (donation != null)
                                     {
+                                        foreach (var item in donation)
+                                        {
+                                            <div class="col-md-4" style="height:580px; margin-top:30px">
+                                                @Html.Partial("_ProjectPartial", item))
+                                            </div>
+                                            <div style="margin-bottom:100px"></div>
 
-                                        <div class="col-md-4" style="height:580px; margin-top:30px">
-                                            @Html.Partial("_ProjectPartial", item.ProjectId)
-                                        </div>
+                                        }
                                     }
-                                    <div style="margin-bottom:100px"></div>
-                                }
-                                }
+                                    else
+                                    {
+                                       <p> No donations yet </p>
+                                    }
+                                    }
                             </div>
                         </div>
                     </div>
