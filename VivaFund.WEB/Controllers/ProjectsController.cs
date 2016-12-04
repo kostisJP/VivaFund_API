@@ -81,8 +81,10 @@ namespace VivaFund.WEB.Controllers
         {
             var projects = _projectService.GetAllProjectsByCategory(id);
 
+            var projectsVM = Mapper.Map<IEnumerable<ProjectViewModel>>(projects);
+
             if (projects != null)
-                return View("Index", projects);
+                return View("Index", projectsVM);
 
             return RedirectToAction("Error", "Home");
 
