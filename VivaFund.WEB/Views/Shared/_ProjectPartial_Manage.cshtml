@@ -1,0 +1,36 @@
+﻿@model VivaFund.ViewModels.ProjectViewModel
+@{  
+    string progressid = "progressbar" + Model.ProjectId;
+}
+
+<div class="content-section-d" style="height:100%;" >
+    <div class="container" style="width:100%">
+        <div class="row" style="height:inherit">
+            <div class="wow fadeInLeftBig">
+                <div id="owl-demo-1" class="owl-carousel owl-demo">
+                    <a href="Projects/Details/@Model.ProjectId" >
+                        <div >
+                            <img class="img-responsive @*img-rounded*@" style='width:100%;' src="@Model.ThumbnailImage" alt="">
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+            <div class="wow fadeInRightBig" stdata-animation-delay="200" style="margin-left:15px">
+                <h3 class="section-heading">@Html.DisplayFor(model => model.TitleEn)</h3>
+                <div class="sub-title lead3" onclick="location.href='@Url.Action("Details", new { id = Model.ProjectId })'">@Html.DisplayFor(model => model.SubtitleEn)</div>
+                <p class="lead" onclick="location.href='@Url.Action("Details", new { id = Model.ProjectId })'">
+                    @Html.DisplayFor(model => model.desc)
+                </p>
+
+                <p class="text-center">
+                    @Html.Button("Details", new { @class = "btn btn-primary", @type = "button", @onclick = "location.href='/Projects/Details/" + @Html.Raw(Model.ProjectId) + "'" })
+                    @Html.Button("Edit", new { @class = "btn btn-info", @type = "button", @onclick = "location.href='/Projects/Edit/" + @Html.Raw(Model.ProjectId) + "'" })
+                    @Html.Button("Delete", new { @class = "btn btn-embossed", @type = "button", @onclick = "location.href='/Projects/Delete/" + @Html.Raw(Model.ProjectId) + "'" })
+
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+

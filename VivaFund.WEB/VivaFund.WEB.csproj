@@ -539,6 +539,7 @@
     <Content Include="Views\Shared\EditorTemplates\Comment.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\Comment.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\Comments.cshtml" />
+    <Content Include="Views\Shared\_ProjectPartial_Manage.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
