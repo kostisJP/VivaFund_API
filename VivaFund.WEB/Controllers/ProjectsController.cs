@@ -58,7 +58,7 @@ namespace VivaFund.WEB.Controllers
         // GET: Projects
         public ActionResult Index()
         {
-            var projects = _projectService.GetAllProjects();
+            var projects = _projectService.GetAllProjects().OrderByDescending(x=>x.Views);
 
             var projectsVM = Mapper.Map<IEnumerable<ProjectViewModel>>(projects);
 
@@ -110,27 +110,33 @@ namespace VivaFund.WEB.Controllers
 
             if (donations != null)
             {
-                var don = Mapper.Map<IEnumerable<DonationViewModel>>(donations);
+                var don = Mapper.Map<List<DonationViewModel>>(donations);
                 projectVM.Donations = don;
             }
             if (projectMedia != null)
             {
-                var pm = Mapper.Map<IEnumerable<ProjectMediaViewModel>>(projectMedia);
+                var pm = Mapper.Map<List<ProjectMediaViewModel>>(projectMedia);
                 projectVM.ProjectMedia = pm;
             }
             if (comments != null)
             {
-                var comm = Mapper.Map<IEnumerable<CommentViewModel>>(comments);
+                var comm = Mapper.Map<List<CommentViewModel>>(comments);
+                
                 projectVM.Comments = comm;
             }
             if (rewards != null)
             {
-                var rwd = Mapper.Map<IEnumerable<RewardViewModel>>(rewards);
+                var rwd = Mapper.Map<List<RewardViewModel>>(rewards);
                 projectVM.Rewards = rwd;
             }
 
             if (project != null)
+            {
+                project.Views++;
+                _projectService.SetProject(project);
                 return View(projectVM);
+            }
+                
 
             return RedirectToAction("Error", "Home");
         }

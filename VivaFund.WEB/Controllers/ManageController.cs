@@ -134,10 +134,23 @@ namespace VivaFund.WEB.Controllers
             return View(model);
         }
 
-        public ActionResult Update(Member member)
+        public async Task<ActionResult> Update(Member member)
         {
             _memberService.SetMember(member);
-            return View("../Manage/Index");
+            var model = new IndexViewModel
+            {
+                HasPassword = HasPassword(),
+                PhoneNumber = await UserManager.GetPhoneNumberAsync(member.AspNetUserId),
+                TwoFactor = await UserManager.GetTwoFactorEnabledAsync(member.AspNetUserId),
+                Logins = await UserManager.GetLoginsAsync(member.AspNetUserId),
+                BrowserRemembered = await AuthenticationManager.TwoFactorBrowserRememberedAsync(member.AspNetUserId)
+            };
+            var projects = _projectService.GetProjectsByMember(member.MemberId);
+            //var donatedProjects = _projectService.GetAllProjects().Where(i=>i.Donations.Where(u=>u.MemberId == memberUser.MemberId)); 
+            ViewBag.Donations = _donataionService.GetAllDonationsByMemberId(member.MemberId);
+            ViewBag.Member = member;
+            ViewBag.Projects = Mapper.Map<IEnumerable<ProjectViewModel>>(projects);
+            return View("../Manage/Index", model);
         }
 
         //

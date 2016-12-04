@@ -1,0 +1,9 @@
+﻿@model List<VivaFund.ViewModels.CommentViewModel>
+
+@foreach (VivaFund.ViewModels.CommentViewModel rew in Model)
+{
+        <dd>
+            @Html.LabelFor(model => rew)
+        </dd>
+}
+

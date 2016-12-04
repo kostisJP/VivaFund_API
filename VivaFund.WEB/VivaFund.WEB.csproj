@@ -536,6 +536,9 @@
     <Content Include="Views\Shared\_CommentPartial.cshtml" />
     <Content Include="Views\Shared\_CreateRewardPartial.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\Reward.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Comment.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\Comment.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\Comments.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
