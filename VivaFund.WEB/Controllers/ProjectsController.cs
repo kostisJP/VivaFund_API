@@ -411,9 +411,9 @@ namespace VivaFund.WEB.Controllers
         private const string apiKey = "XAs}{V";
         [HttpPost]
         //[ValidateAntiForgeryToken]
-        public async Task<ActionResult> Checkout(Project project)
+        public async Task<ActionResult> Checkout(string project)
         {
-
+            
             var cl = new RestClient("https://demo.vivapayments.com/api/")
             {
 
@@ -448,7 +448,7 @@ namespace VivaFund.WEB.Controllers
                 }
                 Donation don = new Donation()
                 {
-                    ProjectId = project.ProjectId,
+                    ProjectId = Convert.ToInt32(project),
                     DonatedAmount = Convert.ToInt32(response.Data.Amount),
                     Member = _memberService.GetMemberById(GetUserId()),
                     MemberId = _memberService.GetMemberById(GetUserId()).MemberId,

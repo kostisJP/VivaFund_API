@@ -177,7 +177,8 @@
 
 
             $('#viva_button').html('  \
-                    <form id="myform" method="post"> \
+                    <form id="myform" action="/Projects/Checkout" method="post"> \
+                        <input type="hidden" value="'+@Html.Raw(Model.ProjectId)+'"\>\
                         <button type="button" id = "vpButton" \
                             data-vp-sourcecode="Default" \
                             data-vp-publickey="GL0WTFkmyONDEaVYSa9EpZmxNBRNz3+el1EfAMVJ9nU=" \
@@ -207,7 +208,8 @@
 
                 $('#viva_empty').empty();
                 $('#viva_button').html('  \
-                    <form id="myform" method="post"> \
+                    <form id="myform" action="/Projects/Checkout" method="post"> \
+                            <input type="hidden" name="project" value="'+@Html.Raw(Model.ProjectId)+'"\>\
                         <button type="button" \
                             data-vp-sourcecode="Default" id="vpButton" \
                             data-vp-publickey="GL0WTFkmyONDEaVYSa9EpZmxNBRNz3+el1EfAMVJ9nU=" \
