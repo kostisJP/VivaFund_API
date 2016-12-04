@@ -91,24 +91,35 @@
                         <p>No updates yet.</p>
                     </div>
                     <div id="projectComments" class="tabcontent">
+                        <div class="container">
+                            <form method='post'>
+                                <div class="row">
+                                    <div class="col-md-1">
+                                        UserName:
+                                    </div>
+                                    <div class="col-md-11">
+                                        <input type='text' name='name' id='name' /><br />
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-1">
+                                        Comment:
+                                    </div>
+                                    <div class="col-md-11">
+                                        <textarea name='comment' id='comment'></textarea><br />
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-1">
 
-                        @if (Model.Comments.Count() > 0)
-                        {
-                            <div>
-                                <dl class="dl-ve">
-                                    @Html.DisplayFor(model => model.Comments)
-                                </dl>
-                            </div>
-                            // Add Comment
-                            if (ViewBag.MemberId != null)
-                            {
-                                @Html.BeginForm("SetComment", "Projects", FormMethod.Post) {
-
-                                }
-                            }
-                        }
+                                    </div>
+                                    <div class="col-md-11">
+                                        <input type='submit' value='Submit' class="btn btn-primary" />
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
                     </div>
-
                 </div>
             </div>
             @* Rewards Column *@
@@ -156,6 +167,9 @@
             document.getElementById(cityName).style.display = "block";
             evt.currentTarget.className += " active";
         }
+        $(function () {
+            openTAB(event, 'projectBody');
+        });
 
     </script>
     <script>

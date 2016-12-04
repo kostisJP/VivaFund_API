@@ -20,12 +20,12 @@
                 <div>
                     <div id="tabs">
                         <ul class="nav nav-tabs">
-                            <li><a href="javascript:void(0)" class="active tablinks" onclick="openTAB(event, 'My projects')" data-toggle="tab">My projects</a></li>
-                            <li><a href="javascript:void(0)" class="tablinks" onclick="openTAB(event, 'My Donations')" data-toggle="tab">My Donations</a></li>
-                            <li><a href="javascript:void(0)" class="tablinks" onclick="openTAB(event, 'Account Settings')" data-toggle="tab">Account Settings</a></li>
+                            <li><a href="javascript:void(0)" class="active tablinks" onclick="openTAB(event, 'Myprojects')" data-toggle="tab">My projects</a></li>
+                            <li><a href="javascript:void(0)" class="tablinks" onclick="openTAB(event, 'MyDonations')" data-toggle="tab">My Donations</a></li>
+                            <li><a href="javascript:void(0)" class="tablinks" onclick="openTAB(event, 'AccountSettings')" data-toggle="tab">Account Settings</a></li>
                         </ul>
 
-                        <div id="Account Settings" class="tabcontent">
+                        <div id="AccountSettings" class="tabcontent">
 
                             <div class="row">
                                 <div class="col-md-2">Password:</div>
@@ -82,8 +82,7 @@
                             }
                            
                         </div>
-
-                        <div id="My projects" class="tabcontent">
+                        <div id="Myprojects" class="tabcontent">
                             <div style="position:relative">
                                 @foreach (var item in projects)
                                 {
@@ -96,7 +95,7 @@
                                 }
                             </div>
                         </div>
-                        <div id="My Donations" class="tabcontent">
+                        <div id="MyDonations" class="tabcontent">
                             <div style="position:relative">
                                 <p>NEEDS A FIX</p>
                                 @foreach (var item in donation)
@@ -143,9 +142,10 @@
             // Show the current tab, and add an "active" class to the link that opened the tab
             document.getElementById(cityName).style.display = "block";
             evt.currentTarget.className += " active";
-            
         }
-
+        $(function () {
+            openTAB(event, 'Myprojects');
+        });
     </script>
 }
 @*<div class="container">
