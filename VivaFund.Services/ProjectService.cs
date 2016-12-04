@@ -81,7 +81,7 @@ namespace VivaFund.Services
         {
             try
             {
-                var allProjects = _projectRepository.GetAllProjects();
+                var allProjects = _projectRepository.GetAllProjects().Where(x => x.IsActive);
 
                 return allProjects;
             }
@@ -95,7 +95,7 @@ namespace VivaFund.Services
         {
             try
             {
-                var allProjects = _projectRepository.GetProjectsByCategory(categoryId);
+                var allProjects = _projectRepository.GetProjectsByCategory(categoryId).Where(x => x.IsActive);
 
                 return allProjects;
             }
@@ -163,7 +163,7 @@ namespace VivaFund.Services
         {
             try{
 
-                var project = _projectRepository.GetProjectsByMember(id);
+                var project = _projectRepository.GetProjectsByMember(id).Where(x => x.IsActive);
 
                 return project;
             }

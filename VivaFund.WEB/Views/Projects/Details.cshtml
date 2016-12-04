@@ -13,6 +13,11 @@
 
     var DonationsSum = Model.Donations.Sum(d => d.DonatedAmount);
     var donationPercentage = (int)((double)DonationsSum / Model.Goal * 100);
+    VivaFund.ViewModels.CommentViewModel comm = new VivaFund.ViewModels.CommentViewModel();
+    comm.ProjectId = Model.ProjectId;
+    comm.MemberId = Model.MemberId;
+    Model.Comments.Add(comm);
+
 }
 <section>
     <br />
@@ -49,13 +54,13 @@
                         {
                             <text>Select a reward package to fund the project</text>
                             <div class="" style="padding-bottom:15px;">
-                                @Html.DropDownListFor(m=>m.RewardId, new SelectList(Model.Rewards, "Value", "Title"),"- Please Select -", new { @class= "form-control" })
+                                @Html.DropDownListFor(m => m.RewardId, new SelectList(Model.Rewards, "Value", "Title"), "- Please Select -", new { @class = "form-control" })
                             </div>
 
                             @*<a href="#" class="btn btn-success">Fund this Project</a>*@
 
                             <div id="viva_button"></div>
-                            
+
                         }
                     }
                 </div>
@@ -85,32 +90,27 @@
                     <div id="projectUpdates" class="tabcontent">
                         <p>No updates yet.</p>
                     </div>
-                    <div id="projectComments"  class="tabcontent">
-                        <p>No comments yet. Why don't you write something?</p>
+                    <div id="projectComments" class="tabcontent">
+
                         @if (Model.Comments.Count() > 0)
                         {
-                            foreach (var comment in Model.Comments)
-                            {
-                                @Html.Partial("_CommentPartial", comment)
-                            }
-
+                            <div>
+                                <dl class="dl-ve">
+                                    @Html.DisplayFor(model => model.Comments)
+                                </dl>
+                            </div>
                             // Add Comment
                             if (ViewBag.MemberId != null)
                             {
-                                @Html.BeginForm("SetComment","Projects", FormMethod.Post) {
-                                    
+                                @Html.BeginForm("SetComment", "Projects", FormMethod.Post) {
+
                                 }
                             }
-
                         }
-
-
                     </div>
+
                 </div>
             </div>
-
-
-
             @* Rewards Column *@
             <div class="col-md-4">
                 <br />
@@ -134,35 +134,35 @@
 @section Scripts
 {
     @*<script src="https://code.jquery.com/jquery-1.11.2.min.js"></script>
-    <script src="https://demo.vivapayments.com/web/checkout/js"></script>*@
+        <script src="https://demo.vivapayments.com/web/checkout/js"></script>*@
     <script>
         function openTAB(evt, cityName) {
-    // Declare all variables
-    var i, tabcontent, tablinks;
+            // Declare all variables
+            var i, tabcontent, tablinks;
 
-    // Get all elements with class="tabcontent" and hide them
-    tabcontent = document.getElementsByClassName("tabcontent");
-    for (i = 0; i < tabcontent.length; i++) {
-        tabcontent[i].style.display = "none";
-    }
+            // Get all elements with class="tabcontent" and hide them
+            tabcontent = document.getElementsByClassName("tabcontent");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+            }
 
-    // Get all elements with class="tablinks" and remove the class "active"
-    tablinks = document.getElementsByClassName("tablinks");
-    for (i = 0; i < tablinks.length; i++) {
-        tablinks[i].className = tablinks[i].className.replace(" active", "");
-    }
+            // Get all elements with class="tablinks" and remove the class "active"
+            tablinks = document.getElementsByClassName("tablinks");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].className = tablinks[i].className.replace(" active", "");
+            }
 
-    // Show the current tab, and add an "active" class to the link that opened the tab
-    document.getElementById(cityName).style.display = "block";
-    evt.currentTarget.className += " active";
-}
-       
-</script>
-<script>
-    $(document).ready(function () {
+            // Show the current tab, and add an "active" class to the link that opened the tab
+            document.getElementById(cityName).style.display = "block";
+            evt.currentTarget.className += " active";
+        }
+
+    </script>
+    <script>
+        $(document).ready(function () {
 
 
-        $('#viva_button').html('  \
+            $('#viva_button').html('  \
                     <form id="myform" method="post"> \
                         <button type="button" id = "vpButton" \
                             data-vp-sourcecode="Default" \
@@ -179,20 +179,20 @@
                         </button> \
                     </form>');
 
-        $('#vpButton').prop('disabled', true);
+            $('#vpButton').prop('disabled', true);
 
-        var script = document.createElement('script');
-        script.type = 'text/javascript';
-        script.src = "https://demo.vivapayments.com/web/checkout/js";
-        $("#viva_button").append(script);
+            var script = document.createElement('script');
+            script.type = 'text/javascript';
+            script.src = "https://demo.vivapayments.com/web/checkout/js";
+            $("#viva_button").append(script);
 
-        $("#RewardId").change(function () {
-            //$('#vpButton').attr('data-vp-amount', $("#RewardId").find(":selected").text());
-            var amnt = $("#RewardId").find(":selected").val();
-            var amount = (amnt != "") ? amnt : 1;
+            $("#RewardId").change(function () {
+                //$('#vpButton').attr('data-vp-amount', $("#RewardId").find(":selected").text());
+                var amnt = $("#RewardId").find(":selected").val();
+                var amount = (amnt != "") ? amnt : 1;
 
-            $('#viva_empty').empty();
-                $('#viva_button').html( '  \
+                $('#viva_empty').empty();
+                $('#viva_button').html('  \
                     <form id="myform" method="post"> \
                         <button type="button" \
                             data-vp-sourcecode="Default" id="vpButton" \
@@ -209,7 +209,7 @@
                         </button> \
                     </form>');
 
-                var script = document.createElement( 'script' );
+                var script = document.createElement('script');
                 script.type = 'text/javascript';
                 script.src = "https://demo.vivapayments.com/web/checkout/js";
                 $("#viva_button").append(script);
@@ -218,9 +218,9 @@
                     $('#vpButton').prop('disabled', true);
                 }
 
+            });
+
         });
- 
-    });
-</script>
-   
+    </script>
+
 }
